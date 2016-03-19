@@ -13,9 +13,9 @@ public class MainMenuScript : MonoBehaviour {
 		unactivatedObjects = new List<GameObject>();
 	}
 
-	public void PlayLevel(string level) {
-		Debug.Log("Load level " + level.ToString());
-		Application.LoadLevel(level);
+	public void PlayLevel(int level) {
+		PlayerPrefs.SetInt("currentLevel", level);
+		Application.LoadLevel("Level" + level.ToString());
 	}
 
 	void reactivateObjects() {
@@ -58,7 +58,7 @@ public class MainMenuScript : MonoBehaviour {
 				level.GetComponentInChildren<Text>().text = num.ToString();
 				Button b = level.GetComponent<Button>();
 				b.onClick.RemoveAllListeners();
-				b.onClick.AddListener(delegate{PlayLevel("Level" + num.ToString());});
+				b.onClick.AddListener(delegate{PlayLevel(num);});
 			} else {
 				level.SetActive(false);
 				unactivatedObjects.Add(level);
