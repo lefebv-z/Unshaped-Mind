@@ -1,58 +1,57 @@
 ﻿Shader "Unlit/SChangeColor" {
 	Properties {
-		_MainTex ("Texture", 2D) = "white" {}
-		_Color ("Color Mask", Color) = (1, 1, 1, 1)
-        _MinX ("MinX", Float) = 0
-        _MaxX ("MinY", Float) = 0
+		_MainTex ("Sprite", 2D) = "white" {}
+		_Color ("Filter color", color) = (0, 0, 0, 1)
 	}
+
 	SubShader {
 		Tags {
+			"Queue" = "Transparent"
+			"IgnoreProjector" = "True"
 			"RenderType" = "Transparent"
-			//"Queue" = "Transparent+1"
 		}
 
 		Pass {
 			Cull Off 
-            Lighting Off
-            ZWrite Off
-            Fog { Mode Off }
+			Lighting Off
+			ZWrite Off
+			Offset -1, -1
+			Fog {
+				Mode Off
+			}
+			ColorMask RGB
+			Blend SrcAlpha OneMinusSrcAlpha
+
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
-			
 			#include "UnityCG.cginc"
-
-			struct vertexInput {
-				float2 uv : TEXCOORD0;
-				float4 vertex : POSITION;
-			};
-
-			struct fragInput {
-				float2 uv : TEXCOORD0;
-				float4 vertex : SV_POSITION;
-			};
 
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
 			float4 _Color;
-			float _MinX;
-            float _MinY;
-			
-			fragInput vert (vertexInput v) {
+
+			struct vectInput {
+				float4 pos : POSITION;
+				float2 uv : TEXCOORD0; 
+			};
+
+			struct fragInput {
+				float4 pos : POSITION;
+				float2 uv : TEXCOORD0;
+			};
+
+			fragInput vert (vectInput v) {
 				fragInput o;
-				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
-				v.uv.x += _MinX;
-				v.uv.y += _MinY;
+				o.pos = mul(UNITY_MATRIX_MVP, v.pos);
 				o.uv = v.uv;
-				//o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 				return o;
 			}
-			
-			fixed4 frag (fragInput i) : SV_Target {
-				// sample the texture
+
+			fixed4 frag (fragInput i) : COLOR {
 				fixed4 col = tex2D(_MainTex, i.uv);
-				col *= _Color;
-                return col;
+				col.rgb *= _Color.rgb;
+				return col;
 			}
 			ENDCG
 		}
