@@ -1,17 +1,13 @@
 fileFormatVersion: 2
-guid: d3743bd5e59e67741afd4f5df6185621
-timeCreated: 1458363072
+guid: bf09d63664610ac4f9a5f77692ebefad
+timeCreated: 1458364653
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: SpriteSheet_0
-    21300002: SpriteSheet_1
-    21300004: SpriteSheet_2
-    21300006: SpriteSheet_3
-    21300008: SpriteSheet_4
-    21300010: SpriteSheet_5
-    21300012: SpriteSheet_6
-    21300014: SpriteSheet_7
+    21300000: Mechanisms_0
+    21300002: Mechanisms_1
+    21300004: Mechanisms_2
+    21300006: Mechanisms_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -34,7 +30,7 @@ TextureImporter:
   cubemapConvolutionSteps: 8
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -3
+  textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
@@ -58,47 +54,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: SpriteSheet_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: SpriteSheet_1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: SpriteSheet_2
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: SpriteSheet_3
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: SpriteSheet_4
+    - name: Mechanisms_0
       rect:
         serializedVersion: 2
         x: 0
@@ -108,7 +64,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: SpriteSheet_5
+    - name: Mechanisms_1
       rect:
         serializedVersion: 2
         x: 64
@@ -118,7 +74,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: SpriteSheet_6
+    - name: Mechanisms_2
       rect:
         serializedVersion: 2
         x: 128
@@ -128,7 +84,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: SpriteSheet_7
+    - name: Mechanisms_3
       rect:
         serializedVersion: 2
         x: 192

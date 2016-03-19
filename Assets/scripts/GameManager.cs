@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour {
 	{
 		switch (gameState) {
 			case GameState.Start:
-				print ("Start");
+				Debug.Log("Start");
 				gameState = GameState.Playing;
 				break;
 			default:
@@ -89,7 +89,6 @@ public class GameManager : MonoBehaviour {
 				PlayerPrefs.SetInt("currentLevel", currentLevel);
 				Application.LoadLevel ("Level" + currentLevel.ToString());
 			} else {
-				print("quit");
 				Application.LoadLevel("Menu");
 			}
 		} else {
