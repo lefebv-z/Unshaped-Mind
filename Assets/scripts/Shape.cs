@@ -62,6 +62,15 @@ public class Shape : MonoBehaviour {
 		GetComponent<Rigidbody2D>().velocity = new Vector2(v2, v) * speed;
 	}
 
+	void OnTriggerStay2D (Collider2D other) {
+		if (other.gameObject.tag == "Mechanism") {
+			MechanicScript mechScript = other.GetComponent<MechanicScript>();
+			if (mechScript.type == currentType) {
+				mechScript.ActivateMechanic();
+			}
+		}
+	}
+
 	void OnTriggerEnter2D (Collider2D other) {
 		if (gameManager.gameState != GameState.Playing) {
 			return;
@@ -74,17 +83,12 @@ public class Shape : MonoBehaviour {
 		} else if (other.gameObject.tag.Contains("Hole")) {
 			Debug.Log("wrong hole");
 			//TODO: death gestion?
-		} else if (other.gameObject.tag == "Mechanism") {
-			MechanicScript mechScript = other.GetComponent<MechanicScript>();
-			if (mechScript.type == currentType) {
-				mechScript.ActivateMechanic();
-			}
 		}
 	}
 
-	void OnTriggerExit2D(Collider2D other) {
+	/*void OnTriggerExit2D(Collider2D other) {
 		if (other.gameObject.tag == "Mechanism") {
 			other.GetComponent<MechanicScript>().DesactivateMechanic();
 		}
-	}
+	}*/
 }

@@ -23,11 +23,12 @@ public class WallManager : MonoBehaviour {
 	}
 	
 	void Update () {
-		if (isOn && (int)Shape.currentType == (int)color || color == ColorType.White)
+		if (isOn && (int)Shape.currentType != (int)color && (int)color != (int)ColorType.White) {
 			TurnOn(false);
-
-		else if (!isOn && (int)Shape.currentType != (int)color && color != ColorType.White)
+		}
+		if (!isOn && ((int)Shape.currentType == (int)color || (int)color == (int)ColorType.White)) {
 			TurnOn(true);
+		}
 	}
 
 	private void TurnOn (bool on) {
