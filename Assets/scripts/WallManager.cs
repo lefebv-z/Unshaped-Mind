@@ -10,7 +10,7 @@ public enum ColorType {
 }
 
 public class WallManager : MonoBehaviour {
-
+	public Shape			playerShape;
 	public ColorType		color;
 
 	private bool			isOn = true;
@@ -23,10 +23,10 @@ public class WallManager : MonoBehaviour {
 	}
 	
 	void Update () {
-		if (isOn && (int)Shape.currentType != (int)color && (int)color != (int)ColorType.White) {
+		if (isOn && (int)playerShape.GetShape() != (int)color && (int)color != (int)ColorType.White) {
 			TurnOn(false);
 		}
-		if (!isOn && ((int)Shape.currentType == (int)color || (int)color == (int)ColorType.White)) {
+		if (!isOn && ((int)playerShape.GetShape() == (int)color || (int)color == (int)ColorType.White)) {
 			TurnOn(true);
 		}
 	}

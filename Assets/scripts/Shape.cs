@@ -14,7 +14,7 @@ public class Shape : MonoBehaviour {
 	public GameManager gameManager;
 	public Material colorFilterMat;
 	static Sprite[] sprites;
-	static public ShapeType currentType = ShapeType.Square;
+	public ShapeType currentType = ShapeType.Square;
 	
 	Color[] _colors = new Color[4] { //Same order than ShapeType
 		new Color(0, 255, 0),  //Square color
@@ -33,6 +33,10 @@ public class Shape : MonoBehaviour {
 		sprites = Resources.LoadAll<Sprite>("SpriteSheet");
 		colorFilterMat.color = _colors[(int)currentType];
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();//TODO : find why initialization in the GameManager fails
+	}
+
+	public ShapeType GetShape() {
+		return currentType;
 	}
 
 	void ChangeShape(ShapeType newShape) {
