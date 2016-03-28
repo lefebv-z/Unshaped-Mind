@@ -11,9 +11,6 @@ public enum GameState
 }
 
 public class GameManager : MonoBehaviour {
-	public static GameManager instance = null; //Static instance of GameManager which allows it to be accessed by any other script.
-	//private BoardManager boardScript; //Store a reference to our BoardManager which will set up the level.
-
 	public GameState gameState;
 	public static int currentLevel = 0;
 	public int maxLevel = 2;
@@ -27,15 +24,7 @@ public class GameManager : MonoBehaviour {
 
 	void Awake()
 	{
-		if (instance == null) {
-			instance = this;
-		} else if (instance != this) {
-			Destroy(gameObject);
-		}
-
 		currentLevel = PlayerPrefs.GetInt("currentLevel");
-		//Sets this to not be destroyed when reloading scene
-		DontDestroyOnLoad(gameObject);
 	}
 
 	void Start ()

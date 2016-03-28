@@ -32,6 +32,7 @@ public class Shape : MonoBehaviour {
 	void Start() {
 		sprites = Resources.LoadAll<Sprite>("SpriteSheet");
 		colorFilterMat.color = _colors[(int)currentType];
+		gameObject.GetComponent<SpriteRenderer>().sprite = sprites[(int)currentType];
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();//TODO : find why initialization in the GameManager fails
 	}
 
