@@ -4,8 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class MainMenuScript : MonoBehaviour {
-	public GameObject[] menus; //0 == MainMenu; 1 == levels; 2 == Settings; 3 == Credits
-	public int numLevels = 2;
+	public GameObject[] menus; //0 == MainMenu; 1 == levels; 2 == how to play; 3 == Settings; 4 == Credits
+	public int numLevels;
 	public int levelsPerPage = 6;
 	List<GameObject> unactivatedObjects;
 
@@ -66,16 +66,22 @@ public class MainMenuScript : MonoBehaviour {
 		}
 	}
 
+	public void HowToPlay() {
+		Debug.Log("How to play");
+		menus[0].SetActive(false);
+		menus[2].SetActive(true);
+	}
+	
 	public void Settings() {
 		Debug.Log("Settings");
 		menus[0].SetActive(false);
-		menus[2].SetActive(true);
+		menus[3].SetActive(true);
 	}
 	
 	public void Credits() {
 		Debug.Log("Credits");
 		menus[0].SetActive(false);
-		menus[3].SetActive(true);
+		menus[4].SetActive(true);
 	}
 	
 	public void Exit() {

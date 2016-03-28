@@ -67,6 +67,14 @@ public class Shape : MonoBehaviour {
 	}
 
 	void OnTriggerStay2D (Collider2D other) {
+		if (gameManager.gameState != GameState.Playing) {
+			return;
+		}
+		if (!gameManager.isWinning && other.gameObject.tag == (currentType.ToString () + "Hole")) {
+			Debug.Log("win");
+			gameManager.gameState = GameState.EndingAnimation;
+			gameManager.isWinning = true;
+		}
 		if (other.gameObject.tag == "Mechanism") {
 			MechanicScript mechScript = other.GetComponent<MechanicScript>();
 			if (mechScript.type == currentType) {
