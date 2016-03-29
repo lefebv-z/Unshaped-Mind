@@ -11,6 +11,7 @@ public class MainMenuScript : MonoBehaviour {
 
 	void Start() {
 		unactivatedObjects = new List<GameObject>();
+		PlayerPrefs.SetInt("maxLevel", numLevels);
 	}
 
 	public void PlayLevel(int level) {

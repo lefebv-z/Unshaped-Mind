@@ -13,7 +13,7 @@ public enum GameState
 public class GameManager : MonoBehaviour {
 	public GameState gameState;
 	public static int currentLevel = 0;
-	public int maxLevel = 2;
+	private int maxLevel = 8;
 	public int remainingTransformation;//start at max, decrease during the game until it reaches 0
 	public bool isWinning = false;//enum instead ?
 
@@ -24,7 +24,9 @@ public class GameManager : MonoBehaviour {
 
 	void Awake()
 	{
+		Debug.Log("load current level =" + currentLevel);
 		currentLevel = PlayerPrefs.GetInt("currentLevel");
+		maxLevel = PlayerPrefs.GetInt("maxLevel");
 	}
 
 	void Start ()
@@ -76,6 +78,7 @@ public class GameManager : MonoBehaviour {
 				gameState = GameState.Start;
 				currentLevel++;
 				PlayerPrefs.SetInt("currentLevel", currentLevel);
+				Debug.Log("load next level =" + currentLevel + " max=" + maxLevel);
 				Application.LoadLevel ("Level" + currentLevel.ToString());
 			} else {
 				Application.LoadLevel("Menu");
