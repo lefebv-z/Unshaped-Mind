@@ -16,7 +16,13 @@ public class Shape : MonoBehaviour {
 	public Material colorFilterMat;
 	static Sprite[] sprites;
 	public ShapeType currentType = ShapeType.Square;
-	
+	public bool[] shapeAvailable = new bool[] {
+		true,
+		true,
+		true,
+		true
+	};
+
 	Color[] _colors = new Color[4] { //Same order than ShapeType
 		new Color(0, 255, 0),  //Square color
 		new Color(0, 0, 255),  //Triangle color
@@ -53,7 +59,9 @@ public class Shape : MonoBehaviour {
 		}
 
 		for (int i = 0; i < (int)ShapeType.ShapeTypeCount; i++) {
-			if (Input.GetKeyDown(shapeButton[i])) {
+			if (Input.GetKeyDown(shapeButton[i])
+			    && shapeAvailable[i]
+			    && (ShapeType)(i) != currentType) {
 				if (gameManager.remainingTransformation > 0) {
 					ChangeShape((ShapeType)(i));
 					gameManager.remainingTransformation--;
@@ -64,15 +72,6 @@ public class Shape : MonoBehaviour {
 				break;
 			}
 		}
-//		if (Input.GetKeyDown(shapeButton[(int)ShapeType.Square])) {
-//			ChangeShape(ShapeType.Square);
-//		} else if (Input.GetKeyDown(shapeButton[(int)ShapeType.Triangle])) {
-//			ChangeShape(ShapeType.Triangle);
-//		} else if (Input.GetKeyDown(shapeButton[(int)ShapeType.Circle])) {
-//			ChangeShape(ShapeType.Circle);
-//		} else if (Input.GetKeyDown(shapeButton[(int)ShapeType.Hexagon])) {
-//			ChangeShape(ShapeType.Hexagon);
-//		}
 
 		float v = Input.GetAxisRaw("Vertical");
 		float v2 = Input.GetAxisRaw("Horizontal");
