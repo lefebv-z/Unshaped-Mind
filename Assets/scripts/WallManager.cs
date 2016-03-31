@@ -10,16 +10,18 @@ public enum ColorType {
 }
 
 public class WallManager : MonoBehaviour {
-	public Shape			playerShape;
+	//public Shape			playerShape;
 	public ColorType		color;
 
 	private bool			isOn = true;
 	private Collider2D		wallCollider;
 	private SpriteRenderer	wallSprite;
-
+	private Shape			playerShape;
+	
 	void Start () {
 		wallCollider = gameObject.GetComponent<Collider2D>();
 		wallSprite = gameObject.GetComponent<SpriteRenderer>();
+		playerShape = GameObject.Find ("PlayerShape").GetComponent<Shape> ();
 	}
 	
 	void Update () {
