@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: 69e5951cb5a8da6468a142a369c674ce
+timeCreated: 1459407479
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - firstStratumMusic: {fileID: 8300000, guid: fbb9b480f530c9d45a73f3842648ab5d, type: 3}
+  - firstStratumBeats: {fileID: 8300000, guid: fbb9b480f530c9d45a73f3842648ab5d, type: 3}
+  - secondStratumMusic: {fileID: 8300000, guid: fbb9b480f530c9d45a73f3842648ab5d,
+      type: 3}
+  - secondStratumBeats: {fileID: 8300000, guid: fbb9b480f530c9d45a73f3842648ab5d,
+      type: 3}
+  - logMusic: {fileID: 8300000, guid: 733cef4fdcf57674482e01d10a37604e, type: 3}
+  - unlockingSound: {fileID: 8300000, guid: 981e91ce498ae86419cbd94813c837be, type: 3}
+  - selectingSound: {fileID: 8300000, guid: 2a108690c5ec3764daf0091c7343db9f, type: 3}
+  - validationSound: {fileID: 8300000, guid: fdfc3e17fec28c84d9f60289d7c48128, type: 3}
+  - restartSound: {fileID: 8300000, guid: c6a52277e307d714aa436d611ebba7e5, type: 3}
+  - mainSource: {fileID: 8255444, guid: 5383520bf8e39814f822d1c29d7bb6dc, type: 2}
+  - secondarySource: {fileID: 8287360, guid: 7c9fc1a2fdeed3a4b9aa4a78f553d677, type: 2}
+  - noisesSource: {fileID: 8234262, guid: 0d8358709c2cff24d9f8f1216e8b73dd, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
