@@ -66,22 +66,22 @@ public class SoundManager : MonoBehaviour {
         secondarySource.Play();
     }
 
-    void PlayUnlocking()
+    public void PlayUnlocking()
     {
         noisesSource.PlayOneShot(unlockingSound);
     }
 
-    void PlaySelecting()
+    public void PlaySelecting()
     {
         noisesSource.PlayOneShot(selectingSound);
     }
 
-    void PlayValidation()
+    public void PlayValidation()
     {
         noisesSource.PlayOneShot(validationSound);
     }
 
-    void PlayRestart()
+    public void PlayRestart()
     {
         noisesSource.PlayOneShot(restartSound);
     }
