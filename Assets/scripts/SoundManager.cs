@@ -3,6 +3,8 @@ using System.Collections;
 
 public class SoundManager : MonoBehaviour {
 
+    public static SoundManager soundSysManager;
+
     public AudioClip firstStratumMusic;
     public AudioClip firstStratumBeats;
 
@@ -20,14 +22,44 @@ public class SoundManager : MonoBehaviour {
     public AudioSource secondarySource; //play beats of main music
     public AudioSource noisesSource; // play action sound
 
+    private bool InGame;
+    private Shape player;
+
+    void Awake()
+    {
+        if (soundSysManager == null)
+        {
+            soundSysManager = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
+    }
+
     // Use this for initialization
 	void Start () {
-	
+        player = (Shape)(GameObject.FindObjectOfType(typeof(Shape)));
+        if (player == null)
+            InGame = false;
+        else
+            InGame = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        secondarySource.timeSamples = mainSource.timeSamples; 
+        
+        player = (Shape)(GameObject.FindObjectOfType(typeof(Shape)));
+
+            if (player != null)
+            {
+                if (InGame == false)
+                {
+                    InGame = true;
+                    PlayFirstStratum();
+                }
+                transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
+            }
+            secondarySource.timeSamples = mainSource.timeSamples;
 	}
 
     void PlayLogMenu()

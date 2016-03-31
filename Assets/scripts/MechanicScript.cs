@@ -7,20 +7,29 @@ public class MechanicScript : MonoBehaviour {
 	bool _isActive = false;
 
 	public void DesactivateMechanic() {
-		Debug.Log("Mechanic no longer active:" + name);
-		GetComponent<SpriteRenderer>().color = Color.white;
-		_isActive = false;
-		foreach (GameObject obj in wallsToDisapear) {
-			obj.SetActive(true);
-		}
+        SoundManager sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
+        if (sm != null && _isActive == true)
+        {
+            Debug.Log("Mechanic no longer active:" + name);
+            GetComponent<SpriteRenderer>().color = Color.white;
+            sm.PlayUnlocking();
+            _isActive = false;
+            foreach (GameObject obj in wallsToDisapear)
+                obj.SetActive(true);
+        }
 	}
 
-	public void ActivateMechanic() {
-		Debug.Log("Mechanic active:" + name);
-		GetComponent<SpriteRenderer>().color = Color.gray;
-		_isActive = true;
-		foreach (GameObject obj in wallsToDisapear) {
-			obj.SetActive(false);
-		}
-	}
+    public void ActivateMechanic()
+    {
+        SoundManager sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
+        if (sm != null && _isActive == false)
+        {
+            Debug.Log("Mechanic active:" + name);
+            GetComponent<SpriteRenderer>().color = Color.gray;
+            sm.PlayUnlocking();
+            _isActive = true;
+            foreach (GameObject obj in wallsToDisapear)
+                obj.SetActive(false);
+        }
+    }
 }
