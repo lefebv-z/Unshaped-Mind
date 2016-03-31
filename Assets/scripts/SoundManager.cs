@@ -16,7 +16,9 @@ public class SoundManager : MonoBehaviour {
     public AudioClip unlockingSound;
     public AudioClip selectingSound;
     public AudioClip validationSound;
+    public AudioClip lvlendSound;
     public AudioClip restartSound;
+    public AudioClip helpSound;
 
     public AudioSource mainSource; //play main music
     public AudioSource secondarySource; //play beats of main music
@@ -118,6 +120,16 @@ public class SoundManager : MonoBehaviour {
         noisesSource.PlayOneShot(restartSound);
     }
 
+    public void PlayLvlEnd()
+    {
+        noisesSource.PlayOneShot(lvlendSound);
+    }
+
+    public void PlayHelp()
+    {
+        noisesSource.PlayOneShot(helpSound);
+    }
+
     void PlayUnlocking(Vector3 pos)
     {
         Vector3 oldpos = noisesSource.transform.position;
@@ -147,6 +159,22 @@ public class SoundManager : MonoBehaviour {
         Vector3 oldpos = noisesSource.transform.position;
         noisesSource.transform.position = pos;
         noisesSource.PlayOneShot(restartSound);
+        noisesSource.transform.position = oldpos;
+    }
+
+    public void PlayLvlEnd(Vector3 pos)
+    {
+        Vector3 oldpos = noisesSource.transform.position;
+        noisesSource.transform.position = pos;
+        noisesSource.PlayOneShot(lvlendSound);
+        noisesSource.transform.position = oldpos;
+    }
+
+    public void PlayHelp(Vector3 pos)
+    {
+        Vector3 oldpos = noisesSource.transform.position;
+        noisesSource.transform.position = pos;
+        noisesSource.PlayOneShot(helpSound);
         noisesSource.transform.position = oldpos;
     }
 }

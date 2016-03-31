@@ -8,11 +8,12 @@ public class MechanicScript : MonoBehaviour {
 
 	public void DesactivateMechanic() {
         SoundManager sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
-        if (sm != null && _isActive == true)
+        if ( _isActive == true)
         {
             Debug.Log("Mechanic no longer active:" + name);
             GetComponent<SpriteRenderer>().color = Color.white;
-            sm.PlayUnlocking();
+            if (sm != null)
+                sm.PlayUnlocking();
             _isActive = false;
             foreach (GameObject obj in wallsToDisapear)
                 obj.SetActive(true);
@@ -22,11 +23,12 @@ public class MechanicScript : MonoBehaviour {
     public void ActivateMechanic()
     {
         SoundManager sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
-        if (sm != null && _isActive == false)
+        if (_isActive == false)
         {
             Debug.Log("Mechanic active:" + name);
             GetComponent<SpriteRenderer>().color = Color.gray;
-            sm.PlayUnlocking();
+            if (sm != null)
+                sm.PlayUnlocking();
             _isActive = true;
             foreach (GameObject obj in wallsToDisapear)
                 obj.SetActive(false);
