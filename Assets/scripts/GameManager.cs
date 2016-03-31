@@ -60,7 +60,8 @@ public class GameManager : MonoBehaviour {
 				break;
 			case GameState.EndingAnimation:
 				if (isWinning) {
-					//TODO: display end level menu
+					gameState = GameState.Menu;
+					break;
 				}
 				else {
 					//TODO: reset animation/sound
