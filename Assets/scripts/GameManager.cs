@@ -53,9 +53,16 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		switch (gameState) {
 			case GameState.Playing:
+				if (Input.GetKeyDown(KeyCode.R))
+				gameState = GameState.EndingAnimation;
 				break;
 			case GameState.EndingAnimation:
-				//WaitAndExit();//TODO play animation
+				if (isWinning) {
+					//TODO: display end level menu
+				}
+				else {
+					//TODO: reset animation/sound
+				}
 				gameState = GameState.End;
 				break;
 			case GameState.End:
