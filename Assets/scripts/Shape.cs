@@ -5,7 +5,8 @@ public enum ShapeType {
 	Square = 0,
 	Triangle = 1,
 	Circle = 2,
-	Hexagon = 3
+	Hexagon = 3,
+	ShapeTypeCount = 4
 }
 
 //TODO : separate playercontroller & shape attributes in 2 classes
@@ -51,15 +52,27 @@ public class Shape : MonoBehaviour {
 			return;
 		}
 
-		if (Input.GetKeyDown(shapeButton[(int)ShapeType.Square])) {
-			ChangeShape(ShapeType.Square);
-		} else if (Input.GetKeyDown(shapeButton[(int)ShapeType.Triangle])) {
-			ChangeShape(ShapeType.Triangle);
-		} else if (Input.GetKeyDown(shapeButton[(int)ShapeType.Circle])) {
-			ChangeShape(ShapeType.Circle);
-		} else if (Input.GetKeyDown(shapeButton[(int)ShapeType.Hexagon])) {
-			ChangeShape(ShapeType.Hexagon);
+		for (int i = 0; i < (int)ShapeType.ShapeTypeCount; i++) {
+			if (Input.GetKeyDown(shapeButton[i])) {
+				if (gameManager.remainingTransformation > 0) {
+					ChangeShape((ShapeType)(i));
+					gameManager.remainingTransformation--;
+					print ("remaining transfo: " + gameManager.remainingTransformation);
+				} else {
+					print ("No more transformation possible");//TODO: real feedback
+				}
+				break;
+			}
 		}
+//		if (Input.GetKeyDown(shapeButton[(int)ShapeType.Square])) {
+//			ChangeShape(ShapeType.Square);
+//		} else if (Input.GetKeyDown(shapeButton[(int)ShapeType.Triangle])) {
+//			ChangeShape(ShapeType.Triangle);
+//		} else if (Input.GetKeyDown(shapeButton[(int)ShapeType.Circle])) {
+//			ChangeShape(ShapeType.Circle);
+//		} else if (Input.GetKeyDown(shapeButton[(int)ShapeType.Hexagon])) {
+//			ChangeShape(ShapeType.Hexagon);
+//		}
 
 		float v = Input.GetAxisRaw("Vertical");
 		float v2 = Input.GetAxisRaw("Horizontal");
