@@ -4,11 +4,12 @@ using System.Collections.Generic;       //Allows us to use Lists.
 
 public enum GameState
 {
-	Start,
+	Start = 0,
 	Playing,
 	EndingAnimation,
 	End,
-	Menu
+	Menu,
+	GameStateCount
 }
 
 public class GameManager : MonoBehaviour {
@@ -55,7 +56,7 @@ public class GameManager : MonoBehaviour {
 		switch (gameState) {
 			case GameState.Playing:
 				if (Input.GetKeyDown(KeyCode.R))
-				gameState = GameState.EndingAnimation;
+					gameState = GameState.EndingAnimation;
 				break;
 			case GameState.EndingAnimation:
 				if (isWinning) {
