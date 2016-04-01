@@ -102,26 +102,31 @@ public class SoundManager : MonoBehaviour {
 
     public void PlayUnlocking()
     {
+        noisesSource.volume = 1.0f;
         noisesSource.PlayOneShot(unlockingSound);
     }
 
     public void PlaySelecting()
     {
+        noisesSource.volume = 1.0f;
         noisesSource.PlayOneShot(selectingSound);
     }
 
     public void PlayValidation()
     {
+        noisesSource.volume = 1.0f;
         noisesSource.PlayOneShot(validationSound);
     }
 
     public void PlayRestart()
     {
+        noisesSource.volume = 1.0f;
         noisesSource.PlayOneShot(restartSound);
     }
 
     public void PlayLvlEnd()
     {
+        noisesSource.volume = 0.2f;
         noisesSource.PlayOneShot(lvlendSound);
     }
 

@@ -78,6 +78,9 @@ public class GameManager : MonoBehaviour {
 	void EndGame() {
 		if (isWinning) {
 			if (currentLevel < maxLevel) {
+                SoundManager sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
+                if (sm != null)
+                    sm.PlayLvlEnd();
 				gameState = GameState.Start;
 				currentLevel++;
 				PlayerPrefs.SetInt("currentLevel", currentLevel);
