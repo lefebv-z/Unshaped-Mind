@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public enum ShapeType {
 	Square = 0,
 	Triangle = 1,
@@ -16,6 +17,7 @@ public class Shape : MonoBehaviour {
 	public Material colorFilterMat;
 	static Sprite[] sprites;
 	public ShapeType currentType = ShapeType.Square;
+	private ParticleSystem _particleSystem;
 	public bool[] shapeAvailable = new bool[] {
 		true,
 		true,
@@ -37,6 +39,7 @@ public class Shape : MonoBehaviour {
 	};
 
 	void Start() {
+		_particleSystem = gameObject.GetComponent<ParticleSystem>();
 		sprites = Resources.LoadAll<Sprite>("SpriteSheet");
 		colorFilterMat.color = _colors[(int)currentType];
 		gameObject.GetComponent<SpriteRenderer>().sprite = sprites[(int)currentType];
@@ -50,11 +53,21 @@ public class Shape : MonoBehaviour {
 	void ChangeShape(ShapeType newShape) {
 		currentType = newShape;
 		colorFilterMat.color = _colors[(int)newShape];
+		Texture2D tmpTexture = new Texture2D((int)sprites[(int)newShape + 4].texture.width, (int)sprites[(int)newShape + 4].texture.height);
+		Rect spriteTexRect = sprites[(int)newShape + 4].textureRect;
+		tmpTexture.LoadRawTextureData(sprites[(int)newShape + 4].texture.GetRawTextureData());
+		tmpTexture.Apply();
+		Texture2D particleTexture = new Texture2D((int)spriteTexRect.width, (int)spriteTexRect.height);
+		particleTexture.SetPixels(tmpTexture.GetPixels((int)spriteTexRect.x, (int)spriteTexRect.y, (int)spriteTexRect.width, (int)spriteTexRect.height));
+		particleTexture.Apply();
+		_particleSystem.GetComponent<ParticleSystemRenderer>().material.mainTexture = particleTexture;
 		gameObject.GetComponent<SpriteRenderer>().sprite = sprites[(int)newShape];
+		_particleSystem.Play();
 	}
 
 	void Update () {
 		if (gameManager.gameState != GameState.Playing) {
+			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 			return;
 		}
 
