@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
-
 
 public enum ShapeType {
 	Square = 0,
@@ -53,14 +53,7 @@ public class Shape : MonoBehaviour {
 	void ChangeShape(ShapeType newShape) {
 		currentType = newShape;
 		colorFilterMat.color = _colors[(int)newShape];
-		Texture2D tmpTexture = new Texture2D((int)sprites[(int)newShape + 4].texture.width, (int)sprites[(int)newShape + 4].texture.height);
-		Rect spriteTexRect = sprites[(int)newShape + 4].textureRect;
-		tmpTexture.LoadRawTextureData(sprites[(int)newShape + 4].texture.GetRawTextureData());
-		tmpTexture.Apply();
-		Texture2D particleTexture = new Texture2D((int)spriteTexRect.width, (int)spriteTexRect.height);
-		particleTexture.SetPixels(tmpTexture.GetPixels((int)spriteTexRect.x, (int)spriteTexRect.y, (int)spriteTexRect.width, (int)spriteTexRect.height));
-		particleTexture.Apply();
-		_particleSystem.GetComponent<ParticleSystemRenderer>().material.mainTexture = particleTexture;
+		_particleSystem.GetComponent<ParticleSystemRenderer>().material.mainTexture = Resources.Load<Texture2D>(currentType.ToString() + "Hole");
 		gameObject.GetComponent<SpriteRenderer>().sprite = sprites[(int)newShape];
 		_particleSystem.Play();
 	}
