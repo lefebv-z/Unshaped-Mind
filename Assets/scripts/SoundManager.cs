@@ -46,7 +46,9 @@ public class SoundManager : MonoBehaviour {
 
     // Use this for initialization
 	void Start () {
-        dangerlimit = -1;
+		bgmVolume = 0.5f;
+		effectsVolume = 0.5f;
+		dangerlimit = -1;
         InDanger = false;
         player = (Shape)(GameObject.FindObjectOfType(typeof(Shape)));
         if (player == null)
@@ -122,6 +124,17 @@ public class SoundManager : MonoBehaviour {
             //secondarySource.timeSamples = mainSource.timeSamples;
 	}
 
+	public void BGMVolumeChange(float value) {
+		mainSource.volume = 0.2f * bgmVolume;
+		secondarySource.volume = 0.2f * bgmVolume;
+		bgmVolume = value;
+	}
+	
+	public void EffectsVolumeChange(float value) {
+		effectsVolume = value;
+		noisesSource.volume = effectsVolume;
+	}
+
     void PlayLogMenu()
     {
         mainSource.volume = 0.2f * bgmVolume;
@@ -149,6 +162,7 @@ public class SoundManager : MonoBehaviour {
         secondarySource.clip = firstStratumBeats;
         secondarySource.Play();
     }
+
     /*
     void PlaySecondStratum()
     {

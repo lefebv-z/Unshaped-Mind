@@ -7,7 +7,7 @@ public class MainMenuScript : MonoBehaviour {
 	public GameObject[] menus; //0 == MainMenu; 1 == levels; 2 == how to play; 3 == Settings; 4 == Credits
 	public int numLevels;
 	public int levelsPerPage = 6;
-	List<GameObject> unactivatedObjects;
+	private List<GameObject> unactivatedObjects;
 
 	void Start() {
 		unactivatedObjects = new List<GameObject>();
@@ -78,7 +78,7 @@ public class MainMenuScript : MonoBehaviour {
 		menus[0].SetActive(false);
 		menus[3].SetActive(true);
 	}
-	
+
 	public void Credits() {
 		Debug.Log("Credits");
 		menus[0].SetActive(false);
