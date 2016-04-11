@@ -26,12 +26,16 @@ public class SoundManager : MonoBehaviour {
 
     private bool InGame;
     private bool InDanger;
-    public int dangerlimit; //nbr of transfo before music change
+    private int dangerlimit; //nbr of transfo before music change
     private Shape player;
     private GameManager gm;
 
-    public float bgmVolume;
-    public float effectsVolume;
+    private float bgmVolume;
+    private float effectsVolume;
+
+    private float bgmModificator;
+    private float beatsModificator;
+    private float effectModificator;
 
     void Awake()
     {
@@ -46,9 +50,9 @@ public class SoundManager : MonoBehaviour {
 
     // Use this for initialization
 	void Start () {
-		bgmVolume = 0.5f;
-		effectsVolume = 0.5f;
-		dangerlimit = -1;
+        bgmVolume = 0.5f;
+        effectsVolume = 0.5f;
+        dangerlimit = -1;
         InDanger = false;
         player = (Shape)(GameObject.FindObjectOfType(typeof(Shape)));
         if (player == null)
@@ -99,7 +103,7 @@ public class SoundManager : MonoBehaviour {
                         {
                             InDanger = true;
                             PlayFirstStratumBeats();
-                            StopMusic();
+                            mainSource.Stop();
                         }
                     }
                     else
@@ -108,7 +112,7 @@ public class SoundManager : MonoBehaviour {
                         {
                             InDanger = false;
                             PlayFirstStratum();
-                            StopBeats();
+                            secondarySource.Stop();
                         }
                     }
                 }
@@ -119,27 +123,36 @@ public class SoundManager : MonoBehaviour {
                 {
                     PlayLogMenu();
                     InGame = false;
+                    secondarySource.Stop();
                 }
             }
             //secondarySource.timeSamples = mainSource.timeSamples;
 	}
 
-	public void BGMVolumeChange(float value) {
-		mainSource.volume = 0.2f * bgmVolume;
-		secondarySource.volume = 0.2f * bgmVolume;
-		bgmVolume = value;
-	}
-	
-	public void EffectsVolumeChange(float value) {
-		effectsVolume = value;
-		noisesSource.volume = effectsVolume;
-	}
+   public void UpdateVolume()
+    {
+        mainSource.volume = bgmVolume * bgmModificator;
+        secondarySource.volume = bgmVolume * beatsModificator;
+        noisesSource.volume = effectModificator * effectsVolume;
+    }
+
+   public void BGMVolumeChange(float value)
+   {
+       bgmVolume = value;
+       UpdateVolume();
+   }
+
+   public void EffectsVolumeChange(float value)
+   {
+       effectsVolume = value;
+       UpdateVolume();
+   }
 
     void PlayLogMenu()
     {
-        mainSource.volume = 0.2f * bgmVolume;
-        StopBeats();
         mainSource.Stop();
+        bgmModificator = 0.7f;
+        mainSource.volume = bgmModificator * bgmVolume;
         mainSource.loop = true;
         mainSource.clip = logMusic;
         mainSource.Play();  
@@ -147,8 +160,9 @@ public class SoundManager : MonoBehaviour {
 
     void PlayFirstStratum()
     {
-        mainSource.volume = 0.05f * bgmVolume;
         mainSource.Stop();
+        bgmModificator = 0.3f;
+        mainSource.volume = bgmModificator * bgmVolume;
         mainSource.loop = true;
         mainSource.clip = firstStratumMusic;
         mainSource.Play();
@@ -156,13 +170,13 @@ public class SoundManager : MonoBehaviour {
 
     void PlayFirstStratumBeats()
     {
-        secondarySource.volume = 0.2f * bgmVolume;
         secondarySource.Stop();
+        beatsModificator = 0.2f;
+        secondarySource.volume = beatsModificator * bgmVolume;
         secondarySource.loop = true;
         secondarySource.clip = firstStratumBeats;
         secondarySource.Play();
     }
-
     /*
     void PlaySecondStratum()
     {
@@ -184,96 +198,64 @@ public class SoundManager : MonoBehaviour {
     */
     void StopBeats()
     {
-        secondarySource.volume = 0.0f;
         secondarySource.Stop();
     }
 
     void StopMusic()
     {
-        mainSource.volume = 0.0f;
         mainSource.Stop();
     }
 
     public void PlayUnlocking()
     {
+        effectModificator = 1.0f;
         noisesSource.volume = effectsVolume;
         noisesSource.PlayOneShot(unlockingSound);
     }
 
     public void PlaySelecting()
     {
+        effectModificator = 1.0f;
         noisesSource.volume = effectsVolume;
         noisesSource.PlayOneShot(selectingSound);
     }
 
     public void PlayValidation()
     {
+        effectModificator = 1.0f;
         noisesSource.volume = effectsVolume;
         noisesSource.PlayOneShot(validationSound);
     }
 
     public void PlayRestart()
     {
-        noisesSource.volume = effectsVolume;
+        effectModificator = 0.4f;
+        noisesSource.volume = effectModificator *  effectsVolume;
         noisesSource.PlayOneShot(restartSound);
     }
 
     public void PlayLvlEnd()
     {
-        noisesSource.volume = 0.2f * effectsVolume;
+        effectModificator = 0.3f;
+        noisesSource.volume = effectModificator * effectsVolume;
         noisesSource.PlayOneShot(lvlendSound);
     }
 
     public void PlayHelp()
     {
+        effectModificator = 1.0f;
+        noisesSource.volume = effectsVolume;
         noisesSource.PlayOneShot(helpSound);
     }
 
+    /* Give him the position of the wall unlocked */
     void PlayUnlocking(Vector3 pos)
     {
-        Vector3 oldpos = noisesSource.transform.position;
-        noisesSource.transform.position = pos;
-        noisesSource.PlayOneShot(unlockingSound);
-        noisesSource.transform.position = oldpos;
+        effectModificator = 1.0f;
+        noisesSource.volume = effectsVolume;
+        /* unity 5.3 +*/
+        //noisesSource.PlayClipAtPoint(unlockingSound, pos);
     }
 
-    void PlaySelecting(Vector3 pos)
-    {
-        Vector3 oldpos = noisesSource.transform.position;
-        noisesSource.transform.position = pos;
-        noisesSource.PlayOneShot(selectingSound);
-        noisesSource.transform.position = oldpos;
-    }
 
-    void PlayValidation(Vector3 pos)
-    {
-        Vector3 oldpos = noisesSource.transform.position;
-        noisesSource.transform.position = pos;
-        noisesSource.PlayOneShot(validationSound);
-        noisesSource.transform.position = oldpos;
-    }
-
-    void PlayRestart(Vector3 pos)
-    {
-        Vector3 oldpos = noisesSource.transform.position;
-        noisesSource.transform.position = pos;
-        noisesSource.PlayOneShot(restartSound);
-        noisesSource.transform.position = oldpos;
-    }
-
-    public void PlayLvlEnd(Vector3 pos)
-    {
-        Vector3 oldpos = noisesSource.transform.position;
-        noisesSource.transform.position = pos;
-        noisesSource.PlayOneShot(lvlendSound);
-        noisesSource.transform.position = oldpos;
-    }
-
-    public void PlayHelp(Vector3 pos)
-    {
-        Vector3 oldpos = noisesSource.transform.position;
-        noisesSource.transform.position = pos;
-        noisesSource.PlayOneShot(helpSound);
-        noisesSource.transform.position = oldpos;
-    }
 }

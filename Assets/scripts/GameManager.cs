@@ -55,13 +55,20 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        SoundManager sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
 		switch (gameState) {
 			case GameState.Playing:
 				if (Input.GetKeyDown(KeyCode.R))
+                {
+                    if (sm != null)
+                        sm.PlayRestart();
 					gameState = GameState.EndingAnimation;
-				break;
+				}
+                break;
 			case GameState.EndingAnimation:
 				if (isWinning) {
+                    if (sm != null)
+                        sm.PlayLvlEnd();
 					gameState = GameState.Menu;
 					break;
 				}
