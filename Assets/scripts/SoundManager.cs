@@ -25,7 +25,10 @@ public class SoundManager : MonoBehaviour {
     public AudioSource noisesSource; // play action sound
 
     private bool InGame;
+    private bool InDanger;
+    public int dangerlimit; //nbr of transfo before music change
     private Shape player;
+    private GameManager gm;
 
     void Awake()
     {
@@ -40,12 +43,22 @@ public class SoundManager : MonoBehaviour {
 
     // Use this for initialization
 	void Start () {
+        dangerlimit = -1;
+        InDanger = false;
         player = (Shape)(GameObject.FindObjectOfType(typeof(Shape)));
         if (player == null)
+        {
             InGame = false;
+            PlayLogMenu();
+        }
         else
             InGame = true;
 	}
+
+    void OnLevelWasLoaded(int level)
+    {
+       //get all button and add play song event
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -60,27 +73,74 @@ public class SoundManager : MonoBehaviour {
                     PlayFirstStratum();
                 }
                 transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
+                
+                gm = (GameManager)(GameObject.FindObjectOfType(typeof(GameManager)));
+                if (gm != null)
+                {
+                    if (gm.getMaxTransfo() >= 3)
+                        dangerlimit = gm.getMaxTransfo() / 4;
+                    /* need to get max transfo for this. until then */
+                    /*
+                    if (gm.remainingTransformation >= dangerlimit && InDanger == true)
+                    {
+                        dangerlimit = gm.remainingTransformation / 3;
+                        InDanger = false;
+                    }
+                    */
+
+                    if (gm.remainingTransformation < dangerlimit)
+                    {
+                        if (InDanger == false)
+                        {
+                            InDanger = true;
+                            PlayFirstStratumBeats();
+                            StopMusic();
+                        }
+                    }
+                    else
+                    {
+                        if (InDanger == true)
+                        {
+                            InDanger = false;
+                            PlayFirstStratum();
+                            StopBeats();
+                        }
+                    }
+                }
             }
-            secondarySource.timeSamples = mainSource.timeSamples;
+            else
+            {
+                if (InGame == true)
+                {
+                    PlayLogMenu();
+                    InGame = false;
+                }
+            }
+            //secondarySource.timeSamples = mainSource.timeSamples;
 	}
 
     void PlayLogMenu()
     {
+        mainSource.volume = 0.2f;
+        StopBeats();
         mainSource.Stop();
         mainSource.loop = true;
         mainSource.clip = logMusic;
-        mainSource.Play();
-
-        secondarySource.Stop();   
+        mainSource.Play();  
     }
 
     void PlayFirstStratum()
     {
+        mainSource.volume = 0.05f;
         mainSource.Stop();
         mainSource.loop = true;
         mainSource.clip = firstStratumMusic;
         mainSource.Play();
+    }
 
+    void PlayFirstStratumBeats()
+    {
+        secondarySource.volume = 0.2f;
         secondarySource.Stop();
         secondarySource.loop = true;
         secondarySource.clip = firstStratumBeats;
@@ -89,15 +149,32 @@ public class SoundManager : MonoBehaviour {
 
     void PlaySecondStratum()
     {
+        mainSource.volume = 0.2f;
         mainSource.Stop();
-        mainSource.loop = true;
+        mainSource.loop = false;
         mainSource.clip = secondStratumMusic;
         mainSource.Play();
+    }
 
+    void PlaySecondStratumBeats()
+    {
+        secondarySource.volume = 1.0f;
         secondarySource.Stop();
         secondarySource.loop = true;
         secondarySource.clip = secondStratumBeats;
         secondarySource.Play();
+    }
+
+    void StopBeats()
+    {
+        secondarySource.volume = 0.0f;
+        secondarySource.Stop();
+    }
+
+    void StopMusic()
+    {
+        mainSource.volume = 0.0f;
+        mainSource.Stop();
     }
 
     public void PlayUnlocking()

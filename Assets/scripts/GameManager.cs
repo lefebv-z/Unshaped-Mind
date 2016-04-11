@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour {
 	public static int currentLevel = 0;
 	private int maxLevel = 8;
 	public int remainingTransformation = 15;//start at max, decrease during the game until it reaches 0
+    private int maxTransfo;
 	public bool isWinning = false;//enum instead ?
 
 	public GameObject playerShape;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour {
 
 	void Start ()
 	{
+        maxTransfo = remainingTransformation;
 		gameState = GameState.Start;
 		shape = playerShape.GetComponent<Shape>();
 		shape.gameManager = this;
@@ -94,5 +96,11 @@ public class GameManager : MonoBehaviour {
 			Application.LoadLevel(Application.loadedLevel);
 		}
 	}
+
+    public int getMaxTransfo()
+    {
+        return maxTransfo;
+    }
+
 }
 
