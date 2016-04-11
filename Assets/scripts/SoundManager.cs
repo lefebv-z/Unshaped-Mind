@@ -30,6 +30,9 @@ public class SoundManager : MonoBehaviour {
     private Shape player;
     private GameManager gm;
 
+    public float bgmVolume;
+    public float effectsVolume;
+
     void Awake()
     {
         if (soundSysManager == null)
@@ -121,7 +124,7 @@ public class SoundManager : MonoBehaviour {
 
     void PlayLogMenu()
     {
-        mainSource.volume = 0.2f;
+        mainSource.volume = 0.2f * bgmVolume;
         StopBeats();
         mainSource.Stop();
         mainSource.loop = true;
@@ -131,7 +134,7 @@ public class SoundManager : MonoBehaviour {
 
     void PlayFirstStratum()
     {
-        mainSource.volume = 0.05f;
+        mainSource.volume = 0.05f * bgmVolume;
         mainSource.Stop();
         mainSource.loop = true;
         mainSource.clip = firstStratumMusic;
@@ -140,13 +143,13 @@ public class SoundManager : MonoBehaviour {
 
     void PlayFirstStratumBeats()
     {
-        secondarySource.volume = 0.2f;
+        secondarySource.volume = 0.2f * bgmVolume;
         secondarySource.Stop();
         secondarySource.loop = true;
         secondarySource.clip = firstStratumBeats;
         secondarySource.Play();
     }
-
+    /*
     void PlaySecondStratum()
     {
         mainSource.volume = 0.2f;
@@ -164,7 +167,7 @@ public class SoundManager : MonoBehaviour {
         secondarySource.clip = secondStratumBeats;
         secondarySource.Play();
     }
-
+    */
     void StopBeats()
     {
         secondarySource.volume = 0.0f;
@@ -179,31 +182,31 @@ public class SoundManager : MonoBehaviour {
 
     public void PlayUnlocking()
     {
-        noisesSource.volume = 1.0f;
+        noisesSource.volume = effectsVolume;
         noisesSource.PlayOneShot(unlockingSound);
     }
 
     public void PlaySelecting()
     {
-        noisesSource.volume = 1.0f;
+        noisesSource.volume = effectsVolume;
         noisesSource.PlayOneShot(selectingSound);
     }
 
     public void PlayValidation()
     {
-        noisesSource.volume = 1.0f;
+        noisesSource.volume = effectsVolume;
         noisesSource.PlayOneShot(validationSound);
     }
 
     public void PlayRestart()
     {
-        noisesSource.volume = 1.0f;
+        noisesSource.volume = effectsVolume;
         noisesSource.PlayOneShot(restartSound);
     }
 
     public void PlayLvlEnd()
     {
-        noisesSource.volume = 0.2f;
+        noisesSource.volume = 0.2f * effectsVolume;
         noisesSource.PlayOneShot(lvlendSound);
     }
 

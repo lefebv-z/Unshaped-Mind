@@ -14,7 +14,7 @@ public class InGameMenus : MonoBehaviour {
 		_manager = GameObject.FindObjectOfType<GameManager>();
 
         /* adding new sound*/
-        SoundManager sm = (SoundManager)FindObjectOfType(typeof(SoundManager));
+        //SoundManager sm = (SoundManager)FindObjectOfType(typeof(SoundManager));
         //get all button and add play song event
 		_pauseMenu.SetActive(false);
 		_endLevelMenu.SetActive(false);
