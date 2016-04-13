@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class SoundManager : MonoBehaviour {
 
@@ -8,9 +10,10 @@ public class SoundManager : MonoBehaviour {
     public AudioClip firstStratumMusic;
     public AudioClip firstStratumBeats;
 
-    public AudioClip secondStratumMusic;
+    /*public AudioClip secondStratumMusic;
     public AudioClip secondStratumBeats;
-    
+    */
+
     public AudioClip logMusic;
 
     public AudioClip unlockingSound;
@@ -18,6 +21,9 @@ public class SoundManager : MonoBehaviour {
     public AudioClip validationSound;
     public AudioClip lvlendSound;
     public AudioClip restartSound;
+    public AudioClip changeSound;
+    public AudioClip nochangeSound;
+    //wall hit
     public AudioClip helpSound;
 
     public AudioSource mainSource; //play main music
@@ -36,6 +42,8 @@ public class SoundManager : MonoBehaviour {
     private float bgmModificator;
     private float beatsModificator;
     private float effectModificator;
+
+    private Button[] buttons;
 
     void Awake()
     {
@@ -66,7 +74,19 @@ public class SoundManager : MonoBehaviour {
 
     void OnLevelWasLoaded(int level)
     {
-       //get all button and add play song event
+            buttons = (Button[])(GameObject.FindObjectsOfType(typeof(Button)));
+            foreach (Button button in buttons)
+            {
+                button.onClick.AddListener(PlayValidation);
+                EventTrigger.Entry entry = new EventTrigger.Entry();
+                entry.eventID = EventTriggerType.PointerEnter;
+                entry.callback.AddListener((eventData) => { PlaySelecting(); });
+                EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
+                if (trigger != null)
+                    trigger.triggers.Add(entry);
+            }
+        
+        //get all button and add play song event
     }
 	
 	// Update is called once per frame
@@ -151,7 +171,7 @@ public class SoundManager : MonoBehaviour {
     void PlayLogMenu()
     {
         mainSource.Stop();
-        bgmModificator = 0.7f;
+        bgmModificator = 1.0f;
         mainSource.volume = bgmModificator * bgmVolume;
         mainSource.loop = true;
         mainSource.clip = logMusic;
@@ -161,7 +181,7 @@ public class SoundManager : MonoBehaviour {
     void PlayFirstStratum()
     {
         mainSource.Stop();
-        bgmModificator = 0.3f;
+        bgmModificator = 1.0f;
         mainSource.volume = bgmModificator * bgmVolume;
         mainSource.loop = true;
         mainSource.clip = firstStratumMusic;
@@ -236,9 +256,23 @@ public class SoundManager : MonoBehaviour {
 
     public void PlayLvlEnd()
     {
-        effectModificator = 0.3f;
+        effectModificator = 0.2f;
         noisesSource.volume = effectModificator * effectsVolume;
         noisesSource.PlayOneShot(lvlendSound);
+    }
+
+    public void PlayChange()
+    {
+        effectModificator = 0.5f;
+        noisesSource.volume = effectsVolume;
+        noisesSource.PlayOneShot(changeSound);
+    }
+
+    public void PlayNoChange()
+    {
+        effectModificator = 0.5f;
+        noisesSource.volume = effectsVolume;
+        noisesSource.PlayOneShot(nochangeSound);
     }
 
     public void PlayHelp()

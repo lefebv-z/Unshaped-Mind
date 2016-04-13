@@ -18,6 +18,7 @@ public class Shape : MonoBehaviour {
 	static Sprite[] sprites;
 	public ShapeType currentType = ShapeType.Square;
 	private ParticleSystem _particleSystem;
+    private SoundManager sm;
 	public bool[] shapeAvailable = new bool[] {
 		true,
 		true,
@@ -39,6 +40,7 @@ public class Shape : MonoBehaviour {
 	};
 
 	void Start() {
+        sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
 		_particleSystem = gameObject.GetComponent<ParticleSystem>();
 		sprites = Resources.LoadAll<Sprite>("SpriteSheet");
 		colorFilterMat.color = _colors[(int)currentType];
@@ -71,12 +73,19 @@ public class Shape : MonoBehaviour {
 				if (gameManager.remainingTransformation > 0) {
 					ChangeShape((ShapeType)(i));
 					gameManager.remainingTransformation--;
+                    if (sm != null)
+                        sm.PlayChange();
 					print ("remaining transfo: " + gameManager.remainingTransformation);
 				} else {
+                    if (sm != null)
+                        sm.PlayNoChange();
 					print ("No more transformation possible");//TODO: real feedback
 				}
 				break;
 			}
+            else if (Input.GetKeyDown(shapeButton[i]) && shapeAvailable[i])
+                if (sm != null)
+                    sm.PlayNoChange();
 		}
 
 		float v = Input.GetAxisRaw("Vertical");

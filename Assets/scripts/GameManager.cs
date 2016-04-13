@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject playerShape;
 	private Shape shape;
+    private SoundManager sm;
 
 	// TODO : get holes like :	ArmyUnit[] armyUnits = FindObjectsOfType(typeof(ArmyUnit)) as ArmyUnit[];
 
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour {
 
 	void Start ()
 	{
+        sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
         maxTransfo = remainingTransformation;
 		gameState = GameState.Start;
 		shape = playerShape.GetComponent<Shape>();
@@ -55,7 +57,6 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        SoundManager sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
 		switch (gameState) {
 			case GameState.Playing:
 				if (Input.GetKeyDown(KeyCode.R))
@@ -88,7 +89,6 @@ public class GameManager : MonoBehaviour {
 	void EndGame() {
 		if (isWinning) {
 			if (currentLevel < maxLevel) {
-                SoundManager sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
                 if (sm != null)
                     sm.PlayLvlEnd();
 				gameState = GameState.Start;
