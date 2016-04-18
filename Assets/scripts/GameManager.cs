@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject playerShape;
 	private Shape shape;
     private SoundManager sm;
+	private Camera mainCamera;
 
 	// TODO : get holes like :	ArmyUnit[] armyUnits = FindObjectsOfType(typeof(ArmyUnit)) as ArmyUnit[];
 
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour {
 	void Start ()
 	{
         sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
+		mainCamera = (Camera)(GameObject.FindObjectOfType(typeof(Camera)));
         maxTransfo = remainingTransformation;
 		gameState = GameState.Start;
 		shape = playerShape.GetComponent<Shape>();
@@ -76,6 +78,8 @@ public class GameManager : MonoBehaviour {
 				else {
 					//TODO: reset animation/sound
 				}
+			mainCamera.GetComponent<Animator>().enabled = true;
+				//anim
 				gameState = GameState.End;
 				break;
 			case GameState.End:
