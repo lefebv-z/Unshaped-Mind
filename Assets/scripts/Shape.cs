@@ -33,10 +33,10 @@ public class Shape : MonoBehaviour {
 		new Color(0, 255, 255) //Hegagon color
 	};
 	KeyCode[] shapeButton = new KeyCode[] { //Same order than ShapeType
-		KeyCode.LeftArrow,
-		KeyCode.UpArrow,
-		KeyCode.RightArrow,
-		KeyCode.DownArrow
+		KeyCode.Q,
+		KeyCode.Z,
+		KeyCode.S,
+		KeyCode.D
 	};
 
 	void Start() {

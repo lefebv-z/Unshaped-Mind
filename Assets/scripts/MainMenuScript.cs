@@ -24,6 +24,8 @@ public class MainMenuScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if (!menus[0].activeSelf)//TODO: cleaner way to do this ?
+			return;
 		if (Input.GetKeyDown (KeyCode.DownArrow)) {
 			currentIndex++;
 			if (currentIndex == menus.Length)
