@@ -20,10 +20,10 @@ public class Shape : MonoBehaviour {
 	private ParticleSystem _particleSystem;
     private SoundManager sm;
 	public bool[] shapeAvailable = new bool[] {
-		true,
-		true,
-		true,
-		true
+		true,//square
+		true,//triangle
+		true,//circle
+		true//hexagon
 	};
 
 	Color[] _colors = new Color[4] { //Same order than ShapeType
@@ -33,10 +33,10 @@ public class Shape : MonoBehaviour {
 		new Color(0, 255, 255) //Hegagon color
 	};
 	KeyCode[] shapeButton = new KeyCode[] { //Same order than ShapeType
-		KeyCode.Q,
-		KeyCode.Z,
-		KeyCode.S,
-		KeyCode.D
+		KeyCode.Q,//square
+		KeyCode.Z,//triangle
+		KeyCode.D,//circle
+		KeyCode.S//hexagon
 	};
 
 	void Start() {
