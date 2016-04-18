@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,10 +9,34 @@ public class MainMenuScript : MonoBehaviour {
 	public int numLevels;
 	public int levelsPerPage = 6;
 	private List<GameObject> unactivatedObjects;
+	private int currentIndex = 0;
+	private EventSystem eventSystem;
+	private Button[] buttons;
 
 	void Start() {
 		unactivatedObjects = new List<GameObject>();
 		PlayerPrefs.SetInt("maxLevel", numLevels);
+
+		eventSystem = GameObject.FindObjectOfType<EventSystem> ();
+		buttons = menus[0].gameObject.GetComponentsInChildren<Button>();
+		eventSystem.SetSelectedGameObject(buttons[currentIndex].gameObject);
+	}
+
+	// Update is called once per frame
+	void Update () {
+		if (Input.GetKeyDown (KeyCode.DownArrow)) {
+			currentIndex++;
+			if (currentIndex == menus.Length)
+				currentIndex = 0;
+		} else if (Input.GetKeyUp (KeyCode.UpArrow)) {
+			currentIndex--;
+			if (currentIndex == -1)
+				currentIndex = menus.Length - 1;
+		} else {
+			return;
+		}
+		print (currentIndex);
+		eventSystem.SetSelectedGameObject(buttons[currentIndex].gameObject);
 	}
 
 	public void PlayLevel(int level) {
