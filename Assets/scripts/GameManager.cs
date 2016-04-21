@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour {
 
 	void Awake()
 	{
-		Debug.Log("load current level =" + currentLevel);
 		currentLevel = PlayerPrefs.GetInt("currentLevel");
 		maxLevel = PlayerPrefs.GetInt("maxLevel");
 	}
@@ -90,6 +89,7 @@ public class GameManager : MonoBehaviour {
 	{
 		if (sm != null)
 			sm.PlayRestart ();
+		isWinning = false;
 		gameState = GameState.EndingAnimation;
 	}
 
@@ -99,10 +99,7 @@ public class GameManager : MonoBehaviour {
                 if (sm != null)
                     sm.PlayLvlEnd();
 				gameState = GameState.Start;
-				currentLevel++;
-				PlayerPrefs.SetInt("currentLevel", currentLevel);
-				Debug.Log("load next level =" + currentLevel + " max=" + maxLevel);
-				Application.LoadLevel ("Level" + currentLevel.ToString());
+				InGameMenus.GoToNextLevel();
 			} else {
 				Application.LoadLevel("Menu");
 			}

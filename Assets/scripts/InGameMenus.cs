@@ -9,17 +9,14 @@ public class InGameMenus : MonoBehaviour {
 	public GameObject pauseMenuFirstObject;
 	public GameObject endMenuFirstObject;
 
-	GameObject _pauseMenu;
-	GameObject _endLevelMenu;
-	GameManager _manager;
+	public GameObject _pauseMenu;
+	public GameObject _endLevelMenu;
+	public GameManager _manager;
 	GameState _oldState;
 	EventSystem _es;
 
 	// Use this for initialization
 	void Start () {
-		_pauseMenu = GameObject.Find("PauseMenu");
-		_endLevelMenu = GameObject.Find("EndLevelMenu");
-		_manager = GameObject.FindObjectOfType<GameManager>();
 		_es = EventSystem.current;
 
         /* adding new sound*/
@@ -50,13 +47,11 @@ public class InGameMenus : MonoBehaviour {
 	}
 
 	public void Continue() {
-		Debug.Log("continue");
 		_manager.gameState = _oldState;
 		_pauseMenu.SetActive(false);
 	}
 
-	public void NextLevel() {
-		Debug.Log("next level");
+	public static void GoToNextLevel() {
 		int level = PlayerPrefs.GetInt("currentLevel");
 		int levelsPerStartum = PlayerPrefs.GetInt("levelsPerStartum");
 		level++;
@@ -65,16 +60,23 @@ public class InGameMenus : MonoBehaviour {
 		while (level >= i)
 			i += levelsPerStartum;
 		i -= levelsPerStartum;
-		Application.LoadLevel("Level" + i.ToString());
+		Debug.Log(level + " " + PlayerPrefs.GetInt("maxLevel"));
+		if (level < PlayerPrefs.GetInt("maxLevel")) {
+			Application.LoadLevel("Level" + i.ToString());
+		} else {
+			Application.LoadLevel("Menu");
+		}
+	}
+
+	public void NextLevel() {
+		GoToNextLevel();
 	}
 
 	public void Restart() {
-		Debug.Log("restart");
 		_manager.RestartLevel();
 	}
 
 	public void MainMenu() {
-		Debug.Log("main menu");
 		Application.LoadLevel("Menu");
 	}
 }

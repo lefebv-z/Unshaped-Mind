@@ -65,6 +65,35 @@ public class Shape : MonoBehaviour {
 		}
 		colorFilterMat.color = _colors[(int)currentType];
 		gameObject.GetComponent<SpriteRenderer>().sprite = sprites[(int)currentType];
+		Transform[] availableShapes = GameObject.Find("InGameInfos").GetComponentsInChildren<Transform>(true);
+		foreach (Transform availableShape in availableShapes) {
+			int i = 0;
+			Debug.Log(availableShape.name);
+			foreach (bool shAvail in shapeAvailable) {
+				SetAvailableShape(shAvail, shapeButtons[i], availableShape.gameObject);
+				i++;
+			}
+		}
+	}
+
+	void SetAvailableShape(bool avShape, string shName, GameObject availableShape) {
+		if (avShape) {
+			if (availableShape.name.Contains(shName)) {
+				if (availableShape.name.Contains("Unavailable")) {
+					availableShape.SetActive(false);
+				} else {
+					availableShape.SetActive(true);
+				}
+			}
+		} else {
+			if (availableShape.name.Contains(shName)) {
+				if (availableShape.name.Contains("Available")) {
+					availableShape.SetActive(false);
+				} else {
+					availableShape.SetActive(true);
+				}
+			}
+		}
 	}
 
 	public ShapeType GetShape() {
