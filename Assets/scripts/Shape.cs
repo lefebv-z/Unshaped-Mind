@@ -124,7 +124,15 @@ public class Shape : MonoBehaviour {
 			Debug.Log("wrong hole");
 			//TODO: death gestion?
 		}
+        if (sm != null)
+            sm.PlayHitWall();
 	}
+
+   /* void OnCollisionEnter2D(Collision2D other)
+    {
+        if (sm != null)
+            sm.PlayHitWall();
+    }*/
 
 	/*void OnTriggerExit2D(Collider2D other) {
 		if (other.gameObject.tag == "Mechanism") {

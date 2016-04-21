@@ -23,7 +23,7 @@ public class SoundManager : MonoBehaviour {
     public AudioClip restartSound;
     public AudioClip changeSound;
     public AudioClip nochangeSound;
-    //wall hit
+    public AudioClip wallhit;
     public AudioClip helpSound;
 
     public AudioSource mainSource; //play main music
@@ -273,6 +273,13 @@ public class SoundManager : MonoBehaviour {
         effectModificator = 0.5f;
         noisesSource.volume = effectsVolume;
         noisesSource.PlayOneShot(nochangeSound);
+    }
+
+    public void PlayHitWall()
+    {
+        effectModificator = 1.0f;
+        noisesSource.volume = effectsVolume;
+        noisesSource.PlayOneShot(wallhit);
     }
 
     public void PlayHelp()
