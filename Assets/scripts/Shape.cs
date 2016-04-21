@@ -32,11 +32,12 @@ public class Shape : MonoBehaviour {
 		new Color(255, 0, 0),  //Circle color
 		new Color(0, 255, 255) //Hegagon color
 	};
-	KeyCode[] shapeButton = new KeyCode[] { //Same order than ShapeType
-		KeyCode.Q,//square
-		KeyCode.Z,//triangle
-		KeyCode.D,//circle
-		KeyCode.S//hexagon
+
+	string[] shapeButtons = new string[] { //Same order than ShapeType
+		"Square",
+		"Triangle",
+		"Circle",
+		"Hexagon"
 	};
 
 	void Start() {
@@ -67,7 +68,7 @@ public class Shape : MonoBehaviour {
 		}
 
 		for (int i = 0; i < (int)ShapeType.ShapeTypeCount; i++) {
-			if (Input.GetKeyDown(shapeButton[i])
+			if (Input.GetButtonDown(shapeButtons[i])
 			    && shapeAvailable[i]
 			    && (ShapeType)(i) != currentType) {
 				if (gameManager.remainingTransformation > 0) {
@@ -83,7 +84,7 @@ public class Shape : MonoBehaviour {
 				}
 				break;
 			}
-            else if (Input.GetKeyDown(shapeButton[i]) && shapeAvailable[i])
+            else if (Input.GetButtonDown(shapeButtons[i]) && shapeAvailable[i])
                 if (sm != null)
                     sm.PlayNoChange();
 		}
