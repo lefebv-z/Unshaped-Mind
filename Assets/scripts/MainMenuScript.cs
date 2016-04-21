@@ -37,7 +37,6 @@ public class MainMenuScript : MonoBehaviour {
 		} else {
 			return;
 		}
-		print (currentIndex);
 		eventSystem.SetSelectedGameObject(buttons[currentIndex].gameObject);
 	}
 
@@ -92,24 +91,32 @@ public class MainMenuScript : MonoBehaviour {
 				unactivatedObjects.Add(level);
 			}
 		}
+		eventSystem.SetSelectedGameObject(
+			buttons[0].gameObject);
 	}
 
 	public void HowToPlay() {
 		Debug.Log("How to play");
 		menus[0].SetActive(false);
 		menus[2].SetActive(true);
+		eventSystem.SetSelectedGameObject(
+			menus[2].gameObject.GetComponentInChildren<Button>().gameObject);
 	}
 	
 	public void Settings() {
 		Debug.Log("Settings");
 		menus[0].SetActive(false);
 		menus[3].SetActive(true);
+		eventSystem.SetSelectedGameObject(
+			menus[3].gameObject.GetComponentInChildren<Button>().gameObject);
 	}
 
 	public void Credits() {
 		Debug.Log("Credits");
 		menus[0].SetActive(false);
 		menus[4].SetActive(true);
+		eventSystem.SetSelectedGameObject(
+			menus[4].gameObject.GetComponentInChildren<Button>().gameObject);
 	}
 	
 	public void Exit() {
@@ -124,5 +131,6 @@ public class MainMenuScript : MonoBehaviour {
 		}
 		reactivateObjects();
 		menus[0].SetActive(true);
+		eventSystem.SetSelectedGameObject(buttons[currentIndex].gameObject);
 	}
 }
