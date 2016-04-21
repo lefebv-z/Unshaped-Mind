@@ -41,12 +41,30 @@ public class Shape : MonoBehaviour {
 	};
 
 	void Start() {
-        sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
+		sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
 		_particleSystem = gameObject.GetComponent<ParticleSystem>();
 		sprites = Resources.LoadAll<Sprite>("SpriteSheet");
+		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+		GameObject[] levels = GameObject.FindGameObjectsWithTag("Level");
+		foreach (GameObject level in levels) {
+			if (level.name == "Level" + GameManager.currentLevel.ToString()) {
+				Transform[] positions = level.gameObject.GetComponentsInChildren<Transform>();
+				foreach (Transform p in positions) {
+					if (p.name == "PlayerPos") {
+						transform.position = p.localPosition;
+						Debug.Log("position=" + p.localPosition.ToString() + " " + p.name);
+					}
+				}
+				NbTransfoLevelSave levelData = level.gameObject.GetComponentInChildren<NbTransfoLevelSave>();
+				gameManager.remainingTransformation = levelData.nbTransformations;
+				shapeAvailable = levelData.shapeAvailable;
+				currentType = levelData.StartingType;
+			} else {
+				level.SetActive(false);
+			}
+		}
 		colorFilterMat.color = _colors[(int)currentType];
 		gameObject.GetComponent<SpriteRenderer>().sprite = sprites[(int)currentType];
-		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();//TODO : find why initialization in the GameManager fails
 	}
 
 	public ShapeType GetShape() {
