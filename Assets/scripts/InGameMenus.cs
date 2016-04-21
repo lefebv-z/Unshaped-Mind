@@ -1,17 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
+
+//var es : EventSystem = EventSystemManager.currentSystem;
+//es.SetSelectGameObject(go, null);
 
 public class InGameMenus : MonoBehaviour {
+	public GameObject pauseMenuFirstObject;
+	public GameObject endMenuFirstObject;
+
 	GameObject _pauseMenu;
 	GameObject _endLevelMenu;
 	GameManager _manager;
 	GameState _oldState;
+	EventSystem _es;
 
 	// Use this for initialization
 	void Start () {
 		_pauseMenu = GameObject.Find("PauseMenu");
 		_endLevelMenu = GameObject.Find("EndLevelMenu");
 		_manager = GameObject.FindObjectOfType<GameManager>();
+		_es = EventSystem.current;
 
         /* adding new sound*/
         //SoundManager sm = (SoundManager)FindObjectOfType(typeof(SoundManager));
@@ -27,6 +36,7 @@ public class InGameMenus : MonoBehaviour {
 				_oldState = _manager.gameState;
 				_manager.gameState = GameState.Menu;
 				_pauseMenu.SetActive(true);
+				_es.SetSelectedGameObject(pauseMenuFirstObject);
 			} else {
 				_manager.gameState = _oldState;
 				_pauseMenu.SetActive(false);
@@ -35,6 +45,7 @@ public class InGameMenus : MonoBehaviour {
 		if (_manager.gameState == GameState.Menu && !_pauseMenu.activeSelf && !_endLevelMenu.activeSelf) {
 			_oldState = _manager.gameState;
 			_endLevelMenu.SetActive(true);
+			_es.SetSelectedGameObject(endMenuFirstObject);
 		}
 	}
 
