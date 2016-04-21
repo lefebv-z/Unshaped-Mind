@@ -7,11 +7,16 @@ public class LevelNumberScript : MonoBehaviour {
     private string currLevel;
     private Text currentLevel;
     public int lvlperStratum;
-
+    private GameManager gm;
 
     void Awake ()
     {
-        int lvl = Application.loadedLevel;
+        lvlperStratum = PlayerPrefs.GetInt("levelsPerStartum");
+        int lvl;
+        lvl = 1;
+        gm = (GameManager)(GameObject.FindObjectOfType(typeof(GameManager)));
+        if (gm != null)
+            lvl = gm.getLevel();
         currentLevel = GetComponentInChildren<Text>();
         currLevel = ((lvl - 1) / (lvlperStratum) + 1).ToString("0") + " - " + ((lvl - 1) % (lvlperStratum) + 1).ToString("0");
         currentLevel.text = "Current Level : " + currLevel;
@@ -22,7 +27,12 @@ public class LevelNumberScript : MonoBehaviour {
 	}
     void OnLevelWasLoaded(int level)
     {
-        int lvl = level;
+
+        int lvl;
+        lvl = 1;
+        gm = (GameManager)(GameObject.FindObjectOfType(typeof(GameManager)));
+        if (gm != null)
+            lvl = gm.getLevel();
         currentLevel = GetComponentInChildren<Text>();
         currLevel = ((lvl - 1) / (lvlperStratum) + 1).ToString("0") + " - " + ((lvl - 1) % (lvlperStratum) + 1).ToString("0");
         currentLevel.text = "Current Level : " + currLevel;

@@ -116,5 +116,10 @@ public class GameManager : MonoBehaviour {
         return maxTransfo;
     }
 
+    public int getLevel()
+    {
+        return currentLevel;
+    }
+
 }
 
