@@ -63,9 +63,7 @@ public class GameManager : MonoBehaviour {
 			case GameState.Playing:
 				if (Input.GetKeyDown(KeyCode.R))
                 {
-                    if (sm != null)
-                        sm.PlayRestart();
-					gameState = GameState.EndingAnimation;
+					RestartLevel();
 				}
                 break;
 			case GameState.EndingAnimation:
@@ -78,7 +76,7 @@ public class GameManager : MonoBehaviour {
 				else {
 					//TODO: reset animation/sound
 				}
-			mainCamera.GetComponent<Animator>().enabled = true;
+				//mainCamera.GetComponent<Animator>().enabled = true;
 				//anim
 				gameState = GameState.End;
 				break;
@@ -88,6 +86,13 @@ public class GameManager : MonoBehaviour {
 			default:
 				break;
 		}
+	}
+
+	public void RestartLevel()
+	{
+		if (sm != null)
+			sm.PlayRestart ();
+		gameState = GameState.EndingAnimation;
 	}
 
 	void EndGame() {

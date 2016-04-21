@@ -54,7 +54,7 @@ public class InGameMenus : MonoBehaviour {
 
 	public void Restart() {
 		Debug.Log("restart");
-		Application.LoadLevel(Application.loadedLevel);
+		_manager.RestartLevel();
 	}
 
 	public void MainMenu() {
