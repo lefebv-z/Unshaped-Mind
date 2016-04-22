@@ -61,7 +61,7 @@ public class InGameMenus : MonoBehaviour {
 			i += levelsPerStartum;
 		i -= levelsPerStartum;
 		Debug.Log(level + " " + PlayerPrefs.GetInt("maxLevel"));
-		if (level < PlayerPrefs.GetInt("maxLevel")) {
+		if (level <= PlayerPrefs.GetInt("maxLevel")) {
 			Application.LoadLevel("Level" + i.ToString());
 		} else {
 			Application.LoadLevel("Menu");
