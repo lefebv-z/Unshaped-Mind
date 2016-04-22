@@ -8,6 +8,7 @@ public class SoundManager : MonoBehaviour {
     public static SoundManager soundSysManager;
 
     public AudioClip firstStratumMusic;
+    public AudioClip secondStratumMusic;
     public AudioClip firstStratumBeats;
 
     /*public AudioClip secondStratumMusic;
@@ -42,6 +43,7 @@ public class SoundManager : MonoBehaviour {
     private float bgmModificator;
     private float beatsModificator;
     private float effectModificator;
+    private int stratum;
 
     private Button[] buttons;
 
@@ -54,6 +56,9 @@ public class SoundManager : MonoBehaviour {
         }
         else
             Destroy(gameObject);
+        LevelNumberScript lvlnumb = (LevelNumberScript)(GameObject.FindObjectOfType(typeof(LevelNumberScript)));
+        if (lvlnumb != null)
+            stratum = lvlnumb.GetStratum();
     }
 
     // Use this for initialization
@@ -74,18 +79,24 @@ public class SoundManager : MonoBehaviour {
 
     void OnLevelWasLoaded(int level)
     {
-            buttons = (Button[])(GameObject.FindObjectsOfType(typeof(Button)));
-            foreach (Button button in buttons)
-            {
-                button.onClick.AddListener(PlayValidation);
-                EventTrigger.Entry entry = new EventTrigger.Entry();
-                entry.eventID = EventTriggerType.PointerEnter;
-                entry.callback.AddListener((eventData) => { PlaySelecting(); });
-                EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
-                if (trigger != null)
-                    trigger.triggers.Add(entry);
-            }
-        
+        LevelNumberScript lvlnumb = (LevelNumberScript)(GameObject.FindObjectOfType(typeof(LevelNumberScript)));
+        if (lvlnumb != null)
+        {
+            stratum = lvlnumb.GetStratum();
+            PlayStratum();
+        }
+        buttons = (Button[])(GameObject.FindObjectsOfType(typeof(Button)));
+        foreach (Button button in buttons)
+        {
+            button.onClick.AddListener(PlayValidation);
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerEnter;
+            entry.callback.AddListener((eventData) => { PlaySelecting(); });
+            EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
+            if (trigger != null)
+                trigger.triggers.Add(entry);
+        }
+
         //get all button and add play song event
     }
 	
@@ -98,8 +109,11 @@ public class SoundManager : MonoBehaviour {
             {
                 if (InGame == false)
                 {
+                    LevelNumberScript lvlnumb = (LevelNumberScript)(GameObject.FindObjectOfType(typeof(LevelNumberScript)));
+                    if (lvlnumb != null)
+                        stratum = lvlnumb.GetStratum();
                     InGame = true;
-                    PlayFirstStratum();
+                    PlayStratum();
                 }
                 transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
                 
@@ -131,7 +145,7 @@ public class SoundManager : MonoBehaviour {
                         if (InDanger == true)
                         {
                             InDanger = false;
-                            PlayFirstStratum();
+                            PlayStratum();
                             secondarySource.Stop();
                         }
                     }
@@ -178,6 +192,14 @@ public class SoundManager : MonoBehaviour {
         mainSource.Play();  
     }
 
+    void PlayStratum()
+    {
+        if (stratum == 1)
+            PlayFirstStratum();
+        else
+            PlaySecondStratum();
+    }
+
     void PlayFirstStratum()
     {
         mainSource.Stop();
@@ -185,6 +207,16 @@ public class SoundManager : MonoBehaviour {
         mainSource.volume = bgmModificator * bgmVolume;
         mainSource.loop = true;
         mainSource.clip = firstStratumMusic;
+        mainSource.Play();
+    }
+
+    void PlaySecondStratum()
+    {
+        mainSource.Stop();
+        bgmModificator = 0.8f;
+        mainSource.volume = bgmModificator * bgmVolume;
+        mainSource.loop = true;
+        mainSource.clip = secondStratumMusic;
         mainSource.Play();
     }
 

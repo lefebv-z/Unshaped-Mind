@@ -8,11 +8,11 @@ public class LevelNumberScript : MonoBehaviour {
     private Text currentLevel;
     public int lvlperStratum;
     private GameManager gm;
+    public int lvl;
 
     void Awake ()
     {
         lvlperStratum = PlayerPrefs.GetInt("levelsPerStartum");
-        int lvl;
         lvl = 1;
         gm = (GameManager)(GameObject.FindObjectOfType(typeof(GameManager)));
         if (gm != null)
@@ -27,8 +27,6 @@ public class LevelNumberScript : MonoBehaviour {
 	}
     void OnLevelWasLoaded(int level)
     {
-
-        int lvl;
         lvl = 1;
         gm = (GameManager)(GameObject.FindObjectOfType(typeof(GameManager)));
         if (gm != null)
@@ -36,6 +34,11 @@ public class LevelNumberScript : MonoBehaviour {
         currentLevel = GetComponentInChildren<Text>();
         currLevel = ((lvl - 1) / (lvlperStratum) + 1).ToString("0") + " - " + ((lvl - 1) % (lvlperStratum) + 1).ToString("0");
         currentLevel.text = "Current Level : " + currLevel;
+    }
+
+    public int GetStratum()
+    {
+        return ((lvl - 1) / (lvlperStratum) + 1);
     }
 
 	// Update is called once per frame
