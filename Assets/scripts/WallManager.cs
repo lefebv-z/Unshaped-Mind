@@ -15,13 +15,27 @@ public class WallManager : MonoBehaviour {
 
 	private bool			isOn = true;
 	private Collider2D		wallCollider;
-	private SpriteRenderer	wallSprite;
+	private MeshRenderer	wallSprite;
 	private Shape			playerShape;
-	
+	private Texture			tex = Resources.LoadAll<Texture>("walltile")[0];
+	private GameObject		childGO;
+
 	void Start () {
+		childGO = transform.Find("WallGraphics").gameObject;
+
 		wallCollider = gameObject.GetComponent<Collider2D>();
-		wallSprite = gameObject.GetComponent<SpriteRenderer>();
+		wallSprite = childGO.GetComponent<MeshRenderer>();
 		playerShape = GameObject.Find ("PlayerShape").GetComponent<Shape> ();
+		if (color == ColorType.Green)
+			tex = Resources.LoadAll<Texture>("wallTileSqu")[0];
+		if (color == ColorType.Blue)
+			tex = Resources.LoadAll<Texture>("wallTileTri")[0];
+		if (color == ColorType.Red)
+			tex = Resources.LoadAll<Texture>("wallTileCir")[0];
+		if (color == ColorType.Cyan)
+			tex = Resources.LoadAll<Texture>("wallTileHex")[0];
+		childGO.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", tex);
+		childGO.GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(transform.localScale.x / 2, 1);
 	}
 	
 	void Update () {

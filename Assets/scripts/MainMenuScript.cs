@@ -16,6 +16,7 @@ public class MainMenuScript : MonoBehaviour {
 	void Start() {
 		unactivatedObjects = new List<GameObject>();
 		PlayerPrefs.SetInt("maxLevel", numLevels);
+		PlayerPrefs.SetInt("levelsPerStartum", levelsPerPage);
 
 		eventSystem = GameObject.FindObjectOfType<EventSystem> ();
 		buttons = menus[0].gameObject.GetComponentsInChildren<Button>();
@@ -42,7 +43,11 @@ public class MainMenuScript : MonoBehaviour {
 
 	public void PlayLevel(int level) {
 		PlayerPrefs.SetInt("currentLevel", level);
-		Application.LoadLevel("Level" + level.ToString());
+		int i = 1;
+		while (level >= i)
+			i += levelsPerPage;
+		i -= levelsPerPage;
+		Application.LoadLevel("Level" + i.ToString());
 	}
 
 	void reactivateObjects() {

@@ -32,20 +32,39 @@ public class Shape : MonoBehaviour {
 		new Color(255, 0, 0),  //Circle color
 		new Color(0, 255, 255) //Hegagon color
 	};
-	KeyCode[] shapeButton = new KeyCode[] { //Same order than ShapeType
-		KeyCode.Q,//square
-		KeyCode.Z,//triangle
-		KeyCode.D,//circle
-		KeyCode.S//hexagon
+
+	string[] shapeButtons = new string[] { //Same order than ShapeType
+		"Square",
+		"Triangle",
+		"Circle",
+		"Hexagon"
 	};
 
 	void Start() {
-        sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
+		sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
 		_particleSystem = gameObject.GetComponent<ParticleSystem>();
 		sprites = Resources.LoadAll<Sprite>("SpriteSheet");
+		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+		GameObject[] levels = GameObject.FindGameObjectsWithTag("Level");
+		foreach (GameObject level in levels) {
+			if (level.name == "Level" + GameManager.currentLevel.ToString()) {
+				Transform[] positions = level.gameObject.GetComponentsInChildren<Transform>();
+				foreach (Transform p in positions) {
+					if (p.name == "PlayerPos") {
+						transform.position = p.localPosition;
+						Debug.Log("position=" + p.localPosition.ToString() + " " + p.name);
+					}
+				}
+				NbTransfoLevelSave levelData = level.gameObject.GetComponentInChildren<NbTransfoLevelSave>();
+				gameManager.remainingTransformation = levelData.nbTransformations;
+				shapeAvailable = levelData.shapeAvailable;
+				currentType = levelData.StartingType;
+			} else {
+				level.SetActive(false);
+			}
+		}
 		colorFilterMat.color = _colors[(int)currentType];
 		gameObject.GetComponent<SpriteRenderer>().sprite = sprites[(int)currentType];
-		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();//TODO : find why initialization in the GameManager fails
 	}
 
 	public ShapeType GetShape() {
@@ -67,7 +86,7 @@ public class Shape : MonoBehaviour {
 		}
 
 		for (int i = 0; i < (int)ShapeType.ShapeTypeCount; i++) {
-			if (Input.GetKeyDown(shapeButton[i])
+			if (Input.GetButtonDown(shapeButtons[i])
 			    && shapeAvailable[i]
 			    && (ShapeType)(i) != currentType) {
 				if (gameManager.remainingTransformation > 0) {
@@ -83,7 +102,7 @@ public class Shape : MonoBehaviour {
 				}
 				break;
 			}
-            else if (Input.GetKeyDown(shapeButton[i]) && shapeAvailable[i])
+            else if (Input.GetButtonDown(shapeButtons[i]) && shapeAvailable[i])
                 if (sm != null)
                     sm.PlayNoChange();
 		}
@@ -125,6 +144,15 @@ public class Shape : MonoBehaviour {
 			//TODO: death gestion?
 		}
 	}
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Wall")
+        {
+            if (sm != null)
+                sm.PlayHitWall();
+        }
+    }
 
 	/*void OnTriggerExit2D(Collider2D other) {
 		if (other.gameObject.tag == "Mechanism") {

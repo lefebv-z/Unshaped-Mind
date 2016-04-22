@@ -58,9 +58,14 @@ public class InGameMenus : MonoBehaviour {
 	public void NextLevel() {
 		Debug.Log("next level");
 		int level = PlayerPrefs.GetInt("currentLevel");
+		int levelsPerStartum = PlayerPrefs.GetInt("levelsPerStartum");
 		level++;
 		PlayerPrefs.SetInt("currentLevel", level);
-		Application.LoadLevel("Level" + level.ToString());
+		int i = 1;
+		while (level >= i)
+			i += levelsPerStartum;
+		i -= levelsPerStartum;
+		Application.LoadLevel("Level" + i.ToString());
 	}
 
 	public void Restart() {
