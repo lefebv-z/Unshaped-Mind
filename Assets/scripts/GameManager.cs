@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour {
     private SoundManager sm;
 //	private Camera mainCamera;
 
+    private bool endOccuring; //if the player is in thole
+    private Vector3 endDestination; //position of center of hole
+
 	void Awake()
 	{
 		currentLevel = PlayerPrefs.GetInt("currentLevel");
@@ -33,6 +36,7 @@ public class GameManager : MonoBehaviour {
 
 	void Start ()
 	{
+        endOccuring = false;
         sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
 //		mainCamera = (Camera)(GameObject.FindObjectOfType(typeof(Camera)));
         maxTransfo = remainingTransformation;
@@ -55,35 +59,51 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		switch (gameState) {
-			case GameState.Playing:
-				if (Input.GetKeyDown(KeyCode.R))
-                {
-					RestartLevel();
-				}
-                break;
-			case GameState.EndingAnimation:
-				if (isWinning) {
-                    if (sm != null)
-                        sm.PlayLvlEnd();
-					gameState = GameState.Menu;
-					break;
-				}
-				else {
-					//TODO: reset animation/sound
-				}
-				//mainCamera.GetComponent<Animator>().enabled = true;
-				//anim
-				gameState = GameState.End;
-				break;
-			case GameState.End:
-				EndGame();
-				break;
-			default:
-				break;
-		}
-	}
+    void Update()
+    {
+
+        if (endOccuring == true && endDestination != shape.transform.position)
+            shape.transform.position = Vector3.MoveTowards(shape.transform.position, endDestination, 0.5f * Time.deltaTime);
+        else
+        {
+            switch (gameState)
+            {
+                case GameState.Playing:
+                    if (Input.GetKeyDown(KeyCode.R))
+                    {
+                        RestartLevel();
+                    }
+                    break;
+                case GameState.EndingAnimation:
+                    if (isWinning)
+                    {
+                        
+                        MoveToHole();
+                        if (endOccuring == true && endDestination == shape.transform.position)
+                        {
+                            if (sm != null)
+                                sm.PlayLvlEnd();
+                            endOccuring = false;
+                            gameState = GameState.Menu;
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        //TODO: reset animation/sound
+                    }
+                    //mainCamera.GetComponent<Animator>().enabled = true;
+                    //anim
+                    gameState = GameState.End;
+                    break;
+                case GameState.End:
+                    EndGame();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
 	public void RestartLevel()
 	{
@@ -116,6 +136,13 @@ public class GameManager : MonoBehaviour {
     public int getLevel()
     {
         return currentLevel;
+    }
+
+    void MoveToHole()
+    {
+        endOccuring = true;
+        endDestination = shape.getEndPosition();
+        shape.PlayParticle();
     }
 
 }

@@ -40,6 +40,8 @@ public class Shape : MonoBehaviour {
 		"Hexagon"
 	};
 
+    private Vector3 endDestination;
+
 	void Start() {
 		sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
 		_particleSystem = gameObject.GetComponent<ParticleSystem>();
@@ -147,7 +149,8 @@ public class Shape : MonoBehaviour {
 			return;
 		}
 		if (!gameManager.isWinning && other.gameObject.tag == (currentType.ToString () + "Hole")) {
-			Debug.Log("win");
+            Debug.Log("win");
+            endDestination = other.gameObject.transform.position;
 			gameManager.gameState = GameState.EndingAnimation;
 			gameManager.isWinning = true;
 		}
@@ -166,6 +169,7 @@ public class Shape : MonoBehaviour {
 
 		if (other.gameObject.tag == (currentType.ToString () + "Hole")) {
 			Debug.Log("win");
+            endDestination = other.gameObject.transform.position;
 			gameManager.gameState = GameState.EndingAnimation;
 			gameManager.isWinning = true;
 		} else if (other.gameObject.tag.Contains("Hole")) {
@@ -188,4 +192,14 @@ public class Shape : MonoBehaviour {
 			other.GetComponent<MechanicScript>().DesactivateMechanic();
 		}
 	}*/
+
+    public Vector3 getEndPosition()
+    {
+        return endDestination;
+    }
+
+    public void PlayParticle()
+    {
+    _particleSystem.Play();
+    }
 }

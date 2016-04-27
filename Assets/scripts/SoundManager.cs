@@ -44,8 +44,10 @@ public class SoundManager : MonoBehaviour {
     private float beatsModificator;
     private float effectModificator;
     private int stratum;
+    private int currenlyStratumMusic;
 
     private Button[] buttons;
+    
 
     void Awake()
     {
@@ -83,6 +85,7 @@ public class SoundManager : MonoBehaviour {
         if (lvlnumb != null)
         {
             stratum = lvlnumb.GetStratum();
+            if (stratum != currenlyStratumMusic)
             PlayStratum();
         }
         buttons = (Button[])(GameObject.FindObjectsOfType(typeof(Button)));
@@ -107,30 +110,25 @@ public class SoundManager : MonoBehaviour {
 
             if (player != null)
             {
+                LevelNumberScript lvlnumb = (LevelNumberScript)(GameObject.FindObjectOfType(typeof(LevelNumberScript)));
+                if (lvlnumb != null)
+                    stratum = lvlnumb.GetStratum();
                 if (InGame == false)
                 {
-                    LevelNumberScript lvlnumb = (LevelNumberScript)(GameObject.FindObjectOfType(typeof(LevelNumberScript)));
-                    if (lvlnumb != null)
-                        stratum = lvlnumb.GetStratum();
+                    
                     InGame = true;
                     PlayStratum();
+
+                    Debug.Log("need to move");
                 }
                 transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
-                
                 gm = (GameManager)(GameObject.FindObjectOfType(typeof(GameManager)));
                 if (gm != null)
                 {
                     if (gm.getMaxTransfo() >= 3)
                         dangerlimit = gm.getMaxTransfo() / 4;
-                    /* need to get max transfo for this. until then */
-                    /*
-                    if (gm.remainingTransformation >= dangerlimit && InDanger == true)
-                    {
-                        dangerlimit = gm.remainingTransformation / 3;
-                        InDanger = false;
-                    }
-                    */
-
+                    else
+                        dangerlimit = -1;
                     if (gm.remainingTransformation < dangerlimit)
                     {
                         if (InDanger == false)
@@ -138,6 +136,7 @@ public class SoundManager : MonoBehaviour {
                             InDanger = true;
                             PlayFirstStratumBeats();
                             mainSource.Stop();
+                            currenlyStratumMusic = 0;
                         }
                     }
                     else
@@ -189,7 +188,8 @@ public class SoundManager : MonoBehaviour {
         mainSource.volume = bgmModificator * bgmVolume;
         mainSource.loop = true;
         mainSource.clip = logMusic;
-        mainSource.Play();  
+        mainSource.Play();
+        currenlyStratumMusic = 0;
     }
 
     void PlayStratum()
@@ -208,6 +208,7 @@ public class SoundManager : MonoBehaviour {
         mainSource.loop = true;
         mainSource.clip = firstStratumMusic;
         mainSource.Play();
+        currenlyStratumMusic = 1;
     }
 
     void PlaySecondStratum()
@@ -218,6 +219,7 @@ public class SoundManager : MonoBehaviour {
         mainSource.loop = true;
         mainSource.clip = secondStratumMusic;
         mainSource.Play();
+        currenlyStratumMusic = 2;
     }
 
     void PlayFirstStratumBeats()
