@@ -54,7 +54,6 @@ public class Shape : MonoBehaviour {
 				foreach (Transform p in positions) {
 					if (p.name == "PlayerPos") {
 						transform.position = p.localPosition;
-						Debug.Log("position=" + p.localPosition.ToString() + " " + p.name);
 					}
 				}
 				NbTransfoLevelSave levelData = level.gameObject.GetComponentInChildren<NbTransfoLevelSave>();
@@ -70,7 +69,6 @@ public class Shape : MonoBehaviour {
 		Transform[] availableShapes = GameObject.Find("InGameInfos").GetComponentsInChildren<Transform>(true);
 		foreach (Transform availableShape in availableShapes) {
 			int i = 0;
-			Debug.Log(availableShape.name);
 			foreach (bool shAvail in shapeAvailable) {
 				SetAvailableShape(shAvail, shapeButtons[i], availableShape.gameObject);
 				i++;
