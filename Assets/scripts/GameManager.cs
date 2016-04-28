@@ -9,6 +9,7 @@ public enum GameState
 	EndingAnimation,
 	End,
 	Menu,
+	Fullscreen,
 	GameStateCount
 }
 

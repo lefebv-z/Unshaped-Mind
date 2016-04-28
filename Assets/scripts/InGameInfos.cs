@@ -22,7 +22,6 @@ public class InGameInfos : MonoBehaviour {
 
 		int i;
 		for (i = 0; i < (int)ShapeType.ShapeTypeCount; i++) {
-			print ("Img_" + ((ShapeType)i).ToString() + "_Available");
 			availableShapes.Add(GameObject.Find("Img_" + ((ShapeType)i).ToString() + "_Available"));
 			unavailableShapes.Add(GameObject.Find("Img_" + ((ShapeType)i).ToString() + "_Unavailable"));
 		}
