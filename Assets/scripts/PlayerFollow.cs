@@ -5,11 +5,14 @@ public class PlayerFollow : MonoBehaviour {
 	private Camera cam;
 	private float camSize = 10;
 	private float fullscreenSize = 10;
-	private bool isFullscreen;
 	private Vector3 middlePos;
+	private GameManager gManager;
+	private GameObject inGameInfo;
 	public	GameObject	player;
 
 	void Start () {
+		inGameInfo = GameObject.FindObjectOfType<InGameInfos>().gameObject;
+		gManager = GameObject.FindObjectOfType<GameManager>();
 		float[] levelSize = new float[4] { 0, 0, 0, 0 }; //0=left 1=top 2=right 3=bottom
 		cam = gameObject.GetComponent<Camera>();
 		Transform[] walls = GameObject.Find("walls").GetComponentsInChildren<Transform>();
@@ -38,17 +41,19 @@ public class PlayerFollow : MonoBehaviour {
 
 	//TODO: do it better (get level size and only move when necessary)
 	void Update () {
-		if (!isFullscreen) {
+		if (gManager.gameState != GameState.Fullscreen) {
 			transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
 		} else {
 			transform.position = new Vector3(middlePos.x, middlePos.y, middlePos.z);
 		}
 		if (Input.GetKeyDown(KeyCode.Tab)) {
-			if (isFullscreen) {
-				isFullscreen = false;
+			if (gManager.gameState == GameState.Fullscreen) {
+				inGameInfo.SetActive(true);
+				gManager.gameState = GameState.Playing;
 				cam.orthographicSize = camSize;
 			} else {
-				isFullscreen = true;
+				inGameInfo.SetActive(false);
+				gManager.gameState = GameState.Fullscreen;
 				cam.orthographicSize = fullscreenSize;
 			}
 		}
