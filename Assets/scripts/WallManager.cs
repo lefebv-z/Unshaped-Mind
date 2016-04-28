@@ -17,12 +17,12 @@ public class WallManager : MonoBehaviour {
 	private Collider2D		wallCollider;
 	private MeshRenderer	wallSprite;
 	private Shape			playerShape;
-	private Texture			tex = Resources.Load<Texture>("walltile");
+	private Texture			tex;
 	private GameObject		childGO;
 
 	void Start () {
 		childGO = transform.Find("WallGraphics").gameObject;
-
+		tex = Resources.Load<Texture>("walltile");
 		wallCollider = gameObject.GetComponent<Collider2D>();
 		wallSprite = childGO.GetComponent<MeshRenderer>();
 		playerShape = GameObject.Find ("PlayerShape").GetComponent<Shape> ();
