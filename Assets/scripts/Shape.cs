@@ -45,7 +45,7 @@ public class Shape : MonoBehaviour {
 	void Start() {
 		sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
 		_particleSystem = gameObject.GetComponent<ParticleSystem>();
-		sprites = Resources.LoadAll<Sprite>("SpriteSheet");
+		sprites = Resources.LoadAll<Sprite>("SpriteSheet_crayon");
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 		GameObject[] levels = GameObject.FindGameObjectsWithTag("Level");
 		foreach (GameObject level in levels) {

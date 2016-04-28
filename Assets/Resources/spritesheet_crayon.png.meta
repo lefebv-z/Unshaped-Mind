@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 79d0f7b88e8af9245beffe118252491f
-timeCreated: 1460439112
+guid: cce9413a583ffa948a968e1e2bcfe51c
+timeCreated: 1461822118
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -52,7 +52,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 256
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
@@ -62,170 +62,190 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
-        width: 64
-        height: 64
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -29, y: 30}
-        - {x: -29, y: -21}
-        - {x: -28, y: -29}
-        - {x: 20, y: -29}
-        - {x: 27, y: -24}
-        - {x: 27, y: 30}
+      - - {x: 101, y: -87}
+        - {x: 101, y: 17}
+        - {x: 99, y: 104}
+        - {x: 91, y: 109}
+        - {x: 68, y: 99}
+        - {x: -23, y: 103}
+        - {x: -83, y: 112}
+        - {x: -107, y: 112}
+        - {x: -107, y: 60}
+        - {x: -101, y: 5}
+        - {x: -107, y: -7}
+        - {x: -107, y: -9}
+        - {x: -92, y: -101}
+        - {x: -53, y: -107}
+        - {x: 23, y: -107}
+        - {x: 87, y: -101}
+        - {x: 90, y: -94}
+        - {x: 96, y: -94}
     - name: spritesheet_crayon_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
-        width: 64
-        height: 64
+        x: 256
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -2, y: 30}
-        - {x: -31, y: -19}
-        - {x: -31, y: -24}
-        - {x: -30, y: -26}
-        - {x: 26, y: -26}
-        - {x: 27, y: -24}
-        - {x: 27, y: -15}
-        - {x: 7, y: 30}
+      - - {x: 18, y: 112}
+        - {x: -2, y: 112}
+        - {x: -117, y: -81}
+        - {x: -117, y: -96}
+        - {x: -112, y: -96}
+        - {x: -106, y: -94}
+        - {x: -68, y: -96}
+        - {x: 97, y: -96}
+        - {x: 101, y: -92}
+        - {x: 101, y: -82}
+        - {x: 78, y: -20}
     - name: spritesheet_crayon_2
       rect:
         serializedVersion: 2
-        x: 128
-        y: 64
-        width: 64
-        height: 64
+        x: 512
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -25, y: 31}
-        - {x: -32, y: 11}
-        - {x: -32, y: -27}
-        - {x: -23, y: -28}
-        - {x: 20, y: -28}
-        - {x: 26, y: -25}
-        - {x: 26, y: 31}
+      - - {x: 98, y: 57}
+        - {x: 97, y: 70}
+        - {x: 73, y: 95}
+        - {x: 10, y: 115}
+        - {x: -40, y: 115}
+        - {x: -98, y: 67}
+        - {x: -120, y: 15}
+        - {x: -120, y: -77}
+        - {x: -114, y: -77}
+        - {x: -75, y: -98}
+        - {x: -56, y: -103}
+        - {x: 24, y: -103}
+        - {x: 70, y: -87}
+        - {x: 95, y: -53}
+        - {x: 98, y: -40}
     - name: spritesheet_crayon_3
       rect:
         serializedVersion: 2
-        x: 192
-        y: 64
-        width: 64
-        height: 64
+        x: 768
+        y: 256
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 23, y: 26}
-        - {x: -5, y: 28}
-        - {x: -14, y: 28}
-        - {x: -32, y: 10}
-        - {x: -32, y: -7}
-        - {x: -22, y: -32}
-        - {x: 20, y: -32}
-        - {x: 32, y: -5}
-        - {x: 32, y: 1}
-        - {x: 27, y: 23}
+      - - {x: 10, y: 116}
+        - {x: 0, y: 116}
+        - {x: -104, y: 35}
+        - {x: -105, y: 32}
+        - {x: -105, y: -87}
+        - {x: -97, y: -105}
+        - {x: 57, y: -105}
+        - {x: 106, y: 11}
+        - {x: 106, y: 50}
+        - {x: 19, y: 110}
     - name: spritesheet_crayon_4
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 3, y: 32}
-        - {x: -26, y: 30}
-        - {x: -26, y: -30}
-        - {x: 9, y: -30}
-        - {x: 21, y: -29}
-        - {x: 29, y: -25}
-        - {x: 29, y: 32}
-      - - {x: -17, y: 21}
-        - {x: 9, y: 22}
-        - {x: 17, y: -19}
-        - {x: -16, y: -20}
+      - - {x: 9, y: 124}
+        - {x: -96, y: 120}
+        - {x: -96, y: -113}
+        - {x: 8, y: -113}
+        - {x: 76, y: -110}
+        - {x: 109, y: -89}
+        - {x: 109, y: 124}
+      - - {x: -74, y: -85}
+        - {x: -74, y: 89}
+        - {x: 91, y: 97}
+        - {x: 74, y: -89}
     - name: spritesheet_crayon_5
       rect:
         serializedVersion: 2
-        x: 64
+        x: 256
         y: 0
-        width: 64
-        height: 64
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 30, y: 4}
-        - {x: 6, y: 32}
-        - {x: -6, y: 32}
-        - {x: -29, y: -16}
-        - {x: -29, y: -22}
-        - {x: -28, y: -23}
-        - {x: -12, y: -23}
-        - {x: 17, y: -22}
-        - {x: 32, y: -20}
-        - {x: 32, y: -9}
+      - - {x: 119, y: -50}
+        - {x: 15, y: 119}
+        - {x: 9, y: 123}
+        - {x: 4, y: 123}
+        - {x: 1, y: 119}
+        - {x: -108, y: -72}
+        - {x: -108, y: -84}
+        - {x: -13, y: -84}
+        - {x: 117, y: -73}
+        - {x: 119, y: -68}
     - name: spritesheet_crayon_6
       rect:
         serializedVersion: 2
-        x: 128
+        x: 512
         y: 0
-        width: 64
-        height: 64
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 17, y: 32}
-        - {x: -15, y: 32}
-        - {x: -28, y: 15}
-        - {x: -28, y: -19}
-        - {x: -15, y: -26}
-        - {x: 19, y: -26}
-        - {x: 31, y: -15}
-        - {x: 31, y: 17}
-        - {x: 25, y: 31}
-      - - {x: -20, y: -5}
-        - {x: -7, y: 24}
-        - {x: -1, y: 25}
-        - {x: -4, y: 25}
-        - {x: -6, y: 22}
-        - {x: -6, y: 20}
-        - {x: -4, y: 16}
+      - - {x: 30, y: 103}
+        - {x: -4, y: 90}
+        - {x: -13, y: 85}
+        - {x: -12, y: 81}
+        - {x: -3, y: 82}
+        - {x: 25, y: -82}
+        - {x: -37, y: 103}
+        - {x: 20, y: 100}
+        - {x: 24, y: 118}
+        - {x: -104, y: 118}
+        - {x: -104, y: -95}
+        - {x: 54, y: -95}
+        - {x: 115, y: -76}
+        - {x: 115, y: 60}
+        - {x: 85, y: 113}
     - name: spritesheet_crayon_7
       rect:
         serializedVersion: 2
-        x: 192
+        x: 768
         y: 0
-        width: 64
-        height: 64
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -20, y: 32}
-        - {x: -32, y: 19}
-        - {x: -32, y: -11}
-        - {x: -27, y: -29}
-        - {x: 25, y: -29}
-        - {x: 30, y: -6}
-        - {x: 30, y: 9}
-        - {x: 22, y: 32}
-      - - {x: -15, y: -15}
-        - {x: -17, y: 12}
-        - {x: 13, y: 24}
-        - {x: 14, y: -20}
+      - - {x: 5, y: 121}
+        - {x: -3, y: 121}
+        - {x: -5, y: 120}
+        - {x: -98, y: 2}
+        - {x: -98, y: -17}
+        - {x: -88, y: -85}
+        - {x: 65, y: -85}
+        - {x: 112, y: 23}
+        - {x: 112, y: 31}
+        - {x: 110, y: 36}
     outline: []
   spritePackingTag: 
   userData: 
