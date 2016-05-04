@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 //var es : EventSystem = EventSystemManager.currentSystem;
 //es.SetSelectGameObject(go, null);
@@ -18,7 +19,21 @@ public class InGameMenus : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		_es = EventSystem.current;
-
+		
+		if (PlayerPrefs.GetInt("currentLevel") >= PlayerPrefs.GetInt("maxLevel")) {
+			Button[] buttons = _pauseMenu.GetComponentsInChildren<Button>();
+			foreach (Button b in buttons) {
+				if (b.name == "NextLevel") {
+					b.interactable = false;
+				}
+			}
+			buttons = _endLevelMenu.GetComponentsInChildren<Button>();
+			foreach (Button b in buttons) {
+				if (b.name == "NextLevel") {
+					b.interactable = false;
+				}
+			}
+		}
         /* adding new sound*/
         //SoundManager sm = (SoundManager)FindObjectOfType(typeof(SoundManager));
         //get all button and add play song event
@@ -60,7 +75,7 @@ public class InGameMenus : MonoBehaviour {
 		while (level >= i)
 			i += levelsPerStartum;
 		i -= levelsPerStartum;
-		Debug.Log(level + " " + PlayerPrefs.GetInt("maxLevel"));
+		Debug.Log(level + " " + PlayerPrefs.GetInt("maxLevel") + " " + i);
 		if (level <= PlayerPrefs.GetInt("maxLevel")) {
 			Application.LoadLevel("Level" + i.ToString());
 		} else {
