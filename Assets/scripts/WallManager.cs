@@ -52,4 +52,8 @@ public class WallManager : MonoBehaviour {
 		wallSprite.enabled = on;
 		isOn = on;
 	}
+
+	public void setDisappear() {
+		childGO.GetComponent<MeshRenderer>().material.SetColor("_TintColor", new Color(0f, 0f, 0f, 0.1f));
+	}
 }
