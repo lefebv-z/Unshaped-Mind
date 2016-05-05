@@ -17,6 +17,7 @@ public class MechanicScript : MonoBehaviour {
 	void Start() {
 		_gameManager = GameObject.FindObjectOfType<GameManager>();
 		foreach (GameObject obj in wallsToDisapear) {
+			obj.GetComponent<WallManager>().setDisappear();
 			GameObject line = new GameObject("LineToMechanism");
 			line.transform.SetParent(obj.transform);
 			line.gameObject.transform.parent = obj.transform;
