@@ -25,6 +25,11 @@ public class MainMenuScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if (menus[1].activeInHierarchy && Input.GetKeyDown(KeyCode.P)) {
+			eventSystem.SetSelectedGameObject(GameObject.Find("Left"));
+		} else if (menus[1].activeSelf && Input.GetKeyDown(KeyCode.N)) {
+			eventSystem.SetSelectedGameObject(GameObject.Find("Right"));
+		}
 		if (!menus[0].activeSelf)//TODO: cleaner way to do this ?
 			return;
 		if (Input.GetKeyDown (KeyCode.DownArrow)) {
