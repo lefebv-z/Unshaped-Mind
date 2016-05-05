@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: c3fd6cd7c9ce0b34dbef655c60b62e3b
-timeCreated: 1462453177
+guid: 631b6538e32e8014e9c2a25cb12f9576
+timeCreated: 1462453186
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: mechanisms_0
-    21300002: mechanisms_1
-    21300004: mechanisms_2
-    21300006: mechanisms_3
+    21300000: portals_0
+    21300002: portals_1
+    21300004: portals_2
+    21300006: portals_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -54,7 +54,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: mechanisms_0
+    - name: portals_0
       rect:
         serializedVersion: 2
         x: 0
@@ -65,13 +65,13 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -21, y: 32}
-        - {x: -27, y: 27}
-        - {x: -27, y: -30}
-        - {x: 30, y: -30}
-        - {x: 32, y: -28}
-        - {x: 32, y: 32}
-    - name: mechanisms_1
+      - - {x: -32, y: 32}
+        - {x: -32, y: -31}
+        - {x: -21, y: -32}
+        - {x: 30, y: -32}
+        - {x: 30, y: 21}
+        - {x: 29, y: 32}
+    - name: portals_1
       rect:
         serializedVersion: 2
         x: 64
@@ -82,16 +82,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 15, y: 32}
-        - {x: -13, y: 32}
-        - {x: -32, y: -6}
-        - {x: -32, y: -27}
-        - {x: -22, y: -27}
-        - {x: -19, y: -26}
-        - {x: 24, y: -25}
-        - {x: 32, y: -22}
-        - {x: 32, y: 4}
-    - name: mechanisms_2
+      - - {x: 5, y: 30}
+        - {x: -6, y: 30}
+        - {x: -14, y: 22}
+        - {x: -29, y: -18}
+        - {x: -29, y: -31}
+        - {x: 26, y: -31}
+        - {x: 27, y: -28}
+        - {x: 27, y: -17}
+        - {x: 13, y: 23}
+    - name: portals_2
       rect:
         serializedVersion: 2
         x: 128
@@ -102,15 +102,13 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -19, y: 32}
-        - {x: -29, y: 10}
-        - {x: -29, y: -13}
-        - {x: -22, y: -26}
-        - {x: 11, y: -26}
-        - {x: 32, y: -10}
-        - {x: 32, y: 25}
-        - {x: 19, y: 32}
-    - name: mechanisms_3
+      - - {x: -30, y: 32}
+        - {x: -30, y: -32}
+        - {x: 20, y: -32}
+        - {x: 32, y: -18}
+        - {x: 32, y: 11}
+        - {x: 18, y: 32}
+    - name: portals_3
       rect:
         serializedVersion: 2
         x: 192
@@ -121,16 +119,18 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 9, y: 31}
-        - {x: -2, y: 31}
-        - {x: -11, y: 29}
-        - {x: -31, y: -5}
-        - {x: -31, y: -15}
-        - {x: -18, y: -30}
-        - {x: 21, y: -30}
-        - {x: 30, y: -18}
-        - {x: 32, y: -8}
-        - {x: 32, y: 14}
+      - - {x: 30, y: -20}
+        - {x: 32, y: -9}
+        - {x: 32, y: 19}
+        - {x: 10, y: 32}
+        - {x: -9, y: 32}
+        - {x: -32, y: 1}
+        - {x: -32, y: -17}
+        - {x: -26, y: -32}
+        - {x: -15, y: -32}
+        - {x: -11, y: -30}
+        - {x: 3, y: -32}
+        - {x: 23, y: -32}
     outline: []
   spritePackingTag: 
   userData: 

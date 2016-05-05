@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: c3fd6cd7c9ce0b34dbef655c60b62e3b
-timeCreated: 1462453177
+guid: 6f2d4f2f639ea0b46b034dc7021d9611
+timeCreated: 1462453732
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: mechanisms_0
-    21300002: mechanisms_1
-    21300004: mechanisms_2
-    21300006: mechanisms_3
+    21300000: mechanismOn_0
+    21300002: mechanismOn_1
+    21300004: mechanismOn_2
+    21300006: mechanismOn_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -54,7 +54,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: mechanisms_0
+    - name: mechanismOn_0
       rect:
         serializedVersion: 2
         x: 0
@@ -65,13 +65,15 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -21, y: 32}
-        - {x: -27, y: 27}
-        - {x: -27, y: -30}
-        - {x: 30, y: -30}
-        - {x: 32, y: -28}
-        - {x: 32, y: 32}
-    - name: mechanisms_1
+      - - {x: -20, y: -24}
+        - {x: -19, y: -27}
+        - {x: 32, y: -27}
+        - {x: 32, y: -1}
+        - {x: 29, y: 26}
+        - {x: 28, y: 29}
+        - {x: 3, y: 29}
+        - {x: -20, y: 24}
+    - name: mechanismOn_1
       rect:
         serializedVersion: 2
         x: 64
@@ -82,16 +84,20 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 15, y: 32}
-        - {x: -13, y: 32}
-        - {x: -32, y: -6}
-        - {x: -32, y: -27}
-        - {x: -22, y: -27}
-        - {x: -19, y: -26}
-        - {x: 24, y: -25}
-        - {x: 32, y: -22}
-        - {x: 32, y: 4}
-    - name: mechanisms_2
+      - - {x: -32, y: -26}
+        - {x: -29, y: -25}
+        - {x: -29, y: -22}
+        - {x: -31, y: -20}
+        - {x: -32, y: -20}
+      - - {x: -12, y: 32}
+        - {x: -29, y: -10}
+        - {x: -29, y: -22}
+        - {x: -25, y: -24}
+        - {x: 25, y: -24}
+        - {x: 32, y: -23}
+        - {x: 32, y: -1}
+        - {x: 15, y: 32}
+    - name: mechanismOn_2
       rect:
         serializedVersion: 2
         x: 128
@@ -102,15 +108,14 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -19, y: 32}
-        - {x: -29, y: 10}
-        - {x: -29, y: -13}
-        - {x: -22, y: -26}
-        - {x: 11, y: -26}
+      - - {x: -18, y: 32}
+        - {x: -22, y: 13}
+        - {x: -22, y: -18}
+        - {x: -12, y: -23}
+        - {x: 21, y: -23}
         - {x: 32, y: -10}
-        - {x: 32, y: 25}
-        - {x: 19, y: 32}
-    - name: mechanisms_3
+        - {x: 32, y: 32}
+    - name: mechanismOn_3
       rect:
         serializedVersion: 2
         x: 192
@@ -121,16 +126,23 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 9, y: 31}
-        - {x: -2, y: 31}
-        - {x: -11, y: 29}
-        - {x: -31, y: -5}
-        - {x: -31, y: -15}
-        - {x: -18, y: -30}
-        - {x: 21, y: -30}
-        - {x: 30, y: -18}
+      - - {x: 28, y: 13}
+        - {x: 12, y: 30}
+        - {x: 10, y: 31}
+        - {x: 3, y: 31}
+        - {x: -24, y: 2}
+        - {x: -24, y: -25}
+        - {x: -20, y: -27}
+        - {x: 28, y: -27}
+        - {x: 29, y: -25}
         - {x: 32, y: -8}
-        - {x: 32, y: 14}
+        - {x: 32, y: 11}
+      - - {x: -32, y: 6}
+        - {x: -30, y: 4}
+        - {x: -27, y: 5}
+        - {x: -27, y: 7}
+        - {x: -30, y: 10}
+        - {x: -32, y: 10}
     outline: []
   spritePackingTag: 
   userData: 
