@@ -5,6 +5,8 @@ public class MechanicScript : MonoBehaviour {
 	public ShapeType type;
 	public GameObject[] wallsToDisapear;
 	private GameManager _gameManager;
+	private Sprite[]	spritesOn;
+	private Sprite[]	spritesOff;
 	bool _isActive = false;
 	Color[] _colors = new Color[5] { //Same order than ShapeType
 		new Color(0, 1, 0, 0.5f),   //green
@@ -15,6 +17,8 @@ public class MechanicScript : MonoBehaviour {
 	};
 
 	void Start() {
+		spritesOn = Resources.LoadAll<Sprite>("mechanismOn");
+		spritesOff = Resources.LoadAll<Sprite>("mechanisms");
 		_gameManager = GameObject.FindObjectOfType<GameManager>();
 		foreach (GameObject obj in wallsToDisapear) {
 			obj.GetComponent<WallManager>().setDisappear();
@@ -62,7 +66,7 @@ public class MechanicScript : MonoBehaviour {
         if ( _isActive == true)
         {
             Debug.Log("Mechanic no longer active:" + name);
-            GetComponent<SpriteRenderer>().color = Color.white;
+			GetComponent<SpriteRenderer>().sprite = spritesOff[(int)type];
             if (sm != null)
                 sm.PlayUnlocking();
             _isActive = false;
@@ -77,7 +81,7 @@ public class MechanicScript : MonoBehaviour {
         if (_isActive == false)
         {
             Debug.Log("Mechanic active:" + name);
-            GetComponent<SpriteRenderer>().color = Color.gray;
+			GetComponent<SpriteRenderer>().sprite = spritesOn[(int)type];
             if (sm != null)
                 sm.PlayUnlocking();
             _isActive = true;
