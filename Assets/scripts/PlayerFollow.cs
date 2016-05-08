@@ -41,6 +41,9 @@ public class PlayerFollow : MonoBehaviour {
 
 	//TODO: do it better (get level size and only move when necessary)
 	void Update () {
+		if (!gManager) {
+			gManager = GameObject.FindObjectOfType<GameManager>();
+		}
 		if (gManager.gameState != GameState.Fullscreen) {
 			transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
 		} else {

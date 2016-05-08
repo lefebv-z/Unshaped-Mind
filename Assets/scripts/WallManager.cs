@@ -20,7 +20,7 @@ public class WallManager : MonoBehaviour {
 	private Texture			tex;
 	private GameObject		childGO;
 
-	void Start () {
+	void Awake () {
 		childGO = transform.Find("WallGraphics").gameObject;
 		tex = Resources.Load<Texture>("walltile");
 		wallCollider = gameObject.GetComponent<Collider2D>();

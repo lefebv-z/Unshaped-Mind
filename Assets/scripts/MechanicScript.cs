@@ -4,7 +4,7 @@ using System.Collections;
 public class MechanicScript : MonoBehaviour {
 	public ShapeType type;
 	public GameObject[] wallsToDisapear;
-	private GameManager _gameManager;
+	public GameManager gameManager;
 	private Sprite[]	spritesOn;
 	private Sprite[]	spritesOff;
 	bool _isActive = false;
@@ -19,9 +19,10 @@ public class MechanicScript : MonoBehaviour {
 	void Start() {
 		spritesOn = Resources.LoadAll<Sprite>("mechanismOn");
 		spritesOff = Resources.LoadAll<Sprite>("mechanisms");
-		_gameManager = GameObject.FindObjectOfType<GameManager>();
+		if (!gameManager) {
+			gameManager = GameObject.FindObjectOfType<GameManager>();
+		}
 		foreach (GameObject obj in wallsToDisapear) {
-			obj.GetComponent<WallManager>().setDisappear();
 			GameObject line = new GameObject("LineToMechanism");
 			line.transform.SetParent(obj.transform);
 			line.gameObject.transform.parent = obj.transform;
@@ -34,6 +35,7 @@ public class MechanicScript : MonoBehaviour {
 			renderer.material = wallMat;
 			renderer.SetWidth(0.05f, 0.05f);
 			renderer.enabled = false;
+			obj.GetComponent<WallManager>().setDisappear();
 		}
 	}
 
@@ -50,11 +52,11 @@ public class MechanicScript : MonoBehaviour {
 	}
 
 	void Update() {
-		if (_gameManager.gameState == GameState.Fullscreen &&
+		if (gameManager.gameState == GameState.Fullscreen &&
 		    wallsToDisapear.Length > 0 &&
 		    wallsToDisapear[0].GetComponentInChildren<LineRenderer>().enabled == false) {
 			ActivateLines();
-		} else if (_gameManager.gameState == GameState.Playing &&
+		} else if (gameManager.gameState == GameState.Playing &&
 		    wallsToDisapear.Length > 0 &&
 		    wallsToDisapear[0].GetComponentInChildren<LineRenderer>().enabled == true) {
 			DesactivateLines();

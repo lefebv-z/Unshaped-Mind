@@ -14,6 +14,8 @@ public class MainMenuScript : MonoBehaviour {
 	private Button[] buttons;
 
 	void Start() {
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
 		unactivatedObjects = new List<GameObject>();
 		PlayerPrefs.SetInt("maxLevel", numLevels);
 		PlayerPrefs.SetInt("levelsPerStartum", levelsPerPage);
