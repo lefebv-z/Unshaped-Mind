@@ -19,7 +19,7 @@ public class LevelNumberScript : MonoBehaviour {
             lvl = gm.getLevel();
         currentLevel = GetComponentInChildren<Text>();
         currLevel = ((lvl - 1) / (lvlperStratum) + 1).ToString("0") + " - " + ((lvl - 1) % (lvlperStratum) + 1).ToString("0");
-        currentLevel.text = "Current Level : " + currLevel;
+        currentLevel.text = "" + currLevel;
     }
 	// Use this for initialization
 	void Start () {
@@ -33,7 +33,7 @@ public class LevelNumberScript : MonoBehaviour {
             lvl = gm.getLevel();
         currentLevel = GetComponentInChildren<Text>();
         currLevel = ((lvl - 1) / (lvlperStratum) + 1).ToString("0") + " - " + ((lvl - 1) % (lvlperStratum) + 1).ToString("0");
-        currentLevel.text = "Current Level : " + currLevel;
+        currentLevel.text = "" + currLevel;
     }
 
     public int GetStratum()

@@ -27,17 +27,17 @@ public class LevelTimerScript : MonoBehaviour {
         {
             minutes = Mathf.RoundToInt(Mathf.Floor(currTime / 60.0f)).ToString("000");
             seconds = Mathf.RoundToInt(Mathf.Floor(currTime % 60.0f)).ToString("00");
-            currentTime.text = "Time : " + minutes + " : " + seconds;
+            currentTime.text = "" + minutes + " : " + seconds;
         }
         else if (currTime >= 60000.0f)
         {
-            currentTime.text = "Time : -- : --";
+            currentTime.text = "-- : --";
         }
         else
         {
             minutes = Mathf.RoundToInt(Mathf.Floor(currTime / 60.0f)).ToString("00");
             seconds = Mathf.RoundToInt(Mathf.Floor(currTime % 60.0f)).ToString("00");
-            currentTime.text = "Time : " + minutes + " : " + seconds;
+            currentTime.text = "" + minutes + " : " + seconds;
         }
 	}
 }
