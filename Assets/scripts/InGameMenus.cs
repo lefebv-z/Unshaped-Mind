@@ -20,7 +20,7 @@ public class InGameMenus : MonoBehaviour {
 	void Start () {
 		_es = EventSystem.current;
 		
-		if (PlayerPrefs.GetInt("currentLevel") >= PlayerPrefs.GetInt("maxLevel")) {
+		/*if (PlayerPrefs.GetInt("currentLevel") >= PlayerPrefs.GetInt("maxLevel")) {
 			Button[] buttons = _pauseMenu.GetComponentsInChildren<Button>();
 			foreach (Button b in buttons) {
 				if (b.name == "NextLevel") {
@@ -33,7 +33,7 @@ public class InGameMenus : MonoBehaviour {
 					b.interactable = false;
 				}
 			}
-		}
+		}*/
         /* adding new sound*/
         //SoundManager sm = (SoundManager)FindObjectOfType(typeof(SoundManager));
         //get all button and add play song event

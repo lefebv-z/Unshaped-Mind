@@ -37,6 +37,6 @@ public class InGameInfos : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//TODO: faire ça ailleurs que dans l'update parce que c'est degueulasse ?
-		remaining.text = "" + gameManager.remainingTransformation.ToString();
+		remaining.text = "Remaining transformations: " + gameManager.remainingTransformation.ToString();
 	}
 }

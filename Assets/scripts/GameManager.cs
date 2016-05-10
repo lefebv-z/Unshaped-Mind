@@ -10,7 +10,8 @@ public enum GameState
 	End,
 	Menu,
 	Fullscreen,
-	GameStateCount
+	GameStateCount,
+	PortalAnimation
 }
 
 public class GameManager : MonoBehaviour {
