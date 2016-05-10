@@ -7,6 +7,7 @@ public class MechanicScript : MonoBehaviour {
 	public GameObject[] wallsToAppear;
 	public GameObject VFX;
 	public GameManager gameManager;
+	public GameObject lineToMechPref;
 	private Sprite[]	spritesOn;
 	private Sprite[]	spritesOff;
 	bool _isActive = false;
@@ -25,17 +26,12 @@ public class MechanicScript : MonoBehaviour {
 			gameManager = GameObject.FindObjectOfType<GameManager>();
 		}
 		foreach (GameObject obj in wallsToDisapear) {
-			GameObject line = new GameObject("LineToMechanism");
-			line.transform.SetParent(obj.transform);
-			line.gameObject.transform.parent = obj.transform;
-			LineRenderer renderer = line.AddComponent<LineRenderer>();
+			GameObject line = Instantiate(lineToMechPref);
+			LineRenderer renderer = line.GetComponent<LineRenderer>();
 			renderer.SetPosition(0, obj.transform.position);
 			renderer.SetPosition(1, transform.position);
-			ColorType cType = obj.GetComponent<WallManager>().color;
-			Material wallMat = new Material(Shader.Find("Unlit/Color"));
-			wallMat.color = _colors[(int)cType];
-			renderer.material = wallMat;
-			renderer.SetWidth(0.05f, 0.05f);
+			line.transform.SetParent(obj.transform);
+			line.gameObject.transform.parent = obj.transform;
 			renderer.enabled = false;
 			obj.GetComponent<WallManager>().setDisappear();
 		}
@@ -92,12 +88,12 @@ public class MechanicScript : MonoBehaviour {
                 sm.PlayUnlocking();
             _isActive = true;
             foreach (GameObject obj in wallsToDisapear) {
-				GameObject vfx = Instantiate(VFX);
+				/*GameObject vfx = Instantiate(VFX);
 				vfx.transform.SetParent(transform);
 				vfx.GetComponentInChildren<ParticleSystem>().startColor = _colors[(int)obj.GetComponentInChildren<WallManager>().color];
 				vfx.transform.localPosition = Vector3.zero;
 				float angle = Mathf.Atan2(obj.transform.position.y - transform.position.y, obj.transform.position.x - transform.position.x) * 180;
-				vfx.transform.Rotate(0.0f, 0.0f, angle - 90.0f);
+				vfx.transform.Rotate(0.0f, 0.0f, angle - 90.0f);*/
                 obj.SetActive(false);
 			}
 			foreach (GameObject obj in wallsToAppear)
