@@ -54,6 +54,8 @@ public class WallManager : MonoBehaviour {
 	}
 
 	public void setDisappear() {
-		childGO.GetComponent<MeshRenderer>().material.SetColor("_TintColor", new Color(0f, 0f, 0f, 0.1f));
+		tex = Resources.Load<Texture>("wallTileDis");
+		//childGO.GetComponent<MeshRenderer>().material.SetColor("_TintColor", new Color(0f, 0f, 0f, 0.1f));
+		childGO.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", tex);
 	}
 }
