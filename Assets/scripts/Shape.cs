@@ -13,6 +13,8 @@ public enum ShapeType {
 //TODO : separate playercontroller & shape attributes in 2 classes
 public class Shape : MonoBehaviour {
 	private float speed = 10f;
+	private float acceleration = 1.0f;
+
 	public GameManager gameManager;
 	public Material colorFilterMat;
 	static Sprite[] sprites;
@@ -155,10 +157,17 @@ public class Shape : MonoBehaviour {
                     sm.PlayNoChange();
 		}
 
+		if (Input.GetButtonDown ("Accelerate")) {
+			if (acceleration == 1.0f)
+				acceleration = 2.0f;
+			else
+				acceleration = 1.0f;
+		}
+
 		float v = Input.GetAxisRaw("Vertical");
 		float v2 = Input.GetAxisRaw("Horizontal");
 
-		GetComponent<Rigidbody2D>().velocity = new Vector2(v2, v) * speed;
+		GetComponent<Rigidbody2D>().velocity = new Vector2(v2, v) * speed * acceleration;
 	}
 
 	void OnTriggerStay2D (Collider2D other) {
