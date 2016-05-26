@@ -6,8 +6,13 @@ using System.Collections.Generic;
 
 public class MainMenuScript : MonoBehaviour {
 	public GameObject[] menus; //0 == MainMenu; 1 == levels; 2 == how to play; 3 == Settings; 4 == Credits
-	public int numLevels;
+	public int numStratums = 1;
+	public int numLevels = 6;
+
 	public int levelsPerPage = 6;
+	public int[] numLevelsPerStratum;
+	public string[] strateNames;
+
 	private List<GameObject> unactivatedObjects;
 	private int currentIndex = 0;
 	private EventSystem eventSystem;
@@ -88,7 +93,7 @@ public class MainMenuScript : MonoBehaviour {
 				}
 			}
 		}
-		GameObject[] levels = GameObject.FindGameObjectsWithTag("Level");
+		GameObject[] levels = GameObject.FindGameObjectsWithTag("Level");//TODO change to "Stratum"
 		foreach (GameObject level in levels) {
 			int num = page * levelsPerPage + int.Parse(level.name) + 1;
 			if (num <= numLevels) {
