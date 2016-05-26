@@ -9,8 +9,12 @@ public class PlayerFollow : MonoBehaviour {
 	private GameManager gManager;
 	private GameObject inGameInfo;
 	public	GameObject	player;
+	public	GameObject YouAreHere;
+	private	GameObject _YouAreHereInstance;
 
 	void Start () {
+		_YouAreHereInstance = Instantiate(YouAreHere);
+		_YouAreHereInstance.SetActive(false);
 		inGameInfo = GameObject.FindObjectOfType<InGameInfos>().gameObject;
 		gManager = GameObject.FindObjectOfType<GameManager>();
 		float[] levelSize = new float[4] { 0, 0, 0, 0 }; //0=left 1=top 2=right 3=bottom
@@ -58,9 +62,12 @@ public class PlayerFollow : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Tab)) {
 			if (gManager.gameState == GameState.Fullscreen) {
 				inGameInfo.SetActive(true);
+				_YouAreHereInstance.SetActive(false);
 				gManager.gameState = GameState.Playing;
 				cam.orthographicSize = camSize;
 			} else {
+				_YouAreHereInstance.transform.position = player.transform.position;
+				_YouAreHereInstance.SetActive(true);
 				inGameInfo.SetActive(false);
 				gManager.gameState = GameState.Fullscreen;
 				cam.orthographicSize = fullscreenSize;
