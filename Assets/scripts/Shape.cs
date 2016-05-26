@@ -41,6 +41,9 @@ public class Shape : MonoBehaviour {
 	};
 
     private Vector3 endDestination;
+	[HideInInspector]
+	static public bool isHelpActive = false;
+	MechanicScript[] _mechScript;
 
 	void Start() {
 		sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
@@ -74,6 +77,7 @@ public class Shape : MonoBehaviour {
 				i++;
 			}
 		}
+		_mechScript = FindObjectsOfType<MechanicScript>();
 	}
 
 	void SetAvailableShape(bool avShape, string shName, GameObject availableShape) {
@@ -112,6 +116,21 @@ public class Shape : MonoBehaviour {
 		if (gameManager.gameState != GameState.Playing) {
 			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 			return;
+		}
+		if (Input.GetKeyDown(KeyCode.H) && gameManager.gameState == GameState.Playing) {
+			if (isHelpActive) {
+				Debug.Log("desactive");
+				isHelpActive = false;
+				foreach (MechanicScript ms in _mechScript) {
+					 ms.DesactivateLines();
+				}
+			} else {
+				Debug.Log("active");
+				isHelpActive = true;
+				foreach (MechanicScript ms in _mechScript) {
+					ms.ActivateLines();
+				}
+			}
 		}
 
 		for (int i = 0; i < (int)ShapeType.ShapeTypeCount; i++) {

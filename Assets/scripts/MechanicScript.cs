@@ -39,13 +39,17 @@ public class MechanicScript : MonoBehaviour {
 
 	public void ActivateLines() {
 		foreach (GameObject obj in wallsToDisapear) {
-			obj.GetComponentInChildren<LineRenderer>().enabled = true;
+			if (obj.activeSelf) {
+				obj.GetComponentsInChildren<LineRenderer>(true)[0].enabled = true;
+			}
 		}
 	}
 	
 	public void DesactivateLines() {
 		foreach (GameObject obj in wallsToDisapear) {
-			obj.GetComponentInChildren<LineRenderer>().enabled = false;
+			if (obj.activeSelf) {
+				obj.GetComponentInChildren<LineRenderer>().enabled = false;
+			}
 		}
 	}
 
@@ -54,7 +58,7 @@ public class MechanicScript : MonoBehaviour {
 		    wallsToDisapear.Length > 0 && wallsToDisapear[0].activeSelf == true &&
 		    wallsToDisapear[0].GetComponentInChildren<LineRenderer>().enabled == false) {
 			ActivateLines();
-		} else if (gameManager.gameState == GameState.Playing &&
+		} else if (gameManager.gameState == GameState.Playing && !Shape.isHelpActive &&
 	        wallsToDisapear.Length > 0 && wallsToDisapear[0].activeSelf == true &&
 		    wallsToDisapear[0].GetComponentInChildren<LineRenderer>().enabled == true) {
 			DesactivateLines();
