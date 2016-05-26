@@ -158,6 +158,12 @@ public class Shape : MonoBehaviour {
 				mechScript.ActivateMechanic();
 			}
 		}
+		if (other.gameObject.tag == "Portal") {
+			PortalScript portalScript = other.GetComponent<PortalScript>();
+			if (portalScript.type == currentType) {
+				portalScript.UsePortal(this.gameObject);
+			}
+		}
 	}
 
 	void OnTriggerEnter2D (Collider2D other) {
@@ -173,12 +179,6 @@ public class Shape : MonoBehaviour {
 		} else if (other.gameObject.tag.Contains("Hole")) {
 			Debug.Log("wrong hole");
 			//TODO: death gestion?
-		}
-		if (other.gameObject.tag == "Portal") {
-			PortalScript portalScript = other.GetComponent<PortalScript>();
-			if (portalScript.type == currentType) {
-				portalScript.UsePortal(this.gameObject);
-			}
 		}
 	}
 	void OnTriggerExit2D(Collider2D other) {
