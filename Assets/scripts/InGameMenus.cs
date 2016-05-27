@@ -3,9 +3,6 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-//var es : EventSystem = EventSystemManager.currentSystem;
-//es.SetSelectGameObject(go, null);
-
 public class InGameMenus : MonoBehaviour {
 	public GameObject pauseMenuFirstObject;
 	public GameObject endMenuFirstObject;
@@ -69,29 +66,6 @@ public class InGameMenus : MonoBehaviour {
 	}
 
 	public static void GoToNextLevel() {
-//		int level = PlayerPrefs.GetInt("currentLevel");
-//		int stratum = PlayerPrefs.GetInt("currentStratum");
-//		//int levelsPerStartum = PlayerPrefs.GetInt("levelsPerStartum");
-//		level++;
-//		if (level > PlayerPrefs.GetInt ("levelsInStratum" + stratum)) {
-//			level = 1;
-//			stratum++;
-//		}
-//		if (stratum > PlayerPrefs.GetInt ("numStratums")) {
-//			Application.LoadLevel ("Menu");
-//		}
-//
-//		Debug.Log ("next level is " + level);
-//
-//		PlayerPrefs.SetInt("currentLevel", level);
-//		PlayerPrefs.SetInt("currentStratum", stratum);
-		;
-
-		//		int i = 1;
-//		while (level >= i)
-//			i += levelsPerStartum;
-//		i -= levelsPerStartum;
-//		Debug.Log(level + " " + PlayerPrefs.GetInt("maxLevel") + " " + i);
 		if (GameManager.nextLevelExists (true)) {
 			Application.LoadLevel("Stratum" + PlayerPrefs.GetInt("currentStratum").ToString());
 		} else {

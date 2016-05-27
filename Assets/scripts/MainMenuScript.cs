@@ -7,7 +7,6 @@ using System.Collections.Generic;
 public class MainMenuScript : MonoBehaviour {
 	public GameObject[] menus; //0 == MainMenu; 1 == levels; 2 == how to play; 3 == Settings; 4 == Credits
 	public int numStratums = 4;
-//	public int numLevels = 6;
 
 	public int levelsPerPage = 6;
 	public int[] numLevelsPerStratum;
@@ -21,7 +20,6 @@ public class MainMenuScript : MonoBehaviour {
 
 	void Start() {
 		unactivatedObjects = new List<GameObject>();
-		//PlayerPrefs.SetInt("maxLevel", numLevels);
 		PlayerPrefs.SetInt("numStratums", numStratums);
 		PlayerPrefs.SetInt("levelsPerStartum", levelsPerPage);
 		for (int i = 1; i <= numStratums; i++)
@@ -58,12 +56,8 @@ public class MainMenuScript : MonoBehaviour {
 	public void PlayLevel(int stratum, int level) {
 		PlayerPrefs.SetInt("currentStratum", stratum);
 		PlayerPrefs.SetInt("currentLevel", level);
-//		int i = 1;
-//		while (level >= i)
-//			i += levelsPerPage;
-//		i -= levelsPerPage;
 
-		Application.LoadLevel("Stratum" + stratum.ToString());// + "_" + level.ToString());
+		Application.LoadLevel("Stratum" + stratum.ToString());
 	}
 
 	void reactivateObjects() {
@@ -93,7 +87,6 @@ public class MainMenuScript : MonoBehaviour {
 				b.onClick.RemoveAllListeners();
 				b.onClick.AddListener(() => {LevelPicker(page + 1);});
 				if ((page + 1) >= numStratums){
-//				if ((page + 1) * levelsPerPage + 1 > numLevels) {//TODO: change so we can have less than 6 levels
 					b.interactable = false;
 				} else {
 					b.interactable = true;
@@ -106,9 +99,9 @@ public class MainMenuScript : MonoBehaviour {
 		int stratum = page + 1;
 		stratumNameText.text = "Stratum " + stratum;
 
-		GameObject[] levels = GameObject.FindGameObjectsWithTag("Level");//TODO change to "Stratum"
+		GameObject[] levels = GameObject.FindGameObjectsWithTag("Level");
 		foreach (GameObject level in levels) {
-			int num = /*page * levelsPerPage +*/ int.Parse(level.name) + 1;
+			int num = int.Parse(level.name) + 1;
 			if (num <= numLevelsPerStratum[page]) {
 				//level.GetComponentInChildren<Text>().text = num.ToString();
 				Button b = level.GetComponent<Button>();
