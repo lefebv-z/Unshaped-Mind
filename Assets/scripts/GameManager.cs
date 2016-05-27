@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviour {
 	
 	public int getStratum()
 	{
-		return PlayerPrefs.GetInt("currentPage");
+		return PlayerPrefs.GetInt("currentStratum");
 	}
 	
 	public int getLevel()

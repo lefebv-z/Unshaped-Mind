@@ -12,34 +12,33 @@ public class LevelNumberScript : MonoBehaviour {
 
     void Awake ()
     {
-//        lvlperStratum = PlayerPrefs.GetInt("levelsPerStartum");
-//        lvl = 1;
-        gm = (GameManager)(GameObject.FindObjectOfType(typeof(GameManager)));
-//        if (gm != null)
-//            lvl = gm.getLevel();
+////        lvlperStratum = PlayerPrefs.GetInt("levelsPerStartum");
+////        lvl = 1;
+//        gm = (GameManager)(GameObject.FindObjectOfType(typeof(GameManager)));
+////        if (gm != null)
+////            lvl = gm.getLevel();
 //        currentLevel = GetComponentInChildren<Text>();
-//        currLevel = ((lvl - 1) / (lvlperStratum) + 1).ToString("0") + " - " + ((lvl - 1) % (lvlperStratum) + 1).ToString("0");
-//        currentLevel.text = "" + currLevel;
-		if (gm != null)
-			currentLevel.text = gm.getStratum ().ToString () + " - " + gm.getLevel ().ToString ();
-		else
-			currentLevel.text = "1 - 1";
+////        currLevel = ((lvl - 1) / (lvlperStratum) + 1).ToString("0") + " - " + ((lvl - 1) % (lvlperStratum) + 1).ToString("0");
+////        currentLevel.text = "" + currLevel;
+//		if (gm != null)
+//			currentLevel.text = "" + gm.getStratum ().ToString () + " - " + gm.getLevel ().ToString ();
+//		else
+//			currentLevel.text = "1 - 1";
+
+		OnLevelWasLoaded ();
 	}
-	// Use this for initialization
-	void Start () {
-     
-	}
-    void OnLevelWasLoaded(int level)
+
+	void OnLevelWasLoaded()
     {
 //        lvl = 1;
         gm = (GameManager)(GameObject.FindObjectOfType(typeof(GameManager)));
 //        if (gm != null)
 //            lvl = gm.getLevel();
-//        currentLevel = GetComponentInChildren<Text>();
+        currentLevel = GetComponentInChildren<Text>();
 //        currLevel = ((lvl - 1) / (lvlperStratum) + 1).ToString("0") + " - " + ((lvl - 1) % (lvlperStratum) + 1).ToString("0");
 //        currentLevel.text = "" + currLevel;
 		if (gm != null)
-			currentLevel.text = gm.getStratum ().ToString () + " - " + gm.getLevel ().ToString ();
+			currentLevel.text = "" + gm.getStratum ().ToString () + " - " + gm.getLevel ().ToString ();
 		else
 			currentLevel.text = "1 - 1";
 	}
