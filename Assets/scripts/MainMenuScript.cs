@@ -6,8 +6,8 @@ using System.Collections.Generic;
 
 public class MainMenuScript : MonoBehaviour {
 	public GameObject[] menus; //0 == MainMenu; 1 == levels; 2 == how to play; 3 == Settings; 4 == Credits
-	public int numStratums = 1;
-	public int numLevels = 6;
+	public int numStratums = 4;
+//	public int numLevels = 6;
 
 	public int levelsPerPage = 6;
 	public int[] numLevelsPerStratum;
@@ -21,8 +21,11 @@ public class MainMenuScript : MonoBehaviour {
 
 	void Start() {
 		unactivatedObjects = new List<GameObject>();
-		PlayerPrefs.SetInt("maxLevel", numLevels);
+		//PlayerPrefs.SetInt("maxLevel", numLevels);
+		PlayerPrefs.SetInt("numStratums", numStratums);
 		PlayerPrefs.SetInt("levelsPerStartum", levelsPerPage);
+		for (int i = 1; i <= numStratums; i++)
+			PlayerPrefs.SetInt ("levelsInStratum" + i, numLevelsPerStratum [i - 1]);
 
 		eventSystem = GameObject.FindObjectOfType<EventSystem> ();
 		buttons = menus[0].gameObject.GetComponentsInChildren<Button>();
@@ -89,7 +92,8 @@ public class MainMenuScript : MonoBehaviour {
 			} else if (b.name == "Right") {
 				b.onClick.RemoveAllListeners();
 				b.onClick.AddListener(() => {LevelPicker(page + 1);});
-				if ((page + 1) * levelsPerPage + 1 > numLevels) {//TODO: change so we can have less than 6 levels
+				if ((page + 1) >= numStratums){
+//				if ((page + 1) * levelsPerPage + 1 > numLevels) {//TODO: change so we can have less than 6 levels
 					b.interactable = false;
 				} else {
 					b.interactable = true;

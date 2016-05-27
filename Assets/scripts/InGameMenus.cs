@@ -69,28 +69,31 @@ public class InGameMenus : MonoBehaviour {
 	}
 
 	public static void GoToNextLevel() {
-		int level = PlayerPrefs.GetInt("currentLevel");
-		int stratum = PlayerPrefs.GetInt("currentStratum");
-		//int levelsPerStartum = PlayerPrefs.GetInt("levelsPerStartum");
-		level++;
-		if (level > PlayerPrefs.GetInt("levelsPerStartum"))//TODO count per strate
-		{
-			level = 1;
-			stratum++;
-		}
-
-		Debug.Log ("next level is " + level);
-
-		PlayerPrefs.SetInt("currentLevel", level);
-		PlayerPrefs.SetInt("currentStratum", stratum);
+//		int level = PlayerPrefs.GetInt("currentLevel");
+//		int stratum = PlayerPrefs.GetInt("currentStratum");
+//		//int levelsPerStartum = PlayerPrefs.GetInt("levelsPerStartum");
+//		level++;
+//		if (level > PlayerPrefs.GetInt ("levelsInStratum" + stratum)) {
+//			level = 1;
+//			stratum++;
+//		}
+//		if (stratum > PlayerPrefs.GetInt ("numStratums")) {
+//			Application.LoadLevel ("Menu");
+//		}
+//
+//		Debug.Log ("next level is " + level);
+//
+//		PlayerPrefs.SetInt("currentLevel", level);
+//		PlayerPrefs.SetInt("currentStratum", stratum);
+		;
 
 		//		int i = 1;
 //		while (level >= i)
 //			i += levelsPerStartum;
 //		i -= levelsPerStartum;
 //		Debug.Log(level + " " + PlayerPrefs.GetInt("maxLevel") + " " + i);
-		if (level <= PlayerPrefs.GetInt("maxLevel")) {
-			Application.LoadLevel("Stratum" + stratum.ToString());
+		if (GameManager.nextLevelExists (true)) {
+			Application.LoadLevel("Stratum" + PlayerPrefs.GetInt("currentStratum").ToString());
 		} else {
 			Application.LoadLevel("Menu");
 		}

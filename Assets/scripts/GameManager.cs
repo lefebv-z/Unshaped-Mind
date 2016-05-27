@@ -17,7 +17,7 @@ public enum GameState
 public class GameManager : MonoBehaviour {
 	public GameState gameState;
 	public static int currentLevel = 0;
-	private int maxLevel = 8;
+	//private int maxLevel = 8;
 	public int remainingTransformation = 15;//start at max, decrease during the game until it reaches 0
     private int maxTransfo;
 	public bool isWinning = false;//enum instead ?
@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour {
 	void Awake()
 	{
 		currentLevel = PlayerPrefs.GetInt("currentLevel");
-		maxLevel = PlayerPrefs.GetInt("maxLevel");
+		//maxLevel = PlayerPrefs.GetInt("maxLevel");
 	}
 
 	void Start ()
@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour {
 
 	void EndGame() {
 		if (isWinning) {
-			if (currentLevel < maxLevel) {
+			if (nextLevelExists()) {
                 if (sm != null)
                     sm.PlayLvlEnd();
 				gameState = GameState.Start;
@@ -143,6 +143,28 @@ public class GameManager : MonoBehaviour {
 	public int getLevel()
 	{
 		return currentLevel;
+	}
+
+	//Check if next level exist.
+	//if so and saveNext is true, then put next level in pref
+	public static bool nextLevelExists(bool saveNext = false)
+	{
+		int level = PlayerPrefs.GetInt("currentLevel");
+		int stratum = PlayerPrefs.GetInt("currentStratum");
+		//int levelsPerStartum = PlayerPrefs.GetInt("levelsPerStartum");
+		level++;
+		if (level > PlayerPrefs.GetInt ("levelsInStratum" + stratum)) {
+			level = 1;
+			stratum++;
+		}
+		if (stratum > PlayerPrefs.GetInt ("numStratums")) {
+			return false;
+		}
+		if (saveNext) {
+			PlayerPrefs.SetInt("currentLevel", level);
+			PlayerPrefs.SetInt("currentStratum", stratum);
+		}
+		return true;
 	}
 
     void MoveToHole()
