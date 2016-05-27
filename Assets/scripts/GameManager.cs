@@ -134,11 +134,16 @@ public class GameManager : MonoBehaviour {
     {
         return maxTransfo;
     }
-
-    public int getLevel()
-    {
-        return currentLevel;
-    }
+	
+	public int getStratum()
+	{
+		return PlayerPrefs.GetInt("currentPage");
+	}
+	
+	public int getLevel()
+	{
+		return currentLevel;
+	}
 
     void MoveToHole()
     {

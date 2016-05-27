@@ -52,13 +52,17 @@ public class MainMenuScript : MonoBehaviour {
 		eventSystem.SetSelectedGameObject(buttons[currentIndex].gameObject);
 	}
 
-	public void PlayLevel(int level) {
+	public void PlayLevel(int page, int level) {
+		PlayerPrefs.SetInt("currentPage", page);
 		PlayerPrefs.SetInt("currentLevel", level);
-		int i = 1;
-		while (level >= i)
-			i += levelsPerPage;
-		i -= levelsPerPage;
-		Application.LoadLevel("Level" + i.ToString());
+//		int i = 1;
+//		while (level >= i)
+//			i += levelsPerPage;
+//		i -= levelsPerPage;
+
+		page++;
+		//TODO rename to Stratum_
+		Application.LoadLevel("Stratum" + page.ToString());// + "_" + level.ToString());
 	}
 
 	void reactivateObjects() {
@@ -87,24 +91,27 @@ public class MainMenuScript : MonoBehaviour {
 			} else if (b.name == "Right") {
 				b.onClick.RemoveAllListeners();
 				b.onClick.AddListener(() => {LevelPicker(page + 1);});
-				if ((page + 1) * levelsPerPage + 1 > numLevels) {
+				if ((page + 1) * levelsPerPage + 1 > numLevels) {//TODO: change so we can have less than 6 levels
 					b.interactable = false;
 				} else {
 					b.interactable = true;
 				}
 			}
 		}
+
+		//Display stratum name
 		stratumNameText = GameObject.Find ("Stratum").GetComponent<Text>();
 		int pageDisplay = page + 1;
 		stratumNameText.text = "Stratum " + pageDisplay;
+
 		GameObject[] levels = GameObject.FindGameObjectsWithTag("Level");//TODO change to "Stratum"
 		foreach (GameObject level in levels) {
-			int num = page * levelsPerPage + int.Parse(level.name) + 1;
-			if (num <= numLevels) {
+			int num = /*page * levelsPerPage +*/ int.Parse(level.name) + 1;
+			if (num <= numLevelsPerStratum[page]) {
 				//level.GetComponentInChildren<Text>().text = num.ToString();
 				Button b = level.GetComponent<Button>();
 				b.onClick.RemoveAllListeners();
-				b.onClick.AddListener(delegate{PlayLevel(num);});
+				b.onClick.AddListener(delegate{PlayLevel(page, num);});
 			} else {
 				level.SetActive(false);
 				unactivatedObjects.Add(level);
