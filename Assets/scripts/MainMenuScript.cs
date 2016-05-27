@@ -17,6 +17,7 @@ public class MainMenuScript : MonoBehaviour {
 	private int currentIndex = 0;
 	private EventSystem eventSystem;
 	private Button[] buttons;
+	private Text stratumNameText;
 
 	void Start() {
 		unactivatedObjects = new List<GameObject>();
@@ -93,11 +94,14 @@ public class MainMenuScript : MonoBehaviour {
 				}
 			}
 		}
+		stratumNameText = GameObject.Find ("Stratum").GetComponent<Text>();
+		int pageDisplay = page + 1;
+		stratumNameText.text = "Stratum " + pageDisplay;
 		GameObject[] levels = GameObject.FindGameObjectsWithTag("Level");//TODO change to "Stratum"
 		foreach (GameObject level in levels) {
 			int num = page * levelsPerPage + int.Parse(level.name) + 1;
 			if (num <= numLevels) {
-				level.GetComponentInChildren<Text>().text = num.ToString();
+				//level.GetComponentInChildren<Text>().text = num.ToString();
 				Button b = level.GetComponent<Button>();
 				b.onClick.RemoveAllListeners();
 				b.onClick.AddListener(delegate{PlayLevel(num);});
