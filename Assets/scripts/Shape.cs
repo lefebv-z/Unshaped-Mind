@@ -157,12 +157,12 @@ public class Shape : MonoBehaviour {
                     sm.PlayNoChange();
 		}
 
-		if (Input.GetButtonDown ("Accelerate")) {
-			if (acceleration == 1.0f)
-				acceleration = 2.0f;
-			else
-				acceleration = 1.0f;
-		}
+//		if (Input.GetButtonDown ("Accelerate")) {
+//			if (acceleration == 1.0f)
+//				acceleration = 2.0f;
+//			else
+//				acceleration = 1.0f;
+//		}
 
 		float v = Input.GetAxisRaw("Vertical");
 		float v2 = Input.GetAxisRaw("Horizontal");
@@ -199,6 +199,9 @@ public class Shape : MonoBehaviour {
 			return;
 		}
 
+		if (other.gameObject.tag == "AccelZone")
+			acceleration = 2.0f;
+
 		if (other.gameObject.tag == (currentType.ToString () + "Hole")) {
 			Debug.Log("win");
             endDestination = other.gameObject.transform.position;
@@ -213,6 +216,9 @@ public class Shape : MonoBehaviour {
 		if (gameManager.gameState != GameState.Playing) {
 			return;
 		}
+
+		if (other.gameObject.tag == "AccelZone")
+			acceleration = 1.0f;
 
 		if (other.gameObject.tag == "Portal") {
 			PortalScript portalScript = other.GetComponent<PortalScript>();
