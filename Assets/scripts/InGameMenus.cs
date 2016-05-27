@@ -9,9 +9,11 @@ using UnityEngine.UI;
 public class InGameMenus : MonoBehaviour {
 	public GameObject pauseMenuFirstObject;
 	public GameObject endMenuFirstObject;
+	public GameObject confirmMenuFirstObject;
 
 	public GameObject _pauseMenu;
 	public GameObject _endLevelMenu;
+	public GameObject _confirmMenu;
 	public GameManager _manager;
 	GameState _oldState;
 	EventSystem _es;
@@ -83,6 +85,13 @@ public class InGameMenus : MonoBehaviour {
 		}
 	}
 
+	public void ExitConfirm() {
+		_confirmMenu.SetActive(false);
+		_pauseMenu.SetActive(true);
+		_endLevelMenu.SetActive(false);
+		_es.SetSelectedGameObject(pauseMenuFirstObject);
+	}
+
 	public void NextLevel() {
 		GoToNextLevel();
 	}
@@ -92,6 +101,20 @@ public class InGameMenus : MonoBehaviour {
 	}
 
 	public void MainMenu() {
-		Application.LoadLevel("Menu");
+		_confirmMenu.SetActive(true);
+		_pauseMenu.SetActive(false);
+		_endLevelMenu.SetActive(false);
+		_es.SetSelectedGameObject(confirmMenuFirstObject);
+		_confirmMenu.transform.FindChild("Title").GetComponent<Text>().text = "Return to main menu";
+		_confirmMenu.transform.FindChild("Yes").GetComponent<Button>().onClick.AddListener(() => {Application.LoadLevel("Menu");});
+	}
+
+	public void Exit() {
+		_confirmMenu.SetActive(true);
+		_pauseMenu.SetActive(false);
+		_endLevelMenu.SetActive(false);
+		_es.SetSelectedGameObject(confirmMenuFirstObject);
+		_confirmMenu.transform.FindChild("Title").GetComponent<Text>().text = "Quit game";
+		_confirmMenu.transform.FindChild("Yes").GetComponent<Button>().onClick.AddListener(() => {Application.Quit();});
 	}
 }
