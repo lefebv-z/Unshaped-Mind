@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject playerShape;
 	private Shape shape;
     private SoundManager sm;
+	private InGameMenus	menu;
 //	private Camera mainCamera;
 
     private bool endOccuring; //if the player is in thole
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour {
 	void Awake()
 	{
 		currentLevel = PlayerPrefs.GetInt("currentLevel");
+		menu = gameObject.GetComponent<InGameMenus> ();
 		//maxLevel = PlayerPrefs.GetInt("maxLevel");
 	}
 
@@ -42,7 +44,7 @@ public class GameManager : MonoBehaviour {
         sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
 //		mainCamera = (Camera)(GameObject.FindObjectOfType(typeof(Camera)));
         maxTransfo = remainingTransformation;
-		gameState = GameState.Start;
+		changeGameState(GameState.Start);
 		shape = playerShape.GetComponent<Shape>();
 		shape.gameManager = this;
 	}
@@ -53,7 +55,7 @@ public class GameManager : MonoBehaviour {
 		switch (gameState) {
 			case GameState.Start:
 				Debug.Log("Start");
-				gameState = GameState.Playing;
+				changeGameState(GameState.Playing);
 				break;
 			default:
 				break;
@@ -87,9 +89,10 @@ public class GameManager : MonoBehaviour {
                         {
                             if (sm != null)
                                 sm.PlayLvlEnd();
+							menu.Win();
                             endOccuring = false;
-                            gameState = GameState.Menu;
-                        }
+                            changeGameState(GameState.Menu);
+					}
                         break;
                     }
                     else
@@ -98,7 +101,7 @@ public class GameManager : MonoBehaviour {
                     }
                     //mainCamera.GetComponent<Animator>().enabled = true;
                     //anim
-                    gameState = GameState.End;
+                    changeGameState(GameState.End);
                     break;
                 case GameState.End:
                     EndGame();
@@ -114,7 +117,7 @@ public class GameManager : MonoBehaviour {
 		if (sm != null)
 			sm.PlayRestart ();
 		isWinning = false;
-		gameState = GameState.EndingAnimation;
+		changeGameState(GameState.EndingAnimation);
 	}
 
 	void EndGame() {
@@ -122,7 +125,7 @@ public class GameManager : MonoBehaviour {
 			if (nextLevelExists()) {
                 if (sm != null)
                     sm.PlayLvlEnd();
-				gameState = GameState.Start;
+				changeGameState(GameState.Start);
 				InGameMenus.GoToNextLevel();
 			} else {
 				Application.LoadLevel("Menu");
@@ -175,6 +178,19 @@ public class GameManager : MonoBehaviour {
         endDestination = shape.getEndPosition();
         shape.PlayParticle();
     }
+
+	public void changeGameState(GameState newState)
+	{
+		gameState = newState;
+		switch (gameState) {
+		case GameState.Playing:
+			Cursor.visible = false;
+			break;
+		case GameState.Menu:
+			Cursor.visible = true;
+			break;
+		}
+	}
 
 }
 

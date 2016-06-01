@@ -177,7 +177,7 @@ public class Shape : MonoBehaviour {
 		if (!gameManager.isWinning && other.gameObject.tag == (currentType.ToString () + "Hole")) {
             Debug.Log("win");
             endDestination = other.gameObject.transform.position;
-			gameManager.gameState = GameState.EndingAnimation;
+			gameManager.changeGameState(GameState.EndingAnimation);
 			gameManager.isWinning = true;
 		}
 		if (other.gameObject.tag == "Mechanism") {
@@ -205,7 +205,7 @@ public class Shape : MonoBehaviour {
 		if (other.gameObject.tag == (currentType.ToString () + "Hole")) {
 			Debug.Log("win");
             endDestination = other.gameObject.transform.position;
-			gameManager.gameState = GameState.EndingAnimation;
+			gameManager.changeGameState(GameState.EndingAnimation);
 			gameManager.isWinning = true;
 		} else if (other.gameObject.tag.Contains("Hole")) {
 			Debug.Log("wrong hole");

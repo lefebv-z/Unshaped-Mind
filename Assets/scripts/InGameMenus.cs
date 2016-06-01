@@ -45,11 +45,11 @@ public class InGameMenus : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) {
 			if (!_pauseMenu.activeSelf) {
 				_oldState = _manager.gameState;
-				_manager.gameState = GameState.Menu;
+				_manager.changeGameState(GameState.Menu);
 				_pauseMenu.SetActive(true);
 				_es.SetSelectedGameObject(pauseMenuFirstObject);
 			} else {
-				_manager.gameState = _oldState;
+				_manager.changeGameState(_oldState);
 				_pauseMenu.SetActive(false);
 			}
 		}
@@ -60,8 +60,13 @@ public class InGameMenus : MonoBehaviour {
 		}
 	}
 
+	public void Win() {
+		_endLevelMenu.SetActive (true);
+		_es.SetSelectedGameObject (endMenuFirstObject);
+	}
+
 	public void Continue() {
-		_manager.gameState = _oldState;
+		_manager.changeGameState(_oldState);
 		_pauseMenu.SetActive(false);
 	}
 

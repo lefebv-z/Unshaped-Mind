@@ -24,7 +24,7 @@ public class PortalScript : MonoBehaviour {
 		{
 			Debug.Log("Portal used:" + name);
 			_playerShape = playerShape;
-			_gameManager.gameState = GameState.PortalAnimation;
+			_gameManager.changeGameState(GameState.PortalAnimation);
 			_currentFade = 0.0f;
 			_fadeIn = true;
 			exitPortal.GetComponent<PortalScript>().LockPortal();//Temporary lock the portal to prevent infinite teleportation
@@ -49,7 +49,7 @@ public class PortalScript : MonoBehaviour {
 				if (_currentFade >= _fadeTime) {
 					_fadeOut = false;
 					_playerShape.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-					_gameManager.gameState = GameState.Playing;
+					_gameManager.changeGameState(GameState.Playing);
 				}
 			}
 		}

@@ -63,13 +63,13 @@ public class PlayerFollow : MonoBehaviour {
 			if (gManager.gameState == GameState.Fullscreen) {
 				inGameInfo.SetActive(true);
 				_YouAreHereInstance.SetActive(false);
-				gManager.gameState = GameState.Playing;
+				gManager.changeGameState(GameState.Playing);
 				cam.orthographicSize = camSize;
 			} else {
 				_YouAreHereInstance.transform.position = player.transform.position;
 				_YouAreHereInstance.SetActive(true);
 				inGameInfo.SetActive(false);
-				gManager.gameState = GameState.Fullscreen;
+				gManager.changeGameState(GameState.Fullscreen);
 				cam.orthographicSize = fullscreenSize;
 			}
 		}
