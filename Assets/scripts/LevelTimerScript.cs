@@ -40,4 +40,9 @@ public class LevelTimerScript : MonoBehaviour {
             currentTime.text = "" + minutes + " : " + seconds;
         }
 	}
+
+    public float getTime()
+    {
+        return currTime;
+    }
 }

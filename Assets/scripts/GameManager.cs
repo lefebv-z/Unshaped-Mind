@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour {
 	private Shape shape;
     private SoundManager sm;
 	private InGameMenus	menu;
+    private ScoreManagerScript scoring;
 //	private Camera mainCamera;
 
     private bool endOccuring; //if the player is in thole
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour {
 	{
 		currentLevel = PlayerPrefs.GetInt("currentLevel");
 		menu = gameObject.GetComponent<InGameMenus> ();
+        
 		//maxLevel = PlayerPrefs.GetInt("maxLevel");
 	}
 
@@ -42,6 +44,7 @@ public class GameManager : MonoBehaviour {
 	{
         endOccuring = false;
         sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
+        scoring = (ScoreManagerScript)(GameObject.FindObjectOfType(typeof(ScoreManagerScript)));
 //		mainCamera = (Camera)(GameObject.FindObjectOfType(typeof(Camera)));
         maxTransfo = remainingTransformation;
 		changeGameState(GameState.Start);
@@ -89,9 +92,14 @@ public class GameManager : MonoBehaviour {
                         {
                             if (sm != null)
                                 sm.PlayLvlEnd();
+                            
 							menu.Win();
                             endOccuring = false;
                             changeGameState(GameState.Menu);
+                            
+                            if (scoring != null)
+                                scoring.starScore();
+                            
 					}
                         break;
                     }
