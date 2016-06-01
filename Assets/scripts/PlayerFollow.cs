@@ -23,17 +23,13 @@ public class PlayerFollow : MonoBehaviour {
 		foreach (Transform w in walls) {
 			if (w.name != "Background" && !w.name.Contains("LineToMech")) {
 				if (w.transform.position.x < levelSize[0]) {
-					Debug.Log(w.name + " " + w.transform.position.x);
 					levelSize[0] = w.transform.position.x;
 				} else if (w.transform.position.x > levelSize[2]) {
-					Debug.Log(w.name + " " + w.transform.position.x);
 					levelSize[2] = w.transform.position.x;
 				}
 				if (w.transform.position.y > levelSize[1]) {
-					Debug.Log(w.name + " " + w.transform.position.y);
 					levelSize[1] = w.transform.position.y;
 				} else if (w.transform.position.y < levelSize[3]) {
-					Debug.Log(w.name + " " + w.transform.position.y);
 					levelSize[3] = w.transform.position.y;
 				}
 			}
@@ -49,7 +45,6 @@ public class PlayerFollow : MonoBehaviour {
 		middlePos = new Vector3((levelSize[2] + levelSize[0]) / 2, (levelSize[1] + levelSize[3]) / 2, -10);
 	}
 
-	//TODO: do it better (get level size and only move when necessary)
 	void Update () {
 		if (!gManager) {
 			gManager = GameObject.FindObjectOfType<GameManager>();

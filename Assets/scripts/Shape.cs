@@ -10,7 +10,6 @@ public enum ShapeType {
 	ShapeTypeCount = 4
 }
 
-//TODO : separate playercontroller & shape attributes in 2 classes
 public class Shape : MonoBehaviour {
 	private float speed = 10f;
 	private float acceleration = 1.0f;
@@ -144,11 +143,9 @@ public class Shape : MonoBehaviour {
 					gameManager.remainingTransformation--;
                     if (sm != null)
                         sm.PlayChange();
-					print ("remaining transfo: " + gameManager.remainingTransformation);
 				} else {
                     if (sm != null)
                         sm.PlayNoChange();
-					print ("No more transformation possible");//TODO: real feedback
 				}
 				break;
 			}
@@ -156,13 +153,6 @@ public class Shape : MonoBehaviour {
                 if (sm != null)
                     sm.PlayNoChange();
 		}
-
-//		if (Input.GetButtonDown ("Accelerate")) {
-//			if (acceleration == 1.0f)
-//				acceleration = 2.0f;
-//			else
-//				acceleration = 1.0f;
-//		}
 
 		float v = Input.GetAxisRaw("Vertical");
 		float v2 = Input.GetAxisRaw("Horizontal");
@@ -201,17 +191,8 @@ public class Shape : MonoBehaviour {
 
 		if (other.gameObject.tag == "AccelZone")
 			acceleration = 2.0f;
-
-		if (other.gameObject.tag == (currentType.ToString () + "Hole")) {
-			Debug.Log("win");
-            endDestination = other.gameObject.transform.position;
-			gameManager.changeGameState(GameState.EndingAnimation);
-			gameManager.isWinning = true;
-		} else if (other.gameObject.tag.Contains("Hole")) {
-			Debug.Log("wrong hole");
-			//TODO: death gestion?
-		}
 	}
+
 	void OnTriggerExit2D(Collider2D other) {
 		if (gameManager.gameState != GameState.Playing) {
 			return;
@@ -222,14 +203,11 @@ public class Shape : MonoBehaviour {
 
 		if (other.gameObject.tag == "Portal") {
 			PortalScript portalScript = other.GetComponent<PortalScript>();
-//			if (portalScript.type == currentType) {
-				portalScript.UnlockPortal();
-//			}
+			portalScript.UnlockPortal();
 		}
 	}
 
-    void OnCollisionEnter2D(Collision2D other)
-    {
+    void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.tag == "Wall")
         {
             if (sm != null)
@@ -237,19 +215,11 @@ public class Shape : MonoBehaviour {
         }
     }
 
-	/*void OnTriggerExit2D(Collider2D other) {
-		if (other.gameObject.tag == "Mechanism") {
-			other.GetComponent<MechanicScript>().DesactivateMechanic();
-		}
-	}*/
-
-    public Vector3 getEndPosition()
-    {
+    public Vector3 getEndPosition() {
         return endDestination;
     }
 
-    public void PlayParticle()
-    {
-    _particleSystem.Play();
+    public void PlayParticle() {
+	    _particleSystem.Play();
     }
 }

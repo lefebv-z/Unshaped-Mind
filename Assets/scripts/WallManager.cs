@@ -10,7 +10,6 @@ public enum ColorType {
 }
 
 public class WallManager : MonoBehaviour {
-	//public Shape			playerShape;
 	public ColorType		color;
 
 	private bool			isOn = true;
@@ -55,7 +54,6 @@ public class WallManager : MonoBehaviour {
 
 	public void setDisappear() {
 		tex = Resources.Load<Texture>("wallTileDis");
-		//childGO.GetComponent<MeshRenderer>().material.SetColor("_TintColor", new Color(0f, 0f, 0f, 0.1f));
 		childGO.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", tex);
 	}
 }
