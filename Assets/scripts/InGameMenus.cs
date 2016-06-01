@@ -11,6 +11,14 @@ public class InGameMenus : MonoBehaviour {
 	public GameObject _pauseMenu;
 	public GameObject _endLevelMenu;
 	public GameObject _confirmMenu;
+
+	private GameObject	HowToMenu;
+	private GameObject	OptionsMenu;
+	private GameObject	CreditsMenu;
+	private GameObject 	HowToFirstObject;
+	private GameObject 	OptionsFirstObject;
+	private GameObject 	CreditsFirstObject;
+
 	public GameManager _manager;
 	GameState _oldState;
 	EventSystem _es;
@@ -38,6 +46,16 @@ public class InGameMenus : MonoBehaviour {
         //get all button and add play song event
 		_pauseMenu.SetActive(false);
 		_endLevelMenu.SetActive(false);
+
+		HowToMenu = GameObject.Find("How to play");
+		CreditsMenu = GameObject.Find("Credits");
+		OptionsMenu = GameObject.Find("Settings");
+		HowToFirstObject = HowToMenu.transform.Find("ReturnButton").gameObject;
+		CreditsFirstObject = HowToMenu.transform.Find("ReturnButton").gameObject;
+		OptionsFirstObject = HowToMenu.transform.Find("ReturnButton").gameObject;
+		HowToMenu.SetActive(false);
+		CreditsMenu.SetActive(false);
+		OptionsMenu.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -53,11 +71,13 @@ public class InGameMenus : MonoBehaviour {
 				_pauseMenu.SetActive(false);
 			}
 		}
+		/*
 		if (_manager.gameState == GameState.Menu && !_pauseMenu.activeSelf && !_endLevelMenu.activeSelf) {
 			_oldState = _manager.gameState;
 			_endLevelMenu.SetActive(true);
 			_es.SetSelectedGameObject(endMenuFirstObject);
 		}
+		*/
 	}
 
 	public void Win() {
@@ -78,10 +98,13 @@ public class InGameMenus : MonoBehaviour {
 		}
 	}
 
+	//Used to quit all submenus because there's no way i'm doing 3 more functions for the same thing
 	public void ExitConfirm() {
+		CreditsMenu.SetActive(false);
+		HowToMenu.SetActive(false);
+		OptionsMenu.SetActive(false);
 		_confirmMenu.SetActive(false);
 		_pauseMenu.SetActive(true);
-		_endLevelMenu.SetActive(false);
 		_es.SetSelectedGameObject(pauseMenuFirstObject);
 	}
 
@@ -93,10 +116,27 @@ public class InGameMenus : MonoBehaviour {
 		_manager.RestartLevel();
 	}
 
+	public void HowTo() {
+		HowToMenu.SetActive(true);
+		_pauseMenu.SetActive(false);
+		_es.SetSelectedGameObject(HowToFirstObject);
+	}
+
+	public void Credits() {
+		CreditsMenu.SetActive(true);
+		_pauseMenu.SetActive(false);
+		_es.SetSelectedGameObject(CreditsFirstObject);
+	}
+
+	public void Options() {
+		OptionsMenu.SetActive(true);
+		_pauseMenu.SetActive(false);
+		_es.SetSelectedGameObject(OptionsFirstObject);
+	}
+
 	public void MainMenu() {
 		_confirmMenu.SetActive(true);
 		_pauseMenu.SetActive(false);
-		_endLevelMenu.SetActive(false);
 		_es.SetSelectedGameObject(confirmMenuFirstObject);
 		_confirmMenu.transform.FindChild("Title").GetComponent<Text>().text = "Return to main menu";
 		_confirmMenu.transform.FindChild("Yes").GetComponent<Button>().onClick.AddListener(() => {Application.LoadLevel("Menu");});
@@ -105,7 +145,6 @@ public class InGameMenus : MonoBehaviour {
 	public void Exit() {
 		_confirmMenu.SetActive(true);
 		_pauseMenu.SetActive(false);
-		_endLevelMenu.SetActive(false);
 		_es.SetSelectedGameObject(confirmMenuFirstObject);
 		_confirmMenu.transform.FindChild("Title").GetComponent<Text>().text = "Quit game";
 		_confirmMenu.transform.FindChild("Yes").GetComponent<Button>().onClick.AddListener(() => {Application.Quit();});
