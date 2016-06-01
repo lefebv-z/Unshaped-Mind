@@ -65,7 +65,9 @@ public class GameManager : MonoBehaviour {
     {
 
         if (endOccuring == true && endDestination != shape.transform.position)
-            shape.transform.position = Vector3.MoveTowards(shape.transform.position, endDestination, 0.5f * Time.deltaTime);
+		{
+			shape.transform.position = Vector3.MoveTowards (shape.transform.position, endDestination, 1f * Time.deltaTime);
+		}
         else
         {
             switch (gameState)
