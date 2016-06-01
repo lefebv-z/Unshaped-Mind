@@ -10,11 +10,6 @@ public class SoundManager : MonoBehaviour {
     public AudioClip firstStratumMusic;
     public AudioClip secondStratumMusic;
     public AudioClip firstStratumBeats;
-
-    /*public AudioClip secondStratumMusic;
-    public AudioClip secondStratumBeats;
-    */
-
     public AudioClip logMusic;
 
     public AudioClip unlockingSound;
@@ -99,8 +94,6 @@ public class SoundManager : MonoBehaviour {
             if (trigger != null)
                 trigger.triggers.Add(entry);
         }
-
-        //get all button and add play song event
     }
 	
 	// Update is called once per frame
@@ -118,8 +111,6 @@ public class SoundManager : MonoBehaviour {
                     
                     InGame = true;
                     PlayStratum();
-
-                    Debug.Log("need to move");
                 }
                 transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
                 gm = (GameManager)(GameObject.FindObjectOfType(typeof(GameManager)));
@@ -231,25 +222,7 @@ public class SoundManager : MonoBehaviour {
         secondarySource.clip = firstStratumBeats;
         secondarySource.Play();
     }
-    /*
-    void PlaySecondStratum()
-    {
-        mainSource.volume = 0.2f;
-        mainSource.Stop();
-        mainSource.loop = false;
-        mainSource.clip = secondStratumMusic;
-        mainSource.Play();
-    }
 
-    void PlaySecondStratumBeats()
-    {
-        secondarySource.volume = 1.0f;
-        secondarySource.Stop();
-        secondarySource.loop = true;
-        secondarySource.clip = secondStratumBeats;
-        secondarySource.Play();
-    }
-    */
     void StopBeats()
     {
         secondarySource.Stop();

@@ -45,7 +45,6 @@ public class PortalScript : MonoBehaviour {
 			} else if (_fadeOut) {
 				_currentFade += Time.deltaTime;
 				_playerShape.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f) + _currentFade * _scale;
-				Debug.Log(_currentFade);
 				if (_currentFade >= _fadeTime) {
 					_fadeOut = false;
 					_playerShape.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
