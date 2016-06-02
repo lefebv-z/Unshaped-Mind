@@ -305,5 +305,12 @@ public class SoundManager : MonoBehaviour {
         //noisesSource.PlayClipAtPoint(unlockingSound, pos);
     }
 
+	//used to set the volume sliders properly in the in-game menus
+	public float getBGMVolume() {
+		return bgmVolume;
+	}
 
+	public float getEffectsVolume() {
+		return effectsVolume;
+	}
 }

@@ -19,6 +19,8 @@ public class InGameMenus : MonoBehaviour {
 	private GameObject 	OptionsFirstObject;
 	private GameObject 	CreditsFirstObject;
 
+	private SoundManager	SoundManager;
+
 	public GameManager _manager;
 	GameState _oldState;
 	EventSystem _es;
@@ -47,12 +49,17 @@ public class InGameMenus : MonoBehaviour {
 		_pauseMenu.SetActive(false);
 		_endLevelMenu.SetActive(false);
 
+
 		HowToMenu = GameObject.Find("How to play");
 		CreditsMenu = GameObject.Find("Credits");
 		OptionsMenu = GameObject.Find("Settings");
+
 		HowToFirstObject = HowToMenu.transform.Find("ReturnButton").gameObject;
-		CreditsFirstObject = HowToMenu.transform.Find("ReturnButton").gameObject;
-		OptionsFirstObject = HowToMenu.transform.Find("ReturnButton").gameObject;
+		CreditsFirstObject = CreditsMenu.transform.Find("ReturnButton").gameObject;
+		OptionsFirstObject = OptionsMenu.transform.Find("ReturnButton").gameObject;
+
+		ResetVolumeSliders();
+
 		HowToMenu.SetActive(false);
 		CreditsMenu.SetActive(false);
 		OptionsMenu.SetActive(false);
@@ -78,6 +85,19 @@ public class InGameMenus : MonoBehaviour {
 			_es.SetSelectedGameObject(endMenuFirstObject);
 		}
 		*/
+	}
+
+	void ResetVolumeSliders() {
+		SoundManager = GameObject.Find("SoundSystemManager").GetComponent<SoundManager>();
+
+		Slider bgmSlider = OptionsMenu.transform.Find("BGMVolumeSlider").GetComponent<Slider>();
+		Slider effectSlider = OptionsMenu.transform.Find("VolumeSlider").GetComponent<Slider>();
+
+		bgmSlider.value = SoundManager.getBGMVolume();
+		effectSlider.value = SoundManager.getEffectsVolume();
+
+		bgmSlider.onValueChanged.AddListener(delegate{SoundManager.BGMVolumeChange(bgmSlider.value);});
+		effectSlider.onValueChanged.AddListener(delegate{SoundManager.EffectsVolumeChange(effectSlider.value);});
 	}
 
 	public void Win() {
