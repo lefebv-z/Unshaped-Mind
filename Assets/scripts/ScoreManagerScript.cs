@@ -25,32 +25,37 @@ public class ScoreManagerScript : MonoBehaviour
         keyScoreName = "TopScore";
         keyTimeName = "TopTimeScore";
         keyTransfoName = "TopTransfoScore";
+        topScore = PlayerPrefs.GetInt(keyScoreName + 1 + "-" + 1);
+        beatTime = PlayerPrefs.GetInt(keyTimeName + 1 + "-" + 1);
+        beatTransfo = PlayerPrefs.GetInt(keyTransfoName + 1 + "-" + 1);
     }
 
-    void getLevelTopScore(int lvl)
+    void getLevelTopScore(int strate, int lvl)
     {
         if (PlayerPrefs.HasKey(keyScoreName + lvl) == false)
         {
             topScore = 0;
             beatTransfo = 0;
             beatTime = 0;
-            PlayerPrefs.SetInt(keyScoreName + lvl, 0);
-            PlayerPrefs.SetInt(keyTimeName + lvl, 0);
-            PlayerPrefs.SetInt(keyTransfoName + lvl, 0);
+            PlayerPrefs.SetInt(keyScoreName + strate + "-" + lvl, 0);
+            PlayerPrefs.SetInt(keyTimeName + strate + "-" + lvl, 0);
+            PlayerPrefs.SetInt(keyTransfoName + strate + "-" + lvl, 0);
+            Debug.Log("no" + topScore);
         }
         else
         {
-            topScore = PlayerPrefs.GetInt(keyScoreName + lvl);
-            beatTime = PlayerPrefs.GetInt(keyTimeName + lvl);
-            beatTransfo = PlayerPrefs.GetInt(keyTransfoName + lvl);
+            topScore = PlayerPrefs.GetInt(keyScoreName + strate + "-" + lvl);
+            beatTime = PlayerPrefs.GetInt(keyTimeName + strate + "-" + lvl);
+            beatTransfo = PlayerPrefs.GetInt(keyTransfoName + strate + "-" + lvl);
+            Debug.Log(topScore);
         }
     }
 
-    void setLevelTopScore(int lvl)
+    void setLevelTopScore(int strate, int lvl)
     {
-        PlayerPrefs.SetInt(keyScoreName + lvl, topScore);
-        PlayerPrefs.SetInt(keyTimeName + lvl, beatTime);
-        PlayerPrefs.SetInt(keyTransfoName + lvl, beatTransfo);
+        PlayerPrefs.SetInt(keyScoreName + strate + "-" + lvl, topScore);
+        PlayerPrefs.SetInt(keyTimeName + strate + "-" + lvl, beatTime);
+        PlayerPrefs.SetInt(keyTransfoName + strate + "-" + lvl, beatTransfo);
         PlayerPrefs.Save();
     }
 
@@ -92,7 +97,7 @@ public class ScoreManagerScript : MonoBehaviour
         LevelTimerScript timeinfo = (LevelTimerScript)(GameObject.FindObjectOfType(typeof(LevelTimerScript)));
         if (scoreinfo != null && transfoinfo != null && timeinfo != null)
         {
-            getLevelTopScore(transfoinfo.getLevel());
+            getLevelTopScore(transfoinfo.getStratum(), transfoinfo.getLevel());
             if (timeinfo.getTime() <= scoreinfo.bestTime)
                 beatTime = 1;
 
@@ -102,9 +107,24 @@ public class ScoreManagerScript : MonoBehaviour
             if (score > topScore)
             {
                 topScore = score;
-                setLevelTopScore(transfoinfo.getLevel());
+                setLevelTopScore(transfoinfo.getStratum(), transfoinfo.getLevel());
             }
             updateStar();
         }
     }
+
+    public void recapScore(int strate, int lvl)
+    {
+        Debug.Log("-----"+ strate+ lvl);
+        getLevelTopScore(strate, lvl);
+        updateStar();
+    }
+    public void initrecapScore()
+    {
+        Debug.Log("-----");
+        getLevelTopScore(1, 1);
+        updateStar();
+    }
+
+
 }

@@ -107,6 +107,13 @@ public class MainMenuScript : MonoBehaviour {
 				Button b = level.GetComponent<Button>();
 				b.onClick.RemoveAllListeners();
 				b.onClick.AddListener(delegate{PlayLevel(stratum, num);});
+
+                EventTrigger.Entry entry = new EventTrigger.Entry();
+                entry.eventID = EventTriggerType.Select;
+                entry.callback.AddListener((eventData) => { updateScore(stratum, num); });
+                EventTrigger trigger = b.gameObject.AddComponent<EventTrigger>();
+                if (trigger != null)
+                    trigger.triggers.Add(entry);
 			} else {
 				level.SetActive(false);
 				unactivatedObjects.Add(level);
@@ -115,6 +122,12 @@ public class MainMenuScript : MonoBehaviour {
 		eventSystem.SetSelectedGameObject(
 			buttons[0].gameObject);
 	}
+
+    public void updateScore(int stratum, int num)
+    {
+        ScoreManagerScript scoring = (ScoreManagerScript)(GameObject.FindObjectOfType(typeof(ScoreManagerScript)));
+        scoring.recapScore(stratum, num);
+    }
 
 	public void HowToPlay() {
 		Debug.Log("How to play");
