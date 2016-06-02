@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour {
 	{
         endOccuring = false;
         sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
-        scoring = (ScoreManagerScript)(GameObject.FindObjectOfType(typeof(ScoreManagerScript)));
 //		mainCamera = (Camera)(GameObject.FindObjectOfType(typeof(Camera)));
         maxTransfo = remainingTransformation;
 		changeGameState(GameState.Start);
@@ -96,7 +95,7 @@ public class GameManager : MonoBehaviour {
 							menu.Win();
                             endOccuring = false;
                             changeGameState(GameState.Menu);
-                            
+                            scoring = (ScoreManagerScript)(GameObject.FindObjectOfType(typeof(ScoreManagerScript)));
                             if (scoring != null)
                                 scoring.starScore();
                             

@@ -27,11 +27,6 @@ public class ScoreManagerScript : MonoBehaviour
         keyTransfoName = "TopTransfoScore";
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     void getLevelTopScore(int lvl)
     {
         if (PlayerPrefs.HasKey(keyScoreName + lvl) == false)
@@ -48,23 +43,15 @@ public class ScoreManagerScript : MonoBehaviour
             topScore = PlayerPrefs.GetInt(keyScoreName + lvl);
             beatTime = PlayerPrefs.GetInt(keyTimeName + lvl);
             beatTransfo = PlayerPrefs.GetInt(keyTransfoName + lvl);
-            Debug.Log("gettopscore is :" + topScore);
         }
     }
 
     void setLevelTopScore(int lvl)
     {
-        
         PlayerPrefs.SetInt(keyScoreName + lvl, topScore);
-
-        
         PlayerPrefs.SetInt(keyTimeName + lvl, beatTime);
         PlayerPrefs.SetInt(keyTransfoName + lvl, beatTransfo);
         PlayerPrefs.Save();
-
-        topScore = 0;
-        PlayerPrefs.GetInt(keyScoreName + lvl, topScore);
-        Debug.Log("topscore is :" + topScore);
     }
 
     void updateStar()
@@ -73,6 +60,7 @@ public class ScoreManagerScript : MonoBehaviour
         timeStar.SetActive(beatTime == 1);
         transfoStar.SetActive(beatTransfo == 1);
     }
+
     /*
     void calculateScore(int level, int maxTransfo, int remainingTransfo, float timeLimit, float timeUsed)
     {
@@ -102,24 +90,17 @@ public class ScoreManagerScript : MonoBehaviour
         NbTransfoLevelSave scoreinfo = (NbTransfoLevelSave)(GameObject.FindObjectOfType(typeof(NbTransfoLevelSave)));
         GameManager transfoinfo = (GameManager)(GameObject.FindObjectOfType(typeof(GameManager)));
         LevelTimerScript timeinfo = (LevelTimerScript)(GameObject.FindObjectOfType(typeof(LevelTimerScript)));
-        
         if (scoreinfo != null && transfoinfo != null && timeinfo != null)
         {
-           
             getLevelTopScore(transfoinfo.getLevel());
-            Debug.Log("topscore is :" + score);
             if (timeinfo.getTime() <= scoreinfo.bestTime)
                 beatTime = 1;
 
             if (transfoinfo.remainingTransformation >= scoreinfo.bestRemainingTransfo)
                 beatTransfo = 1;
             score = 1 + beatTime + beatTransfo;
-
-            Debug.Log("score is :" + score);
-            Debug.Log("transfoinfo.remainingTransformation is :" + scoreinfo.bestRemainingTransfo);
             if (score > topScore)
             {
-                Debug.Log("updating score is :" + score);
                 topScore = score;
                 setLevelTopScore(transfoinfo.getLevel());
             }
