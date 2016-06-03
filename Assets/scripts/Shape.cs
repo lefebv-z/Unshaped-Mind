@@ -58,6 +58,8 @@ public class Shape : MonoBehaviour {
 				foreach (Transform p in positions) {
 					if (p.name == "PlayerPos") {
 						transform.position = p.localPosition;
+						transform.Translate(0,0,-1);
+//						transform.position.Set(p.localPosition.x, p.localPosition.y, 1);
 					}
 				}
 				NbTransfoLevelSave levelData = level.gameObject.GetComponentInChildren<NbTransfoLevelSave>();
@@ -165,22 +167,22 @@ public class Shape : MonoBehaviour {
 			return;
 		}
 		if (!gameManager.isWinning && other.gameObject.tag == (currentType.ToString () + "Hole")) {
-            Debug.Log("win");
-            endDestination = other.gameObject.transform.position;
-			gameManager.changeGameState(GameState.EndingAnimation);
+			Debug.Log ("win");
+			endDestination = other.gameObject.transform.position;
+			gameManager.changeGameState (GameState.EndingAnimation);
 			gameManager.isWinning = true;
-		}
-		if (other.gameObject.tag == "Mechanism") {
-			MechanicScript mechScript = other.GetComponent<MechanicScript>();
+		} else if (other.gameObject.tag == "Mechanism") {
+			MechanicScript mechScript = other.GetComponent<MechanicScript> ();
 			if (mechScript.type == currentType) {
-				mechScript.ActivateMechanic();
+				mechScript.ActivateMechanic ();
 			}
-		}
-		if (other.gameObject.tag == "Portal") {
-			PortalScript portalScript = other.GetComponent<PortalScript>();
+		} else if (other.gameObject.tag == "Portal") {
+			PortalScript portalScript = other.GetComponent<PortalScript> ();
 			if (portalScript.type == currentType) {
-				portalScript.UsePortal(this.gameObject);
+				portalScript.UsePortal (this.gameObject);
 			}
+		} else if (other.gameObject.tag == "AccelZone" && acceleration == 1.0f) {
+			acceleration = 2.0f;
 		}
 	}
 
@@ -198,12 +200,11 @@ public class Shape : MonoBehaviour {
 			return;
 		}
 
-		if (other.gameObject.tag == "AccelZone")
-			acceleration = 1.0f;
-
 		if (other.gameObject.tag == "Portal") {
-			PortalScript portalScript = other.GetComponent<PortalScript>();
-			portalScript.UnlockPortal();
+			PortalScript portalScript = other.GetComponent<PortalScript> ();
+			portalScript.UnlockPortal ();
+		} else if (other.gameObject.tag == "AccelZone") {
+			acceleration = 1.0f;
 		}
 	}
 
