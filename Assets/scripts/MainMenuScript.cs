@@ -30,6 +30,7 @@ public class MainMenuScript : MonoBehaviour {
 		eventSystem = GameObject.FindObjectOfType<EventSystem> ();
 		buttons = menus[0].gameObject.GetComponentsInChildren<Button>();
 		eventSystem.SetSelectedGameObject(buttons[currentIndex].gameObject);
+		Cursor.visible = true;
 	}
 
 	// Update is called once per frame

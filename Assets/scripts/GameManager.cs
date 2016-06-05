@@ -193,9 +193,6 @@ public class GameManager : MonoBehaviour {
 		case GameState.Playing:
 			Cursor.visible = false;
 			break;
-		case GameState.Menu:
-			Cursor.visible = true;
-			break;
 		}
 	}
 
