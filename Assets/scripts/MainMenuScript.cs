@@ -32,13 +32,16 @@ public class MainMenuScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (menus[1].activeInHierarchy && Input.GetKeyDown(KeyCode.P)) {
-			eventSystem.SetSelectedGameObject(GameObject.Find("Left"));
-		} else if (menus[1].activeSelf && Input.GetKeyDown(KeyCode.N)) {
-			eventSystem.SetSelectedGameObject(GameObject.Find("Right"));
-		}
+
+		//TODO ON LAISSE P ET N OU PAS?
+//		if (menus[1].activeInHierarchy && Input.GetKeyDown(KeyCode.P)) {
+//			eventSystem.SetSelectedGameObject(GameObject.Find("Left"));
+//		} else if (menus[1].activeSelf && Input.GetKeyDown(KeyCode.N)) {
+//			eventSystem.SetSelectedGameObject(GameObject.Find("Right"));
+//		}
 		if (!menus[0].activeSelf)//TODO: cleaner way to do this ?
 			return;
+
 		if (Input.GetKeyDown (KeyCode.DownArrow)) {
 			currentIndex++;
 			if (currentIndex == menus.Length)
@@ -50,7 +53,7 @@ public class MainMenuScript : MonoBehaviour {
 		} else {
 			return;
 		}
-		eventSystem.SetSelectedGameObject(buttons[currentIndex].gameObject);
+		SelectButton (currentIndex);
 	}
 
 	public void PlayLevel(int stratum, int level) {
@@ -67,6 +70,16 @@ public class MainMenuScript : MonoBehaviour {
 			}
 			unactivatedObjects.Clear();
 		}
+	}
+	
+	public void SelectButton(int buttonNb) {
+		foreach (Button b in buttons)
+			b.interactable = false;
+
+		buttons [buttonNb].interactable = true;
+		eventSystem.SetSelectedGameObject(buttons[buttonNb].gameObject);
+
+		currentIndex = buttonNb;//To make cursor memory work with mouse too
 	}
 
 	public void LevelPicker(int page) {
