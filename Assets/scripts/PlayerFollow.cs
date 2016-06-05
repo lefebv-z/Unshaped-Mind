@@ -34,13 +34,14 @@ public class PlayerFollow : MonoBehaviour {
 				}
 			}
 		}
-		if ((levelSize[1] - levelSize[3]) / (levelSize[2] - levelSize[0]) < Screen.height / Screen.width) {
-			fullscreenSize = (levelSize[1] - levelSize[3]) * Screen.height / Screen.width - 10;
+		if ((levelSize[1] - levelSize[3]) / (levelSize[2] - levelSize[0]) < (float)Screen.height / (float)Screen.width) {
+			fullscreenSize = (levelSize[1] - levelSize[3]) / 2.0f + 10.0f;
 		} else {
-			fullscreenSize = (levelSize[2] - levelSize[0]) * Screen.height / Screen.width - 10;
-		}
-		if (fullscreenSize < 10) {
-			fullscreenSize = 10;
+			float size = levelSize[1] - levelSize[3];
+			while (size / (levelSize[2] - levelSize[0]) > (float)Screen.height / (float)Screen.width) {
+				size -= 0.5f;
+			}
+			fullscreenSize = size / 2.0f + 10.0f;
 		}
 		middlePos = new Vector3((levelSize[2] + levelSize[0]) / 2, (levelSize[1] + levelSize[3]) / 2, -10);
 	}
@@ -52,6 +53,7 @@ public class PlayerFollow : MonoBehaviour {
 		if (gManager.gameState != GameState.Fullscreen) {
 			transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
 		} else {
+			Debug.Log("fullscreen " + middlePos.ToString());
 			transform.position = new Vector3(middlePos.x, middlePos.y, middlePos.z);
 		}
 		if (Input.GetKeyDown(KeyCode.Tab)) {

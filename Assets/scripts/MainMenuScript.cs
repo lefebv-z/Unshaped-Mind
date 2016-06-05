@@ -185,6 +185,9 @@ public class MainMenuScript : MonoBehaviour {
 		menus[3].SetActive(true);
 		eventSystem.SetSelectedGameObject(
 			menus[3].gameObject.GetComponentInChildren<Button>().gameObject);
+		if (Screen.fullScreen != menus[3].GetComponentInChildren<Toggle>().isOn) {
+			menus[3].GetComponentInChildren<Toggle>().isOn = Screen.fullScreen;
+		}
 	}
 
 	public void Credits() {
@@ -198,6 +201,10 @@ public class MainMenuScript : MonoBehaviour {
 	public void Exit() {
 		Debug.Log("Exit");
 		Application.Quit();
+	}
+
+	public void ToggleFullscreen() {
+		Screen.fullScreen = !Screen.fullScreen;
 	}
 
 	public void Return() {
