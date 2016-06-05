@@ -14,8 +14,10 @@ public class MainMenuScript : MonoBehaviour {
 
 	private List<GameObject> unactivatedObjects;
 	private int currentIndex = 0;
+	private int currentSubIndex = 0;
 	private EventSystem eventSystem;
 	private Button[] buttons;
+	private Button[] subButtons;
 	private Text stratumNameText;
 
 	void Start() {
@@ -39,21 +41,53 @@ public class MainMenuScript : MonoBehaviour {
 //		} else if (menus[1].activeSelf && Input.GetKeyDown(KeyCode.N)) {
 //			eventSystem.SetSelectedGameObject(GameObject.Find("Right"));
 //		}
-		if (!menus[0].activeSelf)//TODO: cleaner way to do this ?
-			return;
-
-		if (Input.GetKeyDown (KeyCode.DownArrow)) {
-			currentIndex++;
-			if (currentIndex == menus.Length)
-				currentIndex = 0;
-		} else if (Input.GetKeyUp (KeyCode.UpArrow)) {
-			currentIndex--;
-			if (currentIndex == -1)
-				currentIndex = menus.Length - 1;
+		if (menus [0].activeSelf) {//To detect if we are on the main page
+			if (Input.GetKeyDown (KeyCode.DownArrow)) {
+				currentIndex++;
+				if (currentIndex == menus.Length)
+					currentIndex = 0;
+			} else if (Input.GetKeyUp (KeyCode.UpArrow)) {
+				currentIndex--;
+				if (currentIndex == -1)
+					currentIndex = menus.Length - 1;
+			} else {
+				return;
+			}
+			SelectButton (currentIndex);
 		} else {
-			return;
+			if (Input.GetKeyDown (KeyCode.DownArrow)) {
+				currentSubIndex++;
+				if (currentSubIndex == subButtons.Length)
+					currentSubIndex = 0;
+			} else if (Input.GetKeyUp (KeyCode.UpArrow)) {
+				currentSubIndex--;
+				if (currentSubIndex == -1)
+					currentSubIndex = subButtons.Length - 1;
+			} else {
+				return;
+			}
+			SelectSubButton (currentSubIndex);
 		}
-		SelectButton (currentIndex);
+	}
+	
+	public void SelectButton(int buttonNb) {
+		foreach (Button b in buttons)
+			b.interactable = false;
+		
+		buttons [buttonNb].interactable = true;
+		eventSystem.SetSelectedGameObject(buttons[buttonNb].gameObject);
+		
+		currentIndex = buttonNb;//Keyboard cursor go where mouse is
+	}
+	
+	public void SelectSubButton(int buttonNb) {
+		foreach (Button b in subButtons)
+			b.interactable = false;
+		
+		subButtons [buttonNb].interactable = true;
+		eventSystem.SetSelectedGameObject(subButtons[buttonNb].gameObject);
+		
+		currentSubIndex = buttonNb;//Keyboard cursor go where mouse is
 	}
 
 	public void PlayLevel(int stratum, int level) {
@@ -71,23 +105,14 @@ public class MainMenuScript : MonoBehaviour {
 			unactivatedObjects.Clear();
 		}
 	}
+
 	
-	public void SelectButton(int buttonNb) {
-		foreach (Button b in buttons)
-			b.interactable = false;
-
-		buttons [buttonNb].interactable = true;
-		eventSystem.SetSelectedGameObject(buttons[buttonNb].gameObject);
-
-		currentIndex = buttonNb;//To make cursor memory work with mouse too
-	}
-
 	public void LevelPicker(int page) {
 		menus[0].SetActive(false);
 		reactivateObjects();
 		menus[1].SetActive(true);
-		Button[] buttons = menus[1].gameObject.GetComponentsInChildren<Button>();
-		foreach (Button b in buttons) {
+		subButtons = menus[1].gameObject.GetComponentsInChildren<Button>();
+		foreach (Button b in subButtons) {
 			if (b.name == "Left") {
 				b.onClick.RemoveAllListeners();
 				b.onClick.AddListener(() => {LevelPicker(page - 1);});
@@ -132,8 +157,9 @@ public class MainMenuScript : MonoBehaviour {
 				unactivatedObjects.Add(level);
 			}
 		}
-		eventSystem.SetSelectedGameObject(
-			buttons[0].gameObject);
+		SelectSubButton (0);
+//		eventSystem.SetSelectedGameObject(
+//			subButtons[0].gameObject);
 	}
 
     public void updateScore(int stratum, int num)
