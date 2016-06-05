@@ -41,28 +41,31 @@ public class MainMenuScript : MonoBehaviour {
 //		} else if (menus[1].activeSelf && Input.GetKeyDown(KeyCode.N)) {
 //			eventSystem.SetSelectedGameObject(GameObject.Find("Right"));
 //		}
-		if (menus [0].activeSelf) {//To detect if we are on the main page
+		if (menus [0].activeSelf) {//If we are on the main page
 			if (Input.GetKeyDown (KeyCode.DownArrow)) {
-				currentIndex++;
-				if (currentIndex == menus.Length)
-					currentIndex = 0;
+				ScriptHelper.IncCursor(ref currentIndex, menus.Length);
 			} else if (Input.GetKeyUp (KeyCode.UpArrow)) {
-				currentIndex--;
-				if (currentIndex == -1)
-					currentIndex = menus.Length - 1;
+				ScriptHelper.DecCursor(ref currentIndex, menus.Length);
 			} else {
 				return;
 			}
 			SelectButton (currentIndex);
+		} else if (menus [1].activeSelf) {//If we are in the level selection
+			//TODO add up and down arrows
+			if (Input.GetKeyDown (KeyCode.RightArrow)) {
+				ScriptHelper.IncCursor(ref currentSubIndex, subButtons.Length);
+			} else if (Input.GetKeyUp (KeyCode.LeftArrow)) {
+				ScriptHelper.DecCursor(ref currentSubIndex, subButtons.Length);
+			} else {
+				return;
+			}
+			SelectSubButton (currentSubIndex);
 		} else {
+			//TODO fix weird behavior in settings menu
 			if (Input.GetKeyDown (KeyCode.DownArrow)) {
-				currentSubIndex++;
-				if (currentSubIndex == subButtons.Length)
-					currentSubIndex = 0;
+				ScriptHelper.IncCursor(ref currentSubIndex, subButtons.Length);
 			} else if (Input.GetKeyUp (KeyCode.UpArrow)) {
-				currentSubIndex--;
-				if (currentSubIndex == -1)
-					currentSubIndex = subButtons.Length - 1;
+				ScriptHelper.DecCursor(ref currentSubIndex, subButtons.Length);
 			} else {
 				return;
 			}
