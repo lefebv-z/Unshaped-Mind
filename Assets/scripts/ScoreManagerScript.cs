@@ -25,9 +25,6 @@ public class ScoreManagerScript : MonoBehaviour
         keyScoreName = "TopScore";
         keyTimeName = "TopTimeScore";
         keyTransfoName = "TopTransfoScore";
-        topScore = PlayerPrefs.GetInt(keyScoreName + 1 + "-" + 1);
-        beatTime = PlayerPrefs.GetInt(keyTimeName + 1 + "-" + 1);
-        beatTransfo = PlayerPrefs.GetInt(keyTransfoName + 1 + "-" + 1);
     }
 
     void getLevelTopScore(int strate, int lvl)
