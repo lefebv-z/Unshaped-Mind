@@ -12,6 +12,8 @@ public class MainMenuScript : MonoBehaviour {
 	public int[] numLevelsPerStratum;
 	public string[] strateNames;
 
+	public GameObject[] arrowDisabledSprites;
+
 	private List<GameObject> unactivatedObjects;
 	private int currentIndex = 0;
 	private int currentSubIndex = 0;
@@ -58,10 +60,28 @@ public class MainMenuScript : MonoBehaviour {
 				ScriptHelper.IncCursor(ref currentSubIndex, subButtons.Length);
 				while (subButtons[currentSubIndex].IsActive() == false)//skip inactive level buttons
 					ScriptHelper.IncCursor(ref currentSubIndex, subButtons.Length);
+				//TODO REFACTOR CEST DEGUELASSE !!!!
+				if ((subButtons[currentSubIndex].name == "Left" &&
+				    arrowDisabledSprites[0].activeSelf == true)
+				    ||(subButtons[currentSubIndex].name == "Right" &&
+				   		arrowDisabledSprites[1].activeSelf == true)) {
+					ScriptHelper.IncCursor(ref currentSubIndex, subButtons.Length);
+					while (subButtons[currentSubIndex].IsActive() == false)//skip inactive level buttons
+						ScriptHelper.IncCursor(ref currentSubIndex, subButtons.Length);
+				}
 			} else if (Input.GetKeyUp (KeyCode.LeftArrow)) {
 				ScriptHelper.DecCursor(ref currentSubIndex, subButtons.Length);
 				while (subButtons[currentSubIndex].IsActive() == false)//skip inactive level buttons
 					ScriptHelper.DecCursor(ref currentSubIndex, subButtons.Length);
+				//TODO REFACTOR CEST DEGUELASSE !!!!
+				if ((subButtons[currentSubIndex].name == "Left" &&
+				     arrowDisabledSprites[0].activeSelf == true)
+				    ||(subButtons[currentSubIndex].name == "Right" &&
+				   arrowDisabledSprites[1].activeSelf == true)) {
+					ScriptHelper.DecCursor(ref currentSubIndex, subButtons.Length);
+					while (subButtons[currentSubIndex].IsActive() == false)//skip inactive level buttons
+						ScriptHelper.DecCursor(ref currentSubIndex, subButtons.Length);
+				}
 			} else {
 				return;
 			}
@@ -122,24 +142,26 @@ public class MainMenuScript : MonoBehaviour {
 		menus[1].SetActive(true);
 
 		subButtons = menus[1].gameObject.GetComponentsInChildren<Button>();
-		SelectSubButton (1);
-
 		foreach (Button b in subButtons) {
 			if (b.name == "Left") {
 				b.onClick.RemoveAllListeners();
 				b.onClick.AddListener(() => {LevelPicker(page - 1);});
 				if (page == 0) {
 					b.interactable = false;
+					arrowDisabledSprites[0].SetActive(true);
 				} else {
 					b.interactable = true;
+					arrowDisabledSprites[0].SetActive(false);
 				}
 			} else if (b.name == "Right") {
 				b.onClick.RemoveAllListeners();
 				b.onClick.AddListener(() => {LevelPicker(page + 1);});
 				if ((page + 1) >= numStratums){
 					b.interactable = false;
+					arrowDisabledSprites[1].SetActive(true);
 				} else {
 					b.interactable = true;
+					arrowDisabledSprites[1].SetActive(false);
 				}
 			}
 		}
@@ -169,6 +191,7 @@ public class MainMenuScript : MonoBehaviour {
 				unactivatedObjects.Add(level);
 			}
 		}
+		SelectSubButton (1);
 	}
 
     public void updateScore(int stratum, int num)
