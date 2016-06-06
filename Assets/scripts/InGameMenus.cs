@@ -25,6 +25,8 @@ public class InGameMenus : MonoBehaviour {
 	GameState _oldState;
 	EventSystem _es;
 
+	private bool AllowQuitting = false;
+
 	// Use this for initialization
 	void Start () {
 		_es = EventSystem.current;
@@ -167,6 +169,14 @@ public class InGameMenus : MonoBehaviour {
 		_pauseMenu.SetActive(false);
 		_es.SetSelectedGameObject(confirmMenuFirstObject);
 		_confirmMenu.transform.FindChild("Title").GetComponent<Text>().text = "Quit game";
-		_confirmMenu.transform.FindChild("Yes").GetComponent<Button>().onClick.AddListener(() => {Application.Quit();});
+		_confirmMenu.transform.FindChild("Yes").GetComponent<Button>().onClick.AddListener(() => {AllowQuitting = true; Application.Quit();});
+	}
+		
+
+	void OnApplicationQuit() {
+		if (!AllowQuitting) {
+			Application.CancelQuit();
+			Exit();
+		}
 	}
 }

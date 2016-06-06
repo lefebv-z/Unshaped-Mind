@@ -19,6 +19,7 @@ public class MainMenuScript : MonoBehaviour {
 	private Button[] buttons;
 	private Button[] subButtons;
 	private Text stratumNameText;
+	private bool AllowQuitting = false;
 
 	void Start() {
 		unactivatedObjects = new List<GameObject>();
@@ -198,10 +199,12 @@ public class MainMenuScript : MonoBehaviour {
 		eventSystem.SetSelectedGameObject(
 			menus[4].gameObject.GetComponentInChildren<Button>().gameObject);
 	}
-	
+
 	public void Exit() {
-		Debug.Log("Exit");
-		Application.Quit();
+		menus[5].SetActive(true);
+		eventSystem.SetSelectedGameObject(menus[5].GetComponentInChildren<Button>().gameObject);
+		menus[5].transform.FindChild("Title").GetComponent<Text>().text = "Quit game";
+		menus[5].transform.FindChild("Yes").GetComponent<Button>().onClick.AddListener(() => {AllowQuitting = true; Application.Quit();});
 	}
 
 	public void ToggleFullscreen() {
@@ -216,5 +219,12 @@ public class MainMenuScript : MonoBehaviour {
 		reactivateObjects();
 		menus[0].SetActive(true);
 		eventSystem.SetSelectedGameObject(buttons[currentIndex].gameObject);
+	}
+
+	void OnApplicationQuit() {
+		if (!AllowQuitting) {
+			Application.CancelQuit();
+			Exit();
+		}
 	}
 }
