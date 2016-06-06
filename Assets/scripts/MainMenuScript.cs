@@ -56,8 +56,12 @@ public class MainMenuScript : MonoBehaviour {
 			//TODO add up and down arrows
 			if (Input.GetKeyDown (KeyCode.RightArrow)) {
 				ScriptHelper.IncCursor(ref currentSubIndex, subButtons.Length);
+				while (subButtons[currentSubIndex].IsActive() == false)//skip inactive level buttons
+					ScriptHelper.IncCursor(ref currentSubIndex, subButtons.Length);
 			} else if (Input.GetKeyUp (KeyCode.LeftArrow)) {
 				ScriptHelper.DecCursor(ref currentSubIndex, subButtons.Length);
+				while (subButtons[currentSubIndex].IsActive() == false)//skip inactive level buttons
+					ScriptHelper.DecCursor(ref currentSubIndex, subButtons.Length);
 			} else {
 				return;
 			}
@@ -116,7 +120,10 @@ public class MainMenuScript : MonoBehaviour {
 		menus[0].SetActive(false);
 		reactivateObjects();
 		menus[1].SetActive(true);
+
 		subButtons = menus[1].gameObject.GetComponentsInChildren<Button>();
+		SelectSubButton (1);
+
 		foreach (Button b in subButtons) {
 			if (b.name == "Left") {
 				b.onClick.RemoveAllListeners();
@@ -162,9 +169,6 @@ public class MainMenuScript : MonoBehaviour {
 				unactivatedObjects.Add(level);
 			}
 		}
-		SelectSubButton (0);
-//		eventSystem.SetSelectedGameObject(
-//			subButtons[0].gameObject);
 	}
 
     public void updateScore(int stratum, int num)
