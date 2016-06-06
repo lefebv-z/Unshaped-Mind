@@ -42,10 +42,11 @@ public class SoundManager : MonoBehaviour {
     private int currenlyStratumMusic;
 
     private Button[] buttons;
-    
+    private bool levelSelectorOn; 
 
     void Awake()
     {
+        levelSelectorOn = false;
         if (soundSysManager == null)
         {
             soundSysManager = this;
@@ -72,6 +73,20 @@ public class SoundManager : MonoBehaviour {
         }
         else
             InGame = true;
+
+
+         //buttons = (Button[])(GameObject.FindObjectsOfTypeAll(typeof(Button)));
+         buttons = Resources.FindObjectsOfTypeAll<Button>();
+         foreach (Button button in buttons)
+         {
+             EventTrigger.Entry entry = new EventTrigger.Entry();
+             entry.eventID = EventTriggerType.Select;
+             entry.callback.AddListener((eventData) => { PlaySelecting(); });
+             EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
+             if (trigger != null)
+                 trigger.triggers.Add(entry);
+         }
+
 	}
 
     void OnLevelWasLoaded(int level)
@@ -81,18 +96,25 @@ public class SoundManager : MonoBehaviour {
         {
             stratum = lvlnumb.GetStratum();
             if (stratum != currenlyStratumMusic)
-            PlayStratum();
+                PlayStratum();
         }
-        buttons = (Button[])(GameObject.FindObjectsOfType(typeof(Button)));
+        //buttons = (Button[])(GameObject.FindObjectsOfType(typeof(Button)));
+        buttons = Resources.FindObjectsOfTypeAll<Button>();
         foreach (Button button in buttons)
         {
             button.onClick.AddListener(PlayValidation);
             EventTrigger.Entry entry = new EventTrigger.Entry();
-            entry.eventID = EventTriggerType.PointerEnter;
+            EventTrigger.Entry entrymouse = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.Select;
+            entrymouse.eventID = EventTriggerType.PointerEnter;
             entry.callback.AddListener((eventData) => { PlaySelecting(); });
+            entrymouse.callback.AddListener((eventData) => { PlaySelecting(); });
             EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
             if (trigger != null)
+            {
                 trigger.triggers.Add(entry);
+                trigger.triggers.Add(entrymouse);
+            }
         }
     }
 	
@@ -153,6 +175,37 @@ public class SoundManager : MonoBehaviour {
             //secondarySource.timeSamples = mainSource.timeSamples;
 	}
 
+    public void addBSound()
+    {
+        if (levelSelectorOn == false)
+        {
+            levelSelectorOn = true;
+            Button[] other_buttons = (Button[])(GameObject.FindObjectsOfType(typeof(Button)));
+            foreach (Button button in other_buttons)
+            {
+                button.onClick.AddListener(PlayValidation);
+                EventTrigger.Entry entry = new EventTrigger.Entry();
+                EventTrigger.Entry entrymouse = new EventTrigger.Entry();
+                EventTrigger.Entry entrySubmit = new EventTrigger.Entry();
+                entry.eventID = EventTriggerType.Select;
+                entrymouse.eventID = EventTriggerType.PointerEnter;
+                entrySubmit.eventID = EventTriggerType.Submit;
+                entry.callback.AddListener((eventData) => { PlaySelecting(); });
+                entrymouse.callback.AddListener((eventData) => { PlaySelecting(); });
+                entrySubmit.callback.AddListener((eventData) => { PlayValidation(); });
+                EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
+                if (trigger != null)
+                {
+                    trigger.triggers.Add(entry);
+                    trigger.triggers.Add(entrymouse);
+                    trigger.triggers.Add(entrySubmit);
+                }
+            }
+        }
+    }
+
+  
+
    public void UpdateVolume()
     {
         mainSource.volume = bgmVolume * bgmModificator;
@@ -170,6 +223,7 @@ public class SoundManager : MonoBehaviour {
    {
        effectsVolume = value;
        UpdateVolume();
+       PlayUnlocking();
    }
 
     void PlayLogMenu()

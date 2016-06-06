@@ -22,6 +22,7 @@ public class MainMenuScript : MonoBehaviour {
 	private Button[] subButtons;
 	private Text stratumNameText;
 	private bool AllowQuitting = false;
+    private SoundManager sm;
 
 	void Start() {
 		unactivatedObjects = new List<GameObject>();
@@ -34,6 +35,7 @@ public class MainMenuScript : MonoBehaviour {
 		buttons = menus[0].gameObject.GetComponentsInChildren<Button>();
 		eventSystem.SetSelectedGameObject(buttons[currentIndex].gameObject);
 		Cursor.visible = true;
+        sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
 	}
 
 	// Update is called once per frame
@@ -140,7 +142,8 @@ public class MainMenuScript : MonoBehaviour {
 		menus[0].SetActive(false);
 		reactivateObjects();
 		menus[1].SetActive(true);
-
+        if (sm != null)
+            sm.addBSound();
 		subButtons = menus[1].gameObject.GetComponentsInChildren<Button>();
 		foreach (Button b in subButtons) {
 			if (b.name == "Left") {
@@ -172,6 +175,7 @@ public class MainMenuScript : MonoBehaviour {
 		stratumNameText.text = "Stratum " + stratum;
 
 		GameObject[] levels = GameObject.FindGameObjectsWithTag("Level");
+        
 		foreach (GameObject level in levels) {
 			int num = int.Parse(level.name) + 1;
 			if (num <= numLevelsPerStratum[page]) {
@@ -179,13 +183,21 @@ public class MainMenuScript : MonoBehaviour {
 				Button b = level.GetComponent<Button>();
 				b.onClick.RemoveAllListeners();
 				b.onClick.AddListener(delegate{PlayLevel(stratum, num);});
+                //add score reaction
+
+                EventTrigger.Entry entrys = new EventTrigger.Entry();
+                entrys.eventID = EventTriggerType.UpdateSelected;
+                entrys.callback.AddListener((eventData) => { updateScore(stratum, num); });
 
                 EventTrigger.Entry entry = new EventTrigger.Entry();
                 entry.eventID = EventTriggerType.Select;
                 entry.callback.AddListener((eventData) => { updateScore(stratum, num); });
                 EventTrigger trigger = b.gameObject.AddComponent<EventTrigger>();
                 if (trigger != null)
+                {
                     trigger.triggers.Add(entry);
+                    trigger.triggers.Add(entrys);
+                }
 			} else {
 				level.SetActive(false);
 				unactivatedObjects.Add(level);
