@@ -100,23 +100,36 @@ public class MechanicScript : MonoBehaviour {
 
     public void ActivateMechanic()
     {
-        SoundManager sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
-        if (_isActive == false)
-        {
-            Debug.Log("Mechanic active:" + name);
-			GetComponent<SpriteRenderer>().sprite = spritesOn[(int)type];
-            if (sm != null)
-                sm.PlayUnlocking();
-            _isActive = true;
-			ParticleSystem[] particleSys = GetComponentsInChildren<ParticleSystem>();
+		SoundManager sm = (SoundManager)(GameObject.FindObjectOfType (typeof(SoundManager)));
+		if (_isActive == false) {
+			Debug.Log ("Mechanic active:" + name);
+			GetComponent<SpriteRenderer> ().sprite = spritesOn [(int)type];
+			if (sm != null)
+				sm.PlayUnlocking ();
+			_isActive = true;
+			ParticleSystem[] particleSys = GetComponentsInChildren<ParticleSystem> ();
 			foreach (ParticleSystem ps in particleSys) {
-				ps.Stop();
+				ps.Stop ();
 			}
 			foreach (GameObject obj in wallsToDisapear) {
-				obj.SetActive(false);
+				ParticleSystem ps = obj.GetComponent<ParticleSystem> ();
+				ps.Play ();
+				StartCoroutine (WaitAndMakeWallDisappear (ps.duration, obj));
 			}
-			foreach (GameObject obj in wallsToAppear)
-				obj.SetActive(true);
+			foreach (GameObject obj in wallsToAppear) {
+				ParticleSystem ps = obj.GetComponent<ParticleSystem> ();
+				ps.Play ();
+				StartCoroutine (WaitAndMakeWallAppear (ps.duration, obj));
+			}
 		}
-    }
+	}
+
+	IEnumerator WaitAndMakeWallDisappear(float waitTime, GameObject wall) {
+		yield return new WaitForSeconds(waitTime);
+		wall.SetActive (false);
+	}
+	IEnumerator WaitAndMakeWallAppear(float waitTime, GameObject wall) {
+		yield return new WaitForSeconds(waitTime);
+		wall.SetActive (true);
+	}
 }
