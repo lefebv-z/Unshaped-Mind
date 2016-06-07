@@ -157,10 +157,13 @@ public class GameManager : MonoBehaviour {
 		return currentLevel;
 	}
 
+	public int getLevelsInCurrentStratum() {
+		return PlayerPrefs.GetInt ("levelsInStratum" + PlayerPrefs.GetInt("currentStratum"));
+	}
+
 	//Check if next level exist.
 	//if so and saveNext is true, then put next level in pref
-	public static bool nextLevelExists(bool saveNext = false)
-	{
+	public static bool nextLevelExists(bool saveNext = false) {
 		int level = PlayerPrefs.GetInt("currentLevel");
 		int stratum = PlayerPrefs.GetInt("currentStratum");
 		//int levelsPerStartum = PlayerPrefs.GetInt("levelsPerStartum");
