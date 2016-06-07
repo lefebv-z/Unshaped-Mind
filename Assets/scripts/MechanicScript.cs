@@ -89,10 +89,10 @@ public class MechanicScript : MonoBehaviour {
             foreach (GameObject obj in wallsToDisapear) {
                 obj.SetActive(true);
 			}
-//			ParticleSystem[] particleSys = GetComponentsInChildren<ParticleSystem>();
-//			foreach (ParticleSystem ps in particleSys) {
-//				ps.Play();
-//			}
+			ParticleSystem[] particleSys = GetComponentsInChildren<ParticleSystem>();
+			foreach (ParticleSystem ps in particleSys) {
+				ps.Play();
+			}
 			foreach (GameObject obj in wallsToAppear)
 				obj.SetActive(false);
 		}
@@ -107,12 +107,16 @@ public class MechanicScript : MonoBehaviour {
 			if (sm != null)
 				sm.PlayUnlocking ();
 			_isActive = true;
-//			ParticleSystem[] particleSys = GetComponentsInChildren<ParticleSystem> ();
-//			foreach (ParticleSystem ps in particleSys) {
-//				ps.Stop ();
-//			}
+			ParticleSystem[] particleSys = GetComponentsInChildren<ParticleSystem> ();
+			foreach (ParticleSystem ps in particleSys) {
+				ps.Stop ();
+			}
+
+			//Mech particles
 			ParticleSystem mechPs = GetComponent<ParticleSystem> ();
 			mechPs.Play();
+
+			//Walls particles and (dis)appearance
 			foreach (GameObject obj in wallsToDisapear) {
 				ParticleSystem ps = obj.GetComponent<ParticleSystem> ();
 				ps.Play ();
