@@ -72,7 +72,7 @@ public class InGameMenus : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) {
+		if (Input.GetKeyDown(KeyCode.Escape)) {
 			if (!_pauseMenu.activeSelf) {
 				_oldState = _manager.gameState;
 				_manager.changeGameState(GameState.Menu);

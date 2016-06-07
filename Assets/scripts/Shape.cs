@@ -107,7 +107,7 @@ public class Shape : MonoBehaviour {
 		return currentType;
 	}
 
-	void ChangeShape(ShapeType newShape) {
+	public void ChangeShape(ShapeType newShape) {
 		currentType = newShape;
 		colorFilterMat.color = _colors[(int)newShape];
 		_particleSystem.GetComponent<ParticleSystemRenderer>().material.mainTexture = Resources.Load<Texture2D>(currentType.ToString() + "Hole");
