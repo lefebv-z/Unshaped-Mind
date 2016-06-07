@@ -242,7 +242,6 @@ public class MainMenuScript : MonoBehaviour {
 	public void Exit() {
 		menus[5].SetActive(true);
 		eventSystem.SetSelectedGameObject(menus[5].GetComponentInChildren<Button>().gameObject);
-		menus[5].transform.FindChild("Title").GetComponent<Text>().text = "Quit game";
 		menus[5].transform.FindChild("Yes").GetComponent<Button>().onClick.AddListener(() => {AllowQuitting = true; Application.Quit();});
 	}
 
