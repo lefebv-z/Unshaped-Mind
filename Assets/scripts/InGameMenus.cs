@@ -55,6 +55,7 @@ public class InGameMenus : MonoBehaviour {
 		_pauseMenu.SetActive(false);
 		_endLevelMenu.SetActive(false);
 
+		SoundManager = GameObject.Find("SoundSystemManager").GetComponent<SoundManager>();
 
 		HowToMenu = GameObject.Find("How to play");
 		CreditsMenu = GameObject.Find("Credits");
@@ -99,8 +100,6 @@ public class InGameMenus : MonoBehaviour {
 	}
 
 	void ResetVolumeSliders() {
-		SoundManager = GameObject.Find("SoundSystemManager").GetComponent<SoundManager>();
-
 		Slider bgmSlider = OptionsMenu.transform.Find("BGMVolumeSlider").GetComponent<Slider>();
 		Slider effectSlider = OptionsMenu.transform.Find("VolumeSlider").GetComponent<Slider>();
 
