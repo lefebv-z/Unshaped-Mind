@@ -26,18 +26,24 @@ public class MechanicScript : MonoBehaviour {
 			gameManager = GameObject.FindObjectOfType<GameManager>();
 		}
 		foreach (GameObject obj in wallsToDisapear) {
-			GameObject vfx = Instantiate(VFX);
-			vfx.transform.SetParent(transform);
-			ParticleSystem particleSys = vfx.GetComponentInChildren<ParticleSystem>();
-			particleSys.startColor = _colors[(int)obj.GetComponentInChildren<WallManager>().color];
-			vfx.transform.localPosition = Vector3.zero;
-			
-			Vector3 from = Vector3.right;
-			Vector3 to = obj.transform.position - transform.position;
-			to.z = 0.0f;
-			float angle = Mathf.Acos(Vector3.Dot(from, to) / (from.magnitude * to.magnitude)) * Mathf.Rad2Deg - 90.0f;
-			vfx.transform.Rotate(Vector3.forward, angle);
-			particleSys.startLifetime = Vector3.Distance(from, to) / particleSys.startSpeed;
+			if (transform.parent.name.Contains(PlayerPrefs.GetInt("currentLevel").ToString())) {
+				GameObject vfx = Instantiate(VFX);
+				vfx.transform.SetParent(transform);
+				ParticleSystem particleSys = vfx.GetComponentInChildren<ParticleSystem>();
+				particleSys.startColor = _colors[(int)obj.GetComponentInChildren<WallManager>().color];
+				vfx.transform.localPosition = Vector3.zero;
+				
+				Vector3 from = Vector3.right;
+				Vector3 to = obj.transform.position - transform.position;
+				to.z = 0.0f;
+				float angle = Mathf.Acos(Vector3.Dot(from, to) / (from.magnitude * to.magnitude)) * Mathf.Rad2Deg;
+				if (from.y > to.y) {
+					angle *= -1;
+				}
+				angle -= 90.0f;
+				vfx.transform.Rotate(Vector3.forward, angle);
+				particleSys.startLifetime = Vector3.Distance(from, to) / particleSys.startSpeed;
+			}
 			GameObject line = Instantiate(lineToMechPref);
 			LineRenderer renderer = line.GetComponent<LineRenderer>();
 			renderer.SetPosition(0, obj.transform.position);

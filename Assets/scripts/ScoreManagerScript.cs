@@ -37,14 +37,12 @@ public class ScoreManagerScript : MonoBehaviour
             PlayerPrefs.SetInt(keyScoreName + strate + "-" + lvl, 0);
             PlayerPrefs.SetInt(keyTimeName + strate + "-" + lvl, 0);
             PlayerPrefs.SetInt(keyTransfoName + strate + "-" + lvl, 0);
-            Debug.Log("no" + topScore);
         }
         else
         {
             topScore = PlayerPrefs.GetInt(keyScoreName + strate + "-" + lvl);
             beatTime = PlayerPrefs.GetInt(keyTimeName + strate + "-" + lvl);
             beatTransfo = PlayerPrefs.GetInt(keyTransfoName + strate + "-" + lvl);
-            Debug.Log(topScore);
         }
     }
 
@@ -112,13 +110,11 @@ public class ScoreManagerScript : MonoBehaviour
 
     public void recapScore(int strate, int lvl)
     {
-        Debug.Log("-----"+ strate+ lvl);
         getLevelTopScore(strate, lvl);
         updateStar();
     }
     public void initrecapScore()
     {
-        Debug.Log("-----");
         getLevelTopScore(1, 1);
         updateStar();
     }

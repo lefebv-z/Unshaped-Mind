@@ -53,7 +53,6 @@ public class PlayerFollow : MonoBehaviour {
 		if (gManager.gameState != GameState.Fullscreen) {
 			transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
 		} else {
-			Debug.Log("fullscreen " + middlePos.ToString());
 			transform.position = new Vector3(middlePos.x, middlePos.y, middlePos.z);
 		}
 		if (Input.GetKeyDown(KeyCode.Tab)) {
