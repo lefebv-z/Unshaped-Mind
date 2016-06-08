@@ -49,12 +49,14 @@ public class InGameInfos : MonoBehaviour {
 
 	void RemainingTransformationColorUpdate() {
 		if (_oldTransformation != gameManager.remainingTransformation) {
+            Debug.Log(remaining.transform.localScale);
 			_oldTransformation = gameManager.remainingTransformation;
 			remaining.text = gameManager.remainingTransformation.ToString();
 			_blinkIn = true;
 			_currentBlink = 0.0f;
-		}
-		if (_blinkIn) {
+            remaining.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        }
+        if (_blinkIn) {
 			_currentBlink += Time.deltaTime;
 			float percentageLerp = _currentBlink / _timeBlink;
 			remaining.color = new Color(Mathf.Lerp(_originColor.r, Color.red.r, percentageLerp),
@@ -64,7 +66,7 @@ public class InGameInfos : MonoBehaviour {
 			remaining.transform.localScale += new Vector3(_blinkScale * percentageLerp, _blinkScale * percentageLerp);
 			if (_currentBlink > _timeBlink) {
 				_blinkIn = false;
-				_blinkOut = true;
+                _blinkOut = true;
 				_currentBlink = 0.0f;
 			}
 		} else if (_blinkOut) {
@@ -77,7 +79,11 @@ public class InGameInfos : MonoBehaviour {
 			remaining.transform.localScale -= new Vector3(_blinkScale * percentageLerp, _blinkScale * percentageLerp);
 			if (_currentBlink > _timeBlink) {
 				_blinkOut = false;
-				remaining.color = _originColor;
+                remaining.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                remaining.color = _originColor;
+                if (gameManager.remainingTransformation <= 0) {
+                    remaining.color = Color.red;
+                }
 			}
 		}
 	}
