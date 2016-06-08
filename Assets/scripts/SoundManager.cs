@@ -7,8 +7,10 @@ public class SoundManager : MonoBehaviour {
 
     public static SoundManager soundSysManager;
 
-    public AudioClip firstStratumMusic;
-    public AudioClip secondStratumMusic;
+//    public AudioClip firstStratumMusic;
+//    public AudioClip secondStratumMusic;
+	public AudioClip[] stratumsMusic;
+	public float[] stratumsBgmModificators;
     public AudioClip firstStratumBeats;
     public AudioClip logMusic;
 
@@ -239,35 +241,16 @@ public class SoundManager : MonoBehaviour {
 
     void PlayStratum()
     {
-        if (stratum == 1)
-            PlayFirstStratum();
-        else
-            PlaySecondStratum();
+		mainSource.Stop ();
+		mainSource.clip = stratumsMusic [stratum - 1];
+		bgmModificator = stratumsBgmModificators[stratum - 1];
+		mainSource.volume = bgmModificator * bgmVolume;
+		mainSource.loop = true;
+		mainSource.Play ();
+		currenlyStratumMusic = stratum;
     }
 
-    void PlayFirstStratum()
-    {
-        mainSource.Stop();
-        bgmModificator = 1.0f;
-        mainSource.volume = bgmModificator * bgmVolume;
-        mainSource.loop = true;
-        mainSource.clip = firstStratumMusic;
-        mainSource.Play();
-        currenlyStratumMusic = 1;
-    }
-
-    void PlaySecondStratum()
-    {
-        mainSource.Stop();
-        bgmModificator = 0.8f;
-        mainSource.volume = bgmModificator * bgmVolume;
-        mainSource.loop = true;
-        mainSource.clip = secondStratumMusic;
-        mainSource.Play();
-        currenlyStratumMusic = 2;
-    }
-
-    void PlayFirstStratumBeats()
+	void PlayFirstStratumBeats()
     {
         secondarySource.Stop();
         beatsModificator = 0.2f;
