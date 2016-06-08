@@ -76,14 +76,14 @@ public class InGameMenus : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Escape)) {
 			if (!_pauseMenu.activeSelf) {
-				_oldState = _manager.gameState;
-				_manager.changeGameState(GameState.Menu);
-				_pauseMenu.SetActive(true);
-				_es.SetSelectedGameObject(pauseMenuFirstObject);
-
-				//Decrease volume on pause
-				SoundManager.BGMVolumeChange(SoundManager.getBGMVolume() / pauseVolumeDivider);
-
+				if (_manager.gameState != GameState.Menu) {
+					_oldState = _manager.gameState;
+					_manager.changeGameState(GameState.Menu);
+					_pauseMenu.SetActive(true);
+					_es.SetSelectedGameObject(pauseMenuFirstObject);
+					//Decrease volume on pause
+					SoundManager.BGMVolumeChange(SoundManager.getBGMVolume() / pauseVolumeDivider);
+				}
 			} else {
 				_manager.changeGameState(_oldState);
 				_pauseMenu.SetActive(false);
