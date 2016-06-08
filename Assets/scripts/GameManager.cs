@@ -27,24 +27,25 @@ public class GameManager : MonoBehaviour {
     private SoundManager sm;
 	private InGameMenus	menu;
     private ScoreManagerScript scoring;
-//	private Camera mainCamera;
 
     private bool endOccuring; //if the player is in thole
     private Vector3 endDestination; //position of center of hole
+
+	private bool _activatedNoTransfoRestartStuff = false;
+	private GameObject _NoTransfoRestartStuff;
 
 	void Awake()
 	{
 		currentLevel = PlayerPrefs.GetInt("currentLevel");
 		menu = gameObject.GetComponent<InGameMenus> ();
-        
-		//maxLevel = PlayerPrefs.GetInt("maxLevel");
 	}
 
 	void Start ()
 	{
         endOccuring = false;
         sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
-//		mainCamera = (Camera)(GameObject.FindObjectOfType(typeof(Camera)));
+		_NoTransfoRestartStuff = GameObject.Find("NoTransfoRestartStuff");
+		_NoTransfoRestartStuff.SetActive(false);
         maxTransfo = remainingTransformation;
 		changeGameState(GameState.Start);
 		shape = playerShape.GetComponent<Shape>();
@@ -77,6 +78,11 @@ public class GameManager : MonoBehaviour {
             switch (gameState)
             {
                 case GameState.Playing:
+					if (remainingTransformation <= 0 && !_activatedNoTransfoRestartStuff)
+					{
+						_activatedNoTransfoRestartStuff = true;
+						_NoTransfoRestartStuff.SetActive(true);
+					}
                     if (Input.GetKeyDown(KeyCode.R))
                     {
                         RestartLevel();
@@ -166,7 +172,6 @@ public class GameManager : MonoBehaviour {
 	public static bool nextLevelExists(bool saveNext = false) {
 		int level = PlayerPrefs.GetInt("currentLevel");
 		int stratum = PlayerPrefs.GetInt("currentStratum");
-		//int levelsPerStartum = PlayerPrefs.GetInt("levelsPerStartum");
 		level++;
 		if (level > PlayerPrefs.GetInt ("levelsInStratum" + stratum)) {
 			level = 1;
