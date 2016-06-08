@@ -14,7 +14,7 @@ public class CreditScript : MonoBehaviour {
 	// Use this for initialization
     void Start()
     {
-        otherText = "Musics: \"Floating Cities\" \"Thunderbird\" \"Fairytale Waltz\" \"Orion 300XB\" Kevin MacLeod (incompetech.com)\nLicensed under Creative Commons: By Attribution 3.0 License \nhttp://creativecommons.org/licenses/by/3.0/";
+        otherText = "Musics: \"Floating Cities\" \"Brittle Rille\" \"Thunderbird\" \"Fairytale Waltz\" \"Orion 300XB\" Kevin MacLeod (incompetech.com)\nLicensed under Creative Commons: By Attribution 3.0 License \nhttp://creativecommons.org/licenses/by/3.0/";
         mt = this.GetComponent<Text>();
 		pressSpaceImage = GameObject.Find("PressButtonInvit").GetComponentInChildren<Image>();
 		changeTime *= 2.0f;
