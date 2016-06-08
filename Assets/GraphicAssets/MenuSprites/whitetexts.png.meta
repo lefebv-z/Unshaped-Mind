@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 37a80da17106aa145b4ff1f0fd1d10aa
-timeCreated: 1465279995
+timeCreated: 1465349873
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,6 +8,7 @@ TextureImporter:
     21300002: whitetexts_1
     21300004: whitetexts_2
     21300006: whitetexts_3
+    21300008: whitetexts_4
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -611,6 +612,40 @@ TextureImporter:
         - {x: -197.38824, y: 87.5}
         - {x: -195.38824, y: 89.5}
         - {x: -195.38824, y: 90.5}
+    - name: whitetexts_4
+      rect:
+        serializedVersion: 2
+        x: 1858
+        y: 886
+        width: 229
+        height: 282
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 73.85632, y: 110.42987}
+        - {x: -31.143677, y: 110.42987}
+        - {x: -61.143677, y: 108.42987}
+        - {x: -75.14368, y: 106.42987}
+        - {x: -75.14368, y: 22.42987}
+        - {x: -74.14368, y: 14.429871}
+        - {x: -49.143677, y: -93.57013}
+        - {x: 54.856323, y: -93.57013}
+        - {x: 64.85632, y: -83.57013}
+        - {x: 74.85632, y: 28.42987}
+        - {x: 74.85632, y: 107.42987}
+      - - {x: 61.856323, y: 98.42987}
+        - {x: 62.856323, y: 99.42987}
+        - {x: 61.856323, y: 98.42987}
+        - {x: 45.856323, y: -32.57013}
+      - - {x: 4.8563232, y: 83.42987}
+        - {x: -44.143677, y: 60.42987}
+        - {x: -44.143677, y: 27.42987}
+        - {x: 10.856323, y: 27.42987}
+        - {x: 48.856323, y: 35.42987}
+        - {x: 52.856323, y: 45.42987}
+        - {x: 52.856323, y: 78.42987}
+        - {x: 49.856323, y: 83.42987}
     outline: []
   spritePackingTag: 
   userData: 
