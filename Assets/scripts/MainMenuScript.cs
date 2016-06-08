@@ -39,8 +39,9 @@ public class MainMenuScript : MonoBehaviour {
 		eventSystem = GameObject.FindObjectOfType<EventSystem> ();
 		buttons = menus[0].gameObject.GetComponentsInChildren<Button>();
 		eventSystem.SetSelectedGameObject(buttons[currentIndex].gameObject);
-		Cursor.visible = true;
-        sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
+		Cursor.visible = false;
+
+		sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
 		startScreen1 = GameObject.Find("StartScreen1");
 		startScreen2 = GameObject.Find("StartScreen2");
 		startScreen3 = GameObject.Find("StartScreen3");
@@ -60,14 +61,16 @@ public class MainMenuScript : MonoBehaviour {
 //		}
 		if (menus [0].activeSelf) {//If we are on the main page
 			if (Input.GetKeyDown (KeyCode.DownArrow)) {
-				ScriptHelper.IncCursor(ref currentIndex, menus.Length);
+				ScriptHelper.IncCursor (ref currentIndex, menus.Length);
 			} else if (Input.GetKeyUp (KeyCode.UpArrow)) {
-				ScriptHelper.DecCursor(ref currentIndex, menus.Length);
+				ScriptHelper.DecCursor (ref currentIndex, menus.Length);
 			} else {
 				return;
 			}
 			SelectButton (currentIndex);
-		} else if (menus [1].activeSelf) {//If we are in the level selection
+		} else {
+			return;
+		}/* else if (menus [1].activeSelf) {//If we are in the level selection
 			//TODO add up and down arrows
 			if (Input.GetKeyDown (KeyCode.RightArrow)) {
 				ScriptHelper.IncCursor(ref currentSubIndex, subButtons.Length);
@@ -109,25 +112,25 @@ public class MainMenuScript : MonoBehaviour {
 				return;
 			}
 			SelectSubButton (currentSubIndex);
-		}
+		}*/
 
 	}
 	
 	public void SelectButton(int buttonNb) {
-		foreach (Button b in buttons)
-			b.interactable = false;
+//		foreach (Button b in buttons)
+//			b.interactable = false;
 		
-		buttons [buttonNb].interactable = true;
+//		buttons [buttonNb].interactable = true;
 		eventSystem.SetSelectedGameObject(buttons[buttonNb].gameObject);
 		
 		currentIndex = buttonNb;//Keyboard cursor go where mouse is
 	}
 	
 	public void SelectSubButton(int buttonNb) {
-		foreach (Button b in subButtons)
-			b.interactable = false;
-		
-		subButtons [buttonNb].interactable = true;
+//		foreach (Button b in subButtons)
+//			b.interactable = false;
+//		
+//		subButtons [buttonNb].interactable = true;
 		eventSystem.SetSelectedGameObject(subButtons[buttonNb].gameObject);
 		
 		currentSubIndex = buttonNb;//Keyboard cursor go where mouse is
