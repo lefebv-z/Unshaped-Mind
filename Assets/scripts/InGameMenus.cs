@@ -23,6 +23,7 @@ public class InGameMenus : MonoBehaviour {
 	private GameObject 	CreditsFirstObject;
 
 	private SoundManager	SoundManager;
+	static public float		pauseVolumeDivider = 3.0f;
 
 	public GameManager _manager;
 	GameState _oldState;
@@ -78,9 +79,14 @@ public class InGameMenus : MonoBehaviour {
 				_manager.changeGameState(GameState.Menu);
 				_pauseMenu.SetActive(true);
 				_es.SetSelectedGameObject(pauseMenuFirstObject);
+
+				//Decrease volume on pause
+				SoundManager.BGMVolumeChange(SoundManager.getBGMVolume() / pauseVolumeDivider);
+
 			} else {
 				_manager.changeGameState(_oldState);
 				_pauseMenu.SetActive(false);
+				SoundManager.BGMVolumeChange(SoundManager.getBGMVolume() * pauseVolumeDivider);
 			}
 		}
 		/*
@@ -106,16 +112,20 @@ public class InGameMenus : MonoBehaviour {
 	}
 
 	public void Win() {
+		SoundManager.BGMVolumeChange(SoundManager.getBGMVolume() / pauseVolumeDivider);
 		_endLevelMenu.SetActive (true);
 		_es.SetSelectedGameObject (endMenuFirstObject);
 	}
 
 	public void Continue() {
+		SoundManager.BGMVolumeChange(SoundManager.getBGMVolume() * pauseVolumeDivider);
 		_manager.changeGameState(_oldState);
 		_pauseMenu.SetActive(false);
 	}
 
 	public static void GoToNextLevel() {
+		SoundManager sm = GameObject.Find ("SoundSystemManager").GetComponent<SoundManager> ();
+		sm.BGMVolumeChange(sm.getBGMVolume() * pauseVolumeDivider);
 		if (GameManager.nextLevelExists (true)) {
 			Application.LoadLevel("Stratum" + PlayerPrefs.GetInt("currentStratum").ToString());
 		} else {
@@ -138,6 +148,7 @@ public class InGameMenus : MonoBehaviour {
 	}
 
 	public void Restart() {
+		SoundManager.BGMVolumeChange(SoundManager.getBGMVolume() * pauseVolumeDivider);
 		_manager.RestartLevel();
 	}
 
@@ -164,7 +175,9 @@ public class InGameMenus : MonoBehaviour {
 		_pauseMenu.SetActive(false);
 		_es.SetSelectedGameObject(confirmMenuFirstObject);
 		_confirmMenu.transform.FindChild("Title").GetComponent<Image>().sprite = returnMenuSprite;
-		_confirmMenu.transform.FindChild("Yes").GetComponent<Button>().onClick.AddListener(() => {Application.LoadLevel("Menu");});
+		_confirmMenu.transform.FindChild("Yes").GetComponent<Button>().onClick.AddListener(() => {
+			SoundManager.BGMVolumeChange(SoundManager.getBGMVolume() * pauseVolumeDivider);
+			Application.LoadLevel("Menu");});
 	}
 
 	public void Exit() {

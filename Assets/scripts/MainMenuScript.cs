@@ -17,12 +17,17 @@ public class MainMenuScript : MonoBehaviour {
 	private List<GameObject> unactivatedObjects;
 	private int currentIndex = 0;
 	private int currentSubIndex = 0;
+	private int selectedLevel = 0;
+	private int selectedStratum = 0;
 	private EventSystem eventSystem;
 	private Button[] buttons;
 	private Button[] subButtons;
 	private Text stratumNameText;
 	private bool AllowQuitting = false;
     private SoundManager sm;
+	private GameObject startScreen1;
+	private GameObject startScreen2;
+	private GameObject startScreen3;
 
 	void Start() {
 		unactivatedObjects = new List<GameObject>();
@@ -36,6 +41,12 @@ public class MainMenuScript : MonoBehaviour {
 		eventSystem.SetSelectedGameObject(buttons[currentIndex].gameObject);
 		Cursor.visible = true;
         sm = (SoundManager)(GameObject.FindObjectOfType(typeof(SoundManager)));
+		startScreen1 = GameObject.Find("StartScreen1");
+		startScreen2 = GameObject.Find("StartScreen2");
+		startScreen3 = GameObject.Find("StartScreen3");
+		startScreen1.SetActive(false);
+		startScreen2.SetActive(false);
+		startScreen3.SetActive(false);
 	}
 
 	// Update is called once per frame
@@ -99,6 +110,7 @@ public class MainMenuScript : MonoBehaviour {
 			}
 			SelectSubButton (currentSubIndex);
 		}
+
 	}
 	
 	public void SelectButton(int buttonNb) {
@@ -125,7 +137,20 @@ public class MainMenuScript : MonoBehaviour {
 		PlayerPrefs.SetInt("currentStratum", stratum);
 		PlayerPrefs.SetInt("currentLevel", level);
 
-		Application.LoadLevel("Stratum" + stratum.ToString());
+		selectedLevel = level;
+		selectedStratum = stratum;
+		if (stratum == 1) {
+			startScreen1.SetActive(true);
+			eventSystem.SetSelectedGameObject(null);
+		}
+		else if (stratum == 2) {
+			startScreen2.SetActive(true);
+			eventSystem.SetSelectedGameObject(null);
+		}
+		else {
+			startScreen3.SetActive(true);
+			eventSystem.SetSelectedGameObject(null);
+		}
 	}
 
 	void reactivateObjects() {
