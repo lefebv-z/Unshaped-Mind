@@ -49,7 +49,6 @@ public class InGameInfos : MonoBehaviour {
 
 	void RemainingTransformationColorUpdate() {
 		if (_oldTransformation != gameManager.remainingTransformation) {
-            Debug.Log(remaining.transform.localScale);
 			_oldTransformation = gameManager.remainingTransformation;
 			remaining.text = gameManager.remainingTransformation.ToString();
 			_blinkIn = true;
