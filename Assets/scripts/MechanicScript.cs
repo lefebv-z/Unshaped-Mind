@@ -115,7 +115,12 @@ public class MechanicScript : MonoBehaviour {
 			_isActive = true;
 			ParticleSystem[] particleSys = GetComponentsInChildren<ParticleSystem> ();
 			foreach (ParticleSystem ps in particleSys) {
+				ps.loop = false;
+				Debug.Log(ps.name);
 				ps.Stop ();
+				if (ps.name.Contains("VFX")) {
+					ps.gameObject.SetActive(false);
+				}
 			}
 
 			//Mech particles
