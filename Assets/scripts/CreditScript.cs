@@ -5,37 +5,30 @@ using UnityEngine.UI;
 public class CreditScript : MonoBehaviour {
 
     public float changeTime;
-    private float currTime;
     private string initialText;
     private string otherText;
 
-    public Text pressButton;
-    private string pressButtonText;
-    private string pressButtonOldText;
+	private Image pressSpaceImage;
     private Text mt;
 
 	// Use this for initialization
     void Start()
     {
         otherText = "Musics: \"Floating Cities\" \"Thunderbird\" \"Fairytale Waltz\" \"Orion 300XB\" Kevin MacLeod (incompetech.com)\nLicensed under Creative Commons: By Attribution 3.0 License \nhttp://creativecommons.org/licenses/by/3.0/";
-        currTime = 0.0f;
         mt = this.GetComponent<Text>();
-        pressButtonText = "";
+		pressSpaceImage = GameObject.Find("PressButtonInvit").GetComponentInChildren<Image>();
+		changeTime *= 2.0f;
     }
 	
 	// Update is called once per frame
     void Update()
     {
-        if (currTime >= changeTime)
-        {
-            currTime = 0.0f;
-            pressButtonOldText = pressButton.text;
-            pressButton.text = pressButtonText;
-            pressButtonText = pressButtonOldText;
-        }
-        currTime += Time.deltaTime;
+		pressSpaceImage.color = new Color(pressSpaceImage.material.color.r,
+		                                  pressSpaceImage.material.color.g,
+	                                      pressSpaceImage.material.color.b,
+		                                  Mathf.PingPong(Time.time * changeTime, 1.0f));
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             initialText = mt.text;
             mt.text = otherText;
