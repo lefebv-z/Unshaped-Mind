@@ -23,6 +23,7 @@ public class InGameInfos : MonoBehaviour {
 		playerShape = GameObject.Find ("PlayerShape").GetComponent<Shape> ();
 		gameManager = GameObject.Find ("GameManager").GetComponent<GameManager> ();
 		remaining = GetComponentInChildren<Text>();
+		remaining.text = gameManager.remainingTransformation.ToString();
 		_oldTransformation = gameManager.remainingTransformation;
 		_originColor = remaining.color;
 
