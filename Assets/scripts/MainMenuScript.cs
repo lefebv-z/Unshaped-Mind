@@ -61,16 +61,16 @@ public class MainMenuScript : MonoBehaviour {
 //		}
 		if (menus [0].activeSelf) {//If we are on the main page
 			if (Input.GetKeyDown (KeyCode.DownArrow)) {
-				ScriptHelper.IncCursor (ref currentIndex, menus.Length);
+				ScriptHelper.IncCursor (ref currentIndex, menus.Length - 1);
 			} else if (Input.GetKeyUp (KeyCode.UpArrow)) {
-				ScriptHelper.DecCursor (ref currentIndex, menus.Length);
+				ScriptHelper.DecCursor (ref currentIndex, menus.Length - 1);
 			} else {
 				return;
 			}
 			SelectButton (currentIndex);
 		} else {
 			return;
-		}/* else if (menus [1].activeSelf) {//If we are in the level selection
+		}/*} else if (menus [1].activeSelf) {//If we are in the level selection
 			//TODO add up and down arrows
 			if (Input.GetKeyDown (KeyCode.RightArrow)) {
 				ScriptHelper.IncCursor(ref currentSubIndex, subButtons.Length);
@@ -131,9 +131,9 @@ public class MainMenuScript : MonoBehaviour {
 //			b.interactable = false;
 //		
 //		subButtons [buttonNb].interactable = true;
-		eventSystem.SetSelectedGameObject(subButtons[buttonNb].gameObject);
-		
-		currentSubIndex = buttonNb;//Keyboard cursor go where mouse is
+//		eventSystem.SetSelectedGameObject(subButtons[buttonNb].gameObject);
+//		
+//		currentSubIndex = buttonNb;//Keyboard cursor go where mouse is
 	}
 
 	public void PlayLevel(int stratum, int level) {
@@ -231,7 +231,8 @@ public class MainMenuScript : MonoBehaviour {
 				unactivatedObjects.Add(level);
 			}
 		}
-		SelectSubButton (1);
+		//SelectSubButton (1);
+		eventSystem.SetSelectedGameObject(subButtons[1].gameObject);
 	}
 
     public void updateScore(int stratum, int num)
