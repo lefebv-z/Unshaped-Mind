@@ -179,6 +179,8 @@ public class Shape : MonoBehaviour {
 		} else if (other.gameObject.tag == "Portal") {
 			PortalScript portalScript = other.GetComponent<PortalScript> ();
 			if (portalScript.type == currentType) {
+				if (acceleration == 2.0f)
+					acceleration = 1.0f;
 				portalScript.UsePortal (this.gameObject);
 			}
 		} else if (other.gameObject.tag == "AccelZone" && acceleration == 1.0f) {
