@@ -182,7 +182,7 @@ public class GameManager : MonoBehaviour {
 			InGameMenus.nextScreen.GetComponent<StartScreen>().stratum = stratum;
 		}
 		if (stratum > PlayerPrefs.GetInt ("numStratums")) {
-			//here
+			InGameMenus.nextScreen.GetComponent<StartScreen>().stratum = -1;
 			return false;
 		}
 		if (saveNext) {
