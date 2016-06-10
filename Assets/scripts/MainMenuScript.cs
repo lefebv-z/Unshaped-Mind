@@ -52,13 +52,6 @@ public class MainMenuScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
-		//TODO ON LAISSE P ET N OU PAS?
-//		if (menus[1].activeInHierarchy && Input.GetKeyDown(KeyCode.P)) {
-//			eventSystem.SetSelectedGameObject(GameObject.Find("Left"));
-//		} else if (menus[1].activeSelf && Input.GetKeyDown(KeyCode.N)) {
-//			eventSystem.SetSelectedGameObject(GameObject.Find("Right"));
-//		}
 		if (menus [0].activeSelf) {//If we are on the main page
 			if (Input.GetKeyDown (KeyCode.DownArrow)) {
 				ScriptHelper.IncCursor (ref currentIndex, menus.Length - 1);
@@ -70,70 +63,17 @@ public class MainMenuScript : MonoBehaviour {
 			SelectButton (currentIndex);
 		} else {
 			return;
-		}/*} else if (menus [1].activeSelf) {//If we are in the level selection
-			//TODO add up and down arrows
-			if (Input.GetKeyDown (KeyCode.RightArrow)) {
-				ScriptHelper.IncCursor(ref currentSubIndex, subButtons.Length);
-				while (subButtons[currentSubIndex].IsActive() == false)//skip inactive level buttons
-					ScriptHelper.IncCursor(ref currentSubIndex, subButtons.Length);
-				//TODO REFACTOR CEST DEGUELASSE !!!!
-				if ((subButtons[currentSubIndex].name == "Left" &&
-				    arrowDisabledSprites[0].activeSelf == true)
-				    ||(subButtons[currentSubIndex].name == "Right" &&
-				   		arrowDisabledSprites[1].activeSelf == true)) {
-					ScriptHelper.IncCursor(ref currentSubIndex, subButtons.Length);
-					while (subButtons[currentSubIndex].IsActive() == false)//skip inactive level buttons
-						ScriptHelper.IncCursor(ref currentSubIndex, subButtons.Length);
-				}
-			} else if (Input.GetKeyUp (KeyCode.LeftArrow)) {
-				ScriptHelper.DecCursor(ref currentSubIndex, subButtons.Length);
-				while (subButtons[currentSubIndex].IsActive() == false)//skip inactive level buttons
-					ScriptHelper.DecCursor(ref currentSubIndex, subButtons.Length);
-				//TODO REFACTOR CEST DEGUELASSE !!!!
-				if ((subButtons[currentSubIndex].name == "Left" &&
-				     arrowDisabledSprites[0].activeSelf == true)
-				    ||(subButtons[currentSubIndex].name == "Right" &&
-				   arrowDisabledSprites[1].activeSelf == true)) {
-					ScriptHelper.DecCursor(ref currentSubIndex, subButtons.Length);
-					while (subButtons[currentSubIndex].IsActive() == false)//skip inactive level buttons
-						ScriptHelper.DecCursor(ref currentSubIndex, subButtons.Length);
-				}
-			} else {
-				return;
-			}
-			SelectSubButton (currentSubIndex);
-		} else {
-			//TODO fix weird behavior in settings menu
-			if (Input.GetKeyDown (KeyCode.DownArrow)) {
-				ScriptHelper.IncCursor(ref currentSubIndex, subButtons.Length);
-			} else if (Input.GetKeyUp (KeyCode.UpArrow)) {
-				ScriptHelper.DecCursor(ref currentSubIndex, subButtons.Length);
-			} else {
-				return;
-			}
-			SelectSubButton (currentSubIndex);
-		}*/
-
+		}
 	}
 	
 	public void SelectButton(int buttonNb) {
-//		foreach (Button b in buttons)
-//			b.interactable = false;
-		
-//		buttons [buttonNb].interactable = true;
 		eventSystem.SetSelectedGameObject(buttons[buttonNb].gameObject);
 		
-		currentIndex = buttonNb;//Keyboard cursor go where mouse is
+		currentIndex = buttonNb;
 	}
 	
 	public void SelectSubButton(int buttonNb) {
-//		foreach (Button b in subButtons)
-//			b.interactable = false;
-//		
-//		subButtons [buttonNb].interactable = true;
 //		eventSystem.SetSelectedGameObject(subButtons[buttonNb].gameObject);
-//		
-//		currentSubIndex = buttonNb;//Keyboard cursor go where mouse is
 	}
 
 	public void PlayLevel(int stratum, int level) {
@@ -242,7 +182,6 @@ public class MainMenuScript : MonoBehaviour {
     }
 
 	public void HowToPlay() {
-		Debug.Log("How to play");
 		menus[0].SetActive(false);
 		menus[2].SetActive(true);
 		eventSystem.SetSelectedGameObject(
@@ -250,18 +189,16 @@ public class MainMenuScript : MonoBehaviour {
 	}
 	
 	public void Settings() {
-		Debug.Log("Settings");
 		menus[0].SetActive(false);
 		menus[3].SetActive(true);
-		eventSystem.SetSelectedGameObject(
-			menus[3].gameObject.GetComponentInChildren<Button>().gameObject);
-		if (Screen.fullScreen != menus[3].GetComponentInChildren<Toggle>().isOn) {
+		if (menus[3].GetComponentInChildren<Toggle>().isOn != Screen.fullScreen) {
 			menus[3].GetComponentInChildren<Toggle>().isOn = Screen.fullScreen;
 		}
+		eventSystem.SetSelectedGameObject(
+			menus[3].gameObject.GetComponentInChildren<Button>().gameObject);
 	}
 
 	public void Credits() {
-		Debug.Log("Credits");
 		menus[0].SetActive(false);
 		menus[4].SetActive(true);
 		eventSystem.SetSelectedGameObject(
@@ -275,11 +212,10 @@ public class MainMenuScript : MonoBehaviour {
 	}
 
 	public void ToggleFullscreen() {
-		Screen.fullScreen = !Screen.fullScreen;
+		Screen.fullScreen = menus [3].GetComponentInChildren<Toggle> ().isOn;
 	}
 
 	public void Return() {
-		Debug.Log("Return");
 		foreach (GameObject o in menus) {
 			o.SetActive(false);
 		}
