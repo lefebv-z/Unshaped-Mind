@@ -16,6 +16,7 @@ public enum GameState
 
 public class GameManager : MonoBehaviour {
 	public GameState gameState;
+	public static bool	nextStratum = false;
 	public static int currentLevel = 0;
 	//private int maxLevel = 8;
 	public int remainingTransformation = 15;//start at max, decrease during the game until it reaches 0
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour {
 
 	private bool _activatedNoTransfoRestartStuff = false;
 	private GameObject _NoTransfoRestartStuff;
+
 
 	void Awake()
 	{
@@ -176,8 +178,11 @@ public class GameManager : MonoBehaviour {
 		if (level > PlayerPrefs.GetInt ("levelsInStratum" + stratum)) {
 			level = 1;
 			stratum++;
+			nextStratum = true;
+			InGameMenus.nextScreen.GetComponent<StartScreen>().stratum = stratum;
 		}
 		if (stratum > PlayerPrefs.GetInt ("numStratums")) {
+			//here
 			return false;
 		}
 		if (saveNext) {

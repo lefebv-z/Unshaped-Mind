@@ -4,6 +4,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InGameMenus : MonoBehaviour {
+	public static GameObject	nextScreen;
+
 	public GameObject	 pauseMenuFirstObject;
 	public GameObject 	endMenuFirstObject;
 	public GameObject 	confirmMenuFirstObject;
@@ -27,7 +29,7 @@ public class InGameMenus : MonoBehaviour {
 
 	public GameManager _manager;
 	GameState _oldState;
-	EventSystem _es;
+	static EventSystem _es;
 
 	private bool AllowQuitting = false;
 
@@ -70,6 +72,9 @@ public class InGameMenus : MonoBehaviour {
 		HowToMenu.SetActive(false);
 		CreditsMenu.SetActive(false);
 		OptionsMenu.SetActive(false);
+
+		nextScreen = GameObject.Find("NextStartScreen");
+		nextScreen.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -125,8 +130,12 @@ public class InGameMenus : MonoBehaviour {
 	public static void GoToNextLevel() {
 		SoundManager sm = GameObject.Find ("SoundSystemManager").GetComponent<SoundManager> ();
 		sm.BGMVolumeChange(sm.getBGMVolume() * pauseVolumeDivider);
-		if (GameManager.nextLevelExists (true)) {
+		if (GameManager.nextLevelExists (true) && !GameManager.nextStratum) {
 			Application.LoadLevel("Stratum" + PlayerPrefs.GetInt("currentStratum").ToString());
+		} else if (GameManager.nextStratum) {
+			_es.SetSelectedGameObject(null);
+			GameManager.nextStratum = false;
+			nextScreen.SetActive(true);
 		} else {
 			Application.LoadLevel("Menu");
 		}
