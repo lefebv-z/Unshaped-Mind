@@ -17,6 +17,9 @@ public class StartScreen : MonoBehaviour {
 
 	IEnumerator Deactivate() {
 		yield return new WaitForSeconds(1.1f);
-		Application.LoadLevel("Stratum" + stratum.ToString());
+		if (stratum == -1)
+			Application.LoadLevel("Menu");
+		else
+			Application.LoadLevel("Stratum" + stratum.ToString());
 	}
 }
