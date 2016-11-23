@@ -7,6 +7,9 @@ It uses Unity.
 Authors
 --------
 [Marie Lefebvre] (https://github.com/marielefebvre)
+
 Camille Koziar
+
 Severine Febvet
+
 Elpidio
