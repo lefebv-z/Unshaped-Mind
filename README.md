@@ -1,16 +1,16 @@
 Unshaped-Mind
 ======
 ![Alt text](./Images/UnshapedMind_1_hires.jpg "")
-It is a video game made during the spring semester at Keimyung University.
+Unshaped-Mind is a puzzle game made during the spring 2016 semester at Keimyung University.
 
-It uses Unity.
+It was made with Unity 5.3.4
 
 Authors
 --------
-[Marie Lefebvre] (https://github.com/marielefebvre)
+[Marie Lefebvre] (https://github.com/marielefebvre) - Developer, Game & Level Designer
 
-Camille Koziar
+Camille Koziar - Developer, Game & Level Designer
 
-Severine Febvet
+Severine Febvet - Developer, Game & Level Designer, Artist
 
-Elpidio
+Elpidio - Developer, Game & Level Designer
